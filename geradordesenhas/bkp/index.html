@@ -1,0 +1,86 @@
+<html lang="ru">
+ <head>
+    <meta charset="utf-8">
+    <title>Gerador de Senhas</title>
+    <meta content="gerado de senhas" name="keywords">
+    <meta content="gerador de senhas" name="description">
+    <meta name="viewport" content="width=device-width, initial-scale=0.6">
+    </script><link rel="stylesheet" href="dragdealer.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="style.css" type="text/css" media="screen">
+    <script type="text/javascript" src="dragdealer.js"></script>
+    <script type="text/javascript" src="script.js"></script>
+    
+<!-- Matomo -->
+<script>
+  var _paq = window._paq = window._paq || [];
+  /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//analytics.podapps.net/";
+    _paq.push(['setTrackerUrl', u+'matomo.php']);
+    _paq.push(['setSiteId', '1']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<!-- End Matomo Code -->
+
+    
+    
+</head>
+<body leftmargin="0" topmargin="0" rightmargin="0" bottommargin="0" marginwidth="0" marginheight="0" class="h100" bgcolor="#ECECEC">
+
+<table cellpadding=0 cellspacing=0 border=0 align=center class="h100">
+    <tr>
+	<td valign="middle" align="center" heihgt="100%">
+	<div class="titulo">Gerenciador de Senhas - PodApps</div>
+	    <div class=main align=center>
+		<input type=text id=pw class=input1>
+
+		<div id="my-slider" class="dragdealer" title="Quantidade de caracteres">
+
+                    <div class="red-bar handle" id="drag-helper"></div>
+
+                </div>
+                                            <div class=insideslide> << Deslize para aumentar a quantidade de caracteres >></div>
+                <div id="boxes">
+		    <label id="l1" title="Letras minúsculas"><input onChange="refreshpw();" type="checkbox" id=arg1 name=arg1 checked>minúsculas</label>
+		    <label id="l2" title="Letras maiúsculas"><input onChange="refreshpw();" type="checkbox" id=arg2 name=arg2>MAIÚSCULAS</label>
+		    <label id="l3" title="Números"><input onChange="refreshpw();" type="checkbox" id=arg3 name=arg3 checked>1,2,3...</label>
+		    <label id="l4" title="Pontuação"><input onChange="refreshpw();" type="checkbox" id=arg4 name=arg4>@!*#$%&</label>
+		</div>
+		<button id=re class="input2" onClick="refreshpw();return false;" title="Gerar!">Gerar Senha</button>
+	</td>
+    </tr>
+</table>
+
+<script type="text/javascript">
+    var pw_len;
+    function refreshpw(){
+	genpw('pw',pw_len,'arg1','arg2','arg3','arg4');
+    }
+    new Dragdealer('my-slider',
+    {
+        x : 0.09,
+        steps: 57,
+        snap : true,
+        animationCallback: function(x, y){
+            pw_len=parseInt(3 + x * 57);
+            document.getElementById('drag-helper').innerHTML=pw_len + ' caracteres';
+            refreshpw('pw');
+        }
+    });
+    labels=['l1','l2','l3','l4'];
+    labels.forEach(function (el_id){
+        el=document.getElementById(el_id);
+        el.onselectstart = function () { return false; } // ie
+        el.onmousedown = function () { return false; } // mozilla
+    });
+</script>
+
+
+</div>
+
+</body>
+</html>
