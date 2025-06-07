@@ -1,0 +1,11 @@
+{
+  "/notes/*.js": {
+    "Cache-Control": "public, max-age=31536000, immutable",
+    "Content-Type": "application/javascript"
+  },
+  "/notes/*.css": {
+    "Cache-Control": "public, max-age=31536000, immutable",
+    "Content-Type": "text/css"
+  }
+}
+

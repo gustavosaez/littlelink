@@ -1,0 +1,10 @@
+customHeaders:
+  - pattern: "/notes/*.js"
+    headers:
+      - "Cache-Control": "public, max-age=31536000, immutable"
+      - "Content-Type": "application/javascript"
+  - pattern: "/notes/*.css"
+    headers:
+      - "Cache-Control": "public, max-age=31536000, immutable"
+      - "Content-Type": "text/css"
+
