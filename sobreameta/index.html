@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Timeline de Multas de Privacidade - Meta Group</title>
+    <link rel="stylesheet" href="style.css">
+<script type="text/javascript">
+      (function(c,l,a,r,i,t,y){
+          c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+          t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+          y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "kryo67a6uj");
+  </script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+
+
+<meta name="theme-color" content="#21808d">
+        <div>
+    <figure aligncenter size-full is-resized is-style-default>
+        <a href="https://gustavosaez.com.br/">
+    <center>
+      <img src="https://gustavosaez.com.br/geradordesenhas/favicon.png" height="68">
+    </center>
+        </a>
+    </figure>
+  </div>
+
+
+                <h1>Timeline de Multas de Privacidade</h1>
+                <p class="subtitle">Histórico completo das sanções aplicadas ao grupo Meta (2012-2025)</p>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="total-multas">25</div>
+                        <div class="stat-label">Total de Multas</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="total-valor">US$ 9,78 bi</div>
+                        <div class="stat-label">Valor Total</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="maior-multa">US$ 5 bi</div>
+                        <div class="stat-label">Maior Multa</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="paises-afetados">8</div>
+                        <div class="stat-label">Países</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Filters -->
+        <section class="filters">
+            <div class="container">
+                <div class="filters-grid">
+                    <div class="filter-group">
+                        <label class="form-label">País/Região</label>
+                        <select id="filter-pais" class="form-control">
+                            <option value="">Todos os países</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="form-label">Empresa</label>
+                        <select id="filter-empresa" class="form-control">
+                            <option value="">Todas as empresas</option>
+                            <option value="Facebook">Facebook</option>
+                            <option value="Instagram">Instagram</option>
+                            <option value="WhatsApp">WhatsApp</option>
+                            <option value="Meta">Meta</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="form-label">Período</label>
+                        <div class="date-range">
+                            <input type="number" id="filter-ano-inicio" class="form-control" placeholder="2012" min="2012" max="2025">
+                            <span>até</span>
+                            <input type="number" id="filter-ano-fim" class="form-control" placeholder="2025" min="2012" max="2025">
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label class="form-label">Buscar</label>
+                        <input type="text" id="filter-busca" class="form-control" placeholder="Buscar por motivo...">
+                    </div>
+                    
+                    <div class="filter-actions">
+                        <button id="btn-limpar-filtros" class="btn btn--secondary">Limpar Filtros</button>
+                        <button id="btn-ordenacao" class="btn btn--outline">Ordenar por Valor</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="container">
+                <div class="content-grid">
+                    <!-- Timeline -->
+                    <div class="timeline-container">
+                        <div class="timeline-header">
+                            <h2>Timeline Interativa</h2>
+                            <div class="timeline-legend">
+                                <div class="legend-item">
+                                    <span class="legend-dot low"></span>
+                                    <span>Até US$ 1 mi</span>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="legend-dot medium"></span>
+                                    <span>US$ 1-100 mi</span>
+                                </div>
+                                <div class="legend-item">
+                                    <span class="legend-dot high"></span>
+                                    <span>Acima de US$ 100 mi</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline" id="timeline">
+                            <!-- Timeline items will be generated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Details Panel -->
+                    <div class="details-panel" id="details-panel">
+                        <div class="panel-header">
+                            <h3>Detalhes da Multa</h3>
+                            <button id="btn-fechar-detalhes" class="btn-close">&times;</button>
+                        </div>
+                        
+                        <div class="panel-content" id="panel-content">
+                            <div class="empty-state">
+                                <p>Clique em um evento na timeline para ver os detalhes</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Dashboard -->
+        <section class="dashboard">
+            <div class="container">
+                <h2>Análise Estatística</h2>
+                
+                <div class="dashboard-grid">
+                    <div class="chart-container">
+                        <h3>Distribuição por País</h3>
+                        <canvas id="chart-paises" width="300" height="300"></canvas>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <h3>Evolução Temporal</h3>
+                        <canvas id="chart-temporal" width="400" height="300"></canvas>
+                    </div>
+                    
+                    <div class="top-multas">
+                        <h3>Top 5 Maiores Multas</h3>
+                        <div id="top-multas-list" class="top-list">
+                            <!-- Generated by JavaScript -->
+                        </div>
+                    </div>
+                    
+                    <div class="empresas-stats">
+                        <h3>Por Empresa</h3>
+                        <div id="empresas-stats-list" class="stats-list">
+                            <!-- Generated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <p>Timeline baseada em dados públicos de multas de privacidade aplicadas ao grupo Meta (Facebook, Instagram, WhatsApp)</p>
+                <p>Última atualização: Junho 2025 | Valores convertidos para USD na data da aplicação</p>
+                <p>Created with AI | Powered by <a href="https://gustavosaez.com.br/">Gustavo Saez</a></p>
+
+            </div>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

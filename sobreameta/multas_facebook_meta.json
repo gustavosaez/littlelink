@@ -1,0 +1,360 @@
+{
+  "multas": [
+    {
+      "data": "2012-08-10",
+      "empresa": "Facebook",
+      "pais": "Estados Unidos",
+      "autoridade": "FTC",
+      "valor_usd": 0,
+      "valor_original": "US$ 0",
+      "motivo": "Acordo de consentimento por violações de privacidade (supervisão por 20 anos)",
+      "detalhes": "Primeiro marco regulatório sem multa monetária"
+    },
+    {
+      "data": "2015-02-12",
+      "empresa": "Facebook",
+      "pais": "França",
+      "autoridade": "CNIL",
+      "valor_usd": 180000,
+      "valor_original": "€ 150.000",
+      "motivo": "Rastreamento ilegal via cookies",
+      "detalhes": "Primeira multa monetária substancial na Europa"
+    },
+    {
+      "data": "2016-07-28",
+      "empresa": "Facebook",
+      "pais": "Brasil",
+      "autoridade": "Justiça do Amazonas",
+      "valor_usd": 11700000,
+      "valor_original": "R$ 38 milhões",
+      "motivo": "Descumprimento de ordens judiciais",
+      "detalhes": "Bloqueio de contas por não cooperar em investigações"
+    },
+    {
+      "data": "2017-09-15",
+      "empresa": "Facebook",
+      "pais": "Espanha",
+      "autoridade": "AEPD",
+      "valor_usd": 1400000,
+      "valor_original": "€ 1,2 milhão",
+      "motivo": "Coleta de dados sensíveis sem consentimento",
+      "detalhes": "Violação de leis de proteção de dados espanholas"
+    },
+    {
+      "data": "2018-10-25",
+      "empresa": "Facebook",
+      "pais": "Reino Unido",
+      "autoridade": "ICO",
+      "valor_usd": 645000,
+      "valor_original": "£ 500.000",
+      "motivo": "Escândalo Cambridge Analytica",
+      "detalhes": "Penalidade máxima permitida pela legislação pré-GDPR"
+    },
+    {
+      "data": "2019-06-15",
+      "empresa": "Facebook",
+      "pais": "Brasil",
+      "autoridade": "TRF4",
+      "valor_usd": 7100000,
+      "valor_original": "R$ 23 milhões",
+      "motivo": "Falhas na interceptação de comunicações no WhatsApp (Operação Malote)",
+      "detalhes": "Descumprimento de ordens judiciais"
+    },
+    {
+      "data": "2019-07-24",
+      "empresa": "Facebook",
+      "pais": "Estados Unidos",
+      "autoridade": "FTC",
+      "valor_usd": 5000000000,
+      "valor_original": "US$ 5 bilhões",
+      "motivo": "Violações múltiplas do acordo de 2012, incluindo Cambridge Analytica",
+      "detalhes": "Maior multa de privacidade da história americana até então"
+    },
+    {
+      "data": "2019-07-24",
+      "empresa": "Facebook",
+      "pais": "Estados Unidos",
+      "autoridade": "SEC",
+      "valor_usd": 100000000,
+      "valor_original": "US$ 100 milhões",
+      "motivo": "Falha em comunicação apropriada a investidores sobre Cambridge Analytica",
+      "detalhes": "Violação de transparência para acionistas"
+    },
+    {
+      "data": "2019-12-30",
+      "empresa": "Facebook",
+      "pais": "Brasil",
+      "autoridade": "MJSP",
+      "valor_usd": 2000000,
+      "valor_original": "R$ 6,6 milhões",
+      "motivo": "Vazamento de dados de 443 mil usuários brasileiros no caso Cambridge Analytica",
+      "detalhes": "Primeira multa brasileira significativa por privacidade"
+    },
+    {
+      "data": "2020-03-15",
+      "empresa": "Facebook",
+      "pais": "Estados Unidos",
+      "autoridade": "Tribunal de Illinois",
+      "valor_usd": 650000000,
+      "valor_original": "US$ 650 milhões",
+      "motivo": "Violação da lei BIPA por uso não autorizado de reconhecimento facial",
+      "detalhes": "Maior acordo de classe da história americana para privacidade biométrica"
+    },
+    {
+      "data": "2021-09-02",
+      "empresa": "WhatsApp",
+      "pais": "Irlanda/UE",
+      "autoridade": "DPC",
+      "valor_usd": 267000000,
+      "valor_original": "€ 225 milhões",
+      "motivo": "Falhas de transparência no processamento de dados",
+      "detalhes": "Segunda maior sanção GDPR até então"
+    },
+    {
+      "data": "2021-12-06",
+      "empresa": "Facebook",
+      "pais": "Brasil",
+      "autoridade": "Procon-SP",
+      "valor_usd": 3500000,
+      "valor_original": "R$ 11,28 milhões",
+      "motivo": "Apagão de serviços em outubro de 2021 e cláusulas abusivas",
+      "detalhes": "Penalidade por instabilidade de serviços"
+    },
+    {
+      "data": "2022-03-15",
+      "empresa": "Instagram",
+      "pais": "Irlanda/UE",
+      "autoridade": "DPC",
+      "valor_usd": 18000000,
+      "valor_original": "€ 17 milhões",
+      "motivo": "Falhas na proteção de dados de usuários",
+      "detalhes": "Violação de notificação de brechas de dados"
+    },
+    {
+      "data": "2022-09-05",
+      "empresa": "Instagram",
+      "pais": "Irlanda/UE",
+      "autoridade": "DPC",
+      "valor_usd": 425000000,
+      "valor_original": "€ 405 milhões",
+      "motivo": "Violações relacionadas à privacidade de dados de crianças",
+      "detalhes": "Contas de menores configuradas como públicas por padrão"
+    },
+    {
+      "data": "2022-11-28",
+      "empresa": "Facebook",
+      "pais": "Irlanda/UE",
+      "autoridade": "DPC",
+      "valor_usd": 280000000,
+      "valor_original": "€ 265 milhões",
+      "motivo": "Falha em prevenir violação de dados de mais de 500 milhões de usuários",
+      "detalhes": "Vazamento massivo de dados pessoais"
+    },
+    {
+      "data": "2022-12-23",
+      "empresa": "Facebook",
+      "pais": "Estados Unidos",
+      "autoridade": "Acordo de Classe",
+      "valor_usd": 725000000,
+      "valor_original": "US$ 725 milhões",
+      "motivo": "Acordo para encerrar ação coletiva do caso Cambridge Analytica",
+      "detalhes": "Maior recuperação em ação coletiva de privacidade de dados"
+    },
+    {
+      "data": "2023-01-04",
+      "empresa": "Facebook",
+      "pais": "Irlanda/UE",
+      "autoridade": "DPC",
+      "valor_usd": 220000000,
+      "valor_original": "€ 210 milhões",
+      "motivo": "Processamento inadequado de dados para publicidade comportamental",
+      "detalhes": "Violação de base legal para publicidade direcionada"
+    },
+    {
+      "data": "2023-01-04",
+      "empresa": "Instagram",
+      "pais": "Irlanda/UE",
+      "autoridade": "DPC",
+      "valor_usd": 190000000,
+      "valor_original": "€ 180 milhões",
+      "motivo": "Processamento inadequado de dados para publicidade comportamental",
+      "detalhes": "Coordenada com multa do Facebook"
+    },
+    {
+      "data": "2023-05-22",
+      "empresa": "Facebook",
+      "pais": "Irlanda/UE",
+      "autoridade": "DPC",
+      "valor_usd": 1300000000,
+      "valor_original": "€ 1,2 bilhão",
+      "motivo": "Transferências ilegais de dados europeus para os Estados Unidos",
+      "detalhes": "Maior multa GDPR da história"
+    },
+    {
+      "data": "2023-09-13",
+      "empresa": "WhatsApp",
+      "pais": "Irlanda/UE",
+      "autoridade": "DPC",
+      "valor_usd": 6000000,
+      "valor_original": "€ 5,5 milhões",
+      "motivo": "Processamento de dados sem base legal adequada",
+      "detalhes": "Violação de princípios fundamentais do GDPR"
+    },
+    {
+      "data": "2024-07-02",
+      "empresa": "Meta",
+      "pais": "Brasil",
+      "autoridade": "ANPD",
+      "valor_usd": 15500,
+      "valor_original": "R$ 50 mil/dia",
+      "motivo": "Uso de dados para treinar IA sem consentimento",
+      "detalhes": "Primeira sanção LGPD significativa - multa diária"
+    },
+    {
+      "data": "2024-08-15",
+      "empresa": "Meta",
+      "pais": "Brasil",
+      "autoridade": "STJ",
+      "valor_usd": 650000,
+      "valor_original": "R$ 2,1 milhões",
+      "motivo": "Descumprimento na Operação Simon",
+      "detalhes": "Confirmação de multa por descumprimento judicial"
+    },
+    {
+      "data": "2024-11-05",
+      "empresa": "Meta",
+      "pais": "Coreia do Sul",
+      "autoridade": "PIPC",
+      "valor_usd": 15600000,
+      "valor_original": "₩ 21,6 bilhões",
+      "motivo": "Coleta não autorizada de dados comportamentais para publicidade direcionada",
+      "detalhes": "Dados sensíveis de 980 mil usuários compartilhados com 4 mil anunciantes"
+    },
+    {
+      "data": "2024-12-17",
+      "empresa": "Meta",
+      "pais": "Irlanda/UE",
+      "autoridade": "DPC",
+      "valor_usd": 265000000,
+      "valor_original": "€ 251 milhões",
+      "motivo": "Violação de dados de 2018 afetando 29 milhões de usuários",
+      "detalhes": "Falha em implementar proteção de dados por design"
+    },
+    {
+      "data": "2025-05-02",
+      "empresa": "Meta",
+      "pais": "Nigéria",
+      "autoridade": "FCCPC/NDPC",
+      "valor_usd": 290000000,
+      "valor_original": "US$ 290 milhões",
+      "motivo": "Práticas anticompetitivas e violações de dados",
+      "detalhes": "Maior multa africana - Meta ameaça suspender serviços"
+    }
+  ],
+  "estatisticas": {
+    "total_geral": 9778790500,
+    "total_multas": 25,
+    "por_pais": {
+      "Estados Unidos": {
+        "total": 6475000000,
+        "quantidade": 5
+      },
+      "França": {
+        "total": 180000,
+        "quantidade": 1
+      },
+      "Brasil": {
+        "total": 24965500,
+        "quantidade": 6
+      },
+      "Espanha": {
+        "total": 1400000,
+        "quantidade": 1
+      },
+      "Reino Unido": {
+        "total": 645000,
+        "quantidade": 1
+      },
+      "Irlanda/UE": {
+        "total": 2971000000,
+        "quantidade": 9
+      },
+      "Coreia do Sul": {
+        "total": 15600000,
+        "quantidade": 1
+      },
+      "Nigéria": {
+        "total": 290000000,
+        "quantidade": 1
+      }
+    },
+    "por_empresa": {
+      "Facebook": {
+        "total": 8301525000,
+        "quantidade": 15
+      },
+      "WhatsApp": {
+        "total": 273000000,
+        "quantidade": 2
+      },
+      "Instagram": {
+        "total": 633000000,
+        "quantidade": 3
+      },
+      "Meta": {
+        "total": 571265500,
+        "quantidade": 5
+      }
+    },
+    "por_ano": {
+      "2012": {
+        "total": 0,
+        "quantidade": 1
+      },
+      "2015": {
+        "total": 180000,
+        "quantidade": 1
+      },
+      "2016": {
+        "total": 11700000,
+        "quantidade": 1
+      },
+      "2017": {
+        "total": 1400000,
+        "quantidade": 1
+      },
+      "2018": {
+        "total": 645000,
+        "quantidade": 1
+      },
+      "2019": {
+        "total": 5109100000,
+        "quantidade": 4
+      },
+      "2020": {
+        "total": 650000000,
+        "quantidade": 1
+      },
+      "2021": {
+        "total": 270500000,
+        "quantidade": 2
+      },
+      "2022": {
+        "total": 1448000000,
+        "quantidade": 4
+      },
+      "2023": {
+        "total": 1716000000,
+        "quantidade": 4
+      },
+      "2024": {
+        "total": 281265500,
+        "quantidade": 4
+      },
+      "2025": {
+        "total": 290000000,
+        "quantidade": 1
+      }
+    }
+  }
+}
