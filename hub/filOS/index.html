@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<title>filOS v4.1</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="watermark"></div>
+
+<header class="card">
+  <div class="header-row">
+    <h1>filOS</h1>
+    <button id="themeToggle" aria-label="Alternar tema">🌗</button>
+  </div>
+  <p>Sessão P2P controlada · Visualização única</p>
+  <div class="warning">Conteúdo sensível · Sessão monitorada</div>
+</header>
+
+<main>
+  <!-- HOST -->
+  <section id="host" class="card">
+    <h2>Compartilhar arquivo</h2>
+
+    <label>
+      Arquivo para visualização
+      <input type="file" id="fileInput">
+    </label>
+
+    <div class="row">
+      <label>
+        Tempo máximo (segundos)
+        <input type="number" id="ttl" value="120" min="10">
+      </label>
+
+      <label>
+        Auto-destruição por inatividade (segundos)
+        <input type="number" id="idle" value="60" min="10">
+      </label>
+    </div>
+
+    <button id="share">Gerar link</button>
+
+    <div id="result" hidden>
+      <p><strong>PIN visual:</strong> <span id="pin"></span></p>
+      <div class="row">
+        <input type="text" id="link" readonly>
+        <button id="copyLink">Copiar link</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIEWER -->
+  <section id="viewer" class="card" hidden>
+    <h2>Acesso ao conteúdo</h2>
+    <label>
+      PIN de acesso
+      <input type="text" id="pinInput" placeholder="Ex: A9FQ">
+    </label>
+    <button id="unlock">Visualizar</button>
+
+    <div id="timer"></div>
+    <div id="content"></div>
+  </section>
+</main>
+
+<footer class="card">
+  filOS v4.1 · Local-first · © Gustavo Saez
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
