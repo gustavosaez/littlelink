@@ -3,237 +3,117 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>ParanOS • v6</title>
+<title>ParanOS</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 :root{
- --bg:#222222;
- --card:#2b2b2b;
- --text:#f1f1f1;
- --muted:#a0a0a0;
- --accent:#5b8cff;
+ --bg:#111;--card:#1c1c1c;--text:#f2f2f2;--muted:#aaa;--accent:#4f8cff;
 }
-.light{
- --bg:#ECECEC;
- --card:#ffffff;
- --text:#111111;
- --muted:#555555;
- --accent:#3b6cff;
-}
-*{box-sizing:border-box;user-select:none}
+*{box-sizing:border-box}
 body{
- margin:0;font-family:system-ui;
- background:var(--bg);color:var(--text);
+ margin:0;font-family:system-ui;background:var(--bg);color:var(--text);
  display:flex;justify-content:center;align-items:center;height:100vh;
- transition:background .3s,color .3s;
 }
 #app{
- width:420px;height:92vh;border-radius:20px;
- background:var(--card);
- box-shadow:0 20px 40px rgba(0,0,0,.4);
- display:flex;flex-direction:column;overflow:hidden;
- transition:background .3s;
+ width:420px;height:90vh;background:var(--card);
+ border-radius:14px;display:flex;flex-direction:column;overflow:hidden;
 }
-header,footer{padding:14px;text-align:center}
-header{
- display:flex;justify-content:space-between;align-items:center;
-}
-h3{margin:0}
-button,input{
- width:100%;padding:10px;border-radius:12px;
- border:none;font-size:14px;
-}
-input{
- background:var(--bg);color:var(--text);
-}
-button{
- background:var(--accent);color:white;
- font-weight:600;cursor:pointer;
-}
-button.alt{
- background:transparent;color:var(--text);
- border:1px solid var(--muted);
-}
+header{padding:14px;border-bottom:1px solid #333;font-weight:600}
 #join{padding:16px;display:flex;flex-direction:column;gap:10px}
 #chat{flex:1;display:none;flex-direction:column}
 #messages{flex:1;padding:16px;overflow:auto}
 .msg{margin-bottom:10px}
 .nick{font-size:12px;color:var(--muted)}
-.text{
- margin-top:4px;padding:10px;border-radius:12px;
- background:var(--bg);
+.text{background:#2a2a2a;padding:8px;border-radius:8px;margin-top:4px}
+footer{display:flex;gap:8px;padding:10px;border-top:1px solid #333}
+input,button{
+ padding:10px;border-radius:8px;border:none;font-size:14px;
 }
+input{flex:1;background:#111;color:var(--text)}
+button{background:var(--accent);color:#fff;font-weight:600;cursor:pointer}
 small{opacity:.6}
-.timer{font-size:12px;color:var(--muted)}
-.toggle{
- width:auto;padding:6px 10px;font-size:12px;
-}
 </style>
 </head>
 <body>
 <div id="app">
-<header>
-<h3>ParanOS</h3>
-<div>
-<button class="toggle alt" onclick="toggleTheme()">☀ / 🌙</button>
-</div>
-</header>
+<header>ParanOS</header>
 
 <div id="join">
 <input id="nick" placeholder="Nickname">
-<input id="pass" placeholder="Senha da sala">
+<input id="room" placeholder="Código da sala (ex: ABCD)">
 <button onclick="join()">Entrar</button>
-<small>Sala efêmera • 10 minutos • payload binário</small>
+<small>1:1 • tempo real • sem histórico</small>
 </div>
 
 <div id="chat">
-<div style="padding:0 16px">
-<div class="timer" id="timer"></div>
-<button class="alt" onclick="copyLink()">Copiar link da sala</button>
-</div>
 <div id="messages"></div>
 <footer>
 <input id="msg" placeholder="Mensagem">
 <button onclick="send()">Enviar</button>
-<small>ParanOS • v6</small>
 </footer>
 </div>
 </div>
 
-<script src="simple-peer.min.js"></script>
+<script src="https://unpkg.com/simple-peer@9/simplepeer.min.js"></script>
 <script>
-let peers={},nick,pass,roomHash,ws,key;
-let seconds=600,interval;
+let ws, peer, nick, room;
 
-// THEME
-function toggleTheme(){
- document.body.classList.toggle("light");
-}
+function join(){
+  nick = nickInput.value.trim();
+  room = roomInput.value.trim();
+  if(!nick || !room) return alert("Preencha tudo");
 
-// HASH
-async function sha256(txt){
- const buf=new TextEncoder().encode(txt);
- const hash=await crypto.subtle.digest("SHA-256",buf);
- return Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,"0")).join("");
-}
+  joinDiv.style.display = "none";
+  chatDiv.style.display = "flex";
 
-// KEY
-async function deriveKey(p){
- const enc=new TextEncoder();
- const base=await crypto.subtle.importKey("raw",enc.encode(p),"PBKDF2",false,["deriveKey"]);
- return crypto.subtle.deriveKey(
-  {name:"PBKDF2",salt:enc.encode(roomHash),iterations:150000,hash:"SHA-256"},
-  base,{name:"AES-GCM",length:256},false,["encrypt","decrypt"]
- );
-}
+  ws = new WebSocket("ws://localhost:8080");
 
-// ENCRYPT -> binary only
-async function encryptBinary(t){
- const iv=crypto.getRandomValues(new Uint8Array(12));
- const data=new TextEncoder().encode(t);
- const buf=await crypto.subtle.encrypt({name:"AES-GCM",iv},key,data);
- return new Uint8Array([...iv,...new Uint8Array(buf)]).buffer;
-}
-
-// DECRYPT
-async function decryptBinary(buffer){
- const arr=new Uint8Array(buffer);
- const iv=arr.slice(0,12);
- const data=arr.slice(12);
- const buf=await crypto.subtle.decrypt({name:"AES-GCM",iv},key,data);
- return new TextDecoder().decode(buf);
-}
-
-async function join(){
- nick=nickEl.value.trim();
- pass=passEl.value.trim();
- if(!nick||!pass)return alert("Preencha tudo");
-
- roomHash=await sha256(pass+location.origin);
- key=await deriveKey(pass);
-
- joinDiv.style.display="none";
- chatDiv.style.display="flex";
-
- ws=new WebSocket("ws://localhost:8080");
- ws.onopen=()=>ws.send(JSON.stringify({type:"join",room:roomHash,nick}));
- ws.onmessage=e=>signal(JSON.parse(e.data));
-
- startTimer();
-}
-
-// TIMER
-function startTimer(){
- updateTimer();
- interval=setInterval(()=>{
-  seconds--;
-  updateTimer();
-  if(seconds<=0) destroy();
- },1000);
-}
-function updateTimer(){
- const m=Math.floor(seconds/60).toString().padStart(2,"0");
- const s=(seconds%60).toString().padStart(2,"0");
- timerEl.textContent="Auto-destruição em "+m+":"+s;
-}
-
-// SIGNAL
-function signal(p){
- if(p.nick===nick)return;
- if(!peers[p.nick]){
-  const peer=new SimplePeer({initiator:p.init,trickle:false});
-  peer.on("signal",d=>ws.send(JSON.stringify({type:"signal",room:roomHash,nick,data:d})));
-  peer.on("data",async d=>{
-   const txt=await decryptBinary(d);
-   if(txt==="dead") destroy();
-   add(p.nick,txt);
+  peer = new SimplePeer({
+    initiator: true,
+    trickle: false
   });
-  peers[p.nick]=peer;
- }
- peers[p.nick].signal(p.data);
+
+  peer.on("signal", data => {
+    ws.send(JSON.stringify({ type: "signal", room, data }));
+  });
+
+  peer.on("data", data => {
+    add("peer", data.toString());
+  });
+
+  ws.onmessage = e => {
+    const msg = JSON.parse(e.data);
+    if(msg.type === "signal") {
+      peer.signal(msg.data);
+    }
+    if(msg.type === "full") {
+      alert("Sala cheia");
+    }
+  };
 }
 
-// SEND
-async function send(){
- const t=msgEl.value.trim();
- if(!t)return;
- if(t==="dead"){ destroy(); return; }
- const payload=await encryptBinary(t);
- Object.values(peers).forEach(p=>p.send(payload));
- add("você",t);
- msgEl.value="";
+function send(){
+  const text = msgInput.value.trim();
+  if(!text) return;
+  peer.send(text);
+  add(nick, text);
+  msgInput.value = "";
 }
 
-// UI
 function add(n,t){
- const m=document.createElement("div");
- m.className="msg";
- m.innerHTML=`<div class=nick>${n}</div><div class=text>${t}</div>`;
- messages.appendChild(m);
- messages.scrollTop=9999;
+  const d=document.createElement("div");
+  d.className="msg";
+  d.innerHTML=`<div class=nick>${n}</div><div class=text>${t}</div>`;
+  messages.appendChild(d);
+  messages.scrollTop=9999;
 }
 
-// COPY LINK
-function copyLink(){
- const link=location.origin+location.pathname+"#"+roomHash;
- navigator.clipboard.writeText(link);
- alert("Link copiado");
-}
-
-// DESTROY
-function destroy(){
- document.body.innerHTML="<h2>ParanOS encerrado</h2>";
- if(interval) clearInterval(interval);
-}
-
-// ELEMENTS
-const nickEl=document.getElementById("nick");
-const passEl=document.getElementById("pass");
+const nickInput=document.getElementById("nick");
+const roomInput=document.getElementById("room");
 const joinDiv=document.getElementById("join");
 const chatDiv=document.getElementById("chat");
-const msgEl=document.getElementById("msg");
+const msgInput=document.getElementById("msg");
 const messages=document.getElementById("messages");
-const timerEl=document.getElementById("timer");
 </script>
 </body>
 </html>
