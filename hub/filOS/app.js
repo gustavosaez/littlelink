@@ -11,6 +11,12 @@ toggle.onclick = () => {
   toggle.innerText = dark ? 'Modo Escuro' : 'Modo Claro';
 };
 
+// File feedback
+$('fileInput').onchange = e => {
+  const f = e.target.files[0];
+  $('fileLabel').innerText = f ? `Arquivo: ${f.name}` : 'Selecionar arquivo';
+};
+
 // Viewer mode
 if (location.hash.length > 1) {
   $('encoder').hidden = true;
@@ -21,10 +27,15 @@ if (location.hash.length > 1) {
 $('generate').onclick = () => {
   const file = $('fileInput').files[0];
   const pwd = $('password').value;
+  const btn = $('generate');
+  const btnText = $('btnText');
 
   if (!file) return setStatus('Selecione um arquivo.');
   if (!pwd) return setStatus('Informe uma senha.');
   if (file.size > MAX_SIZE) return setStatus('Arquivo maior que 500 KB.');
+
+  btn.disabled = true;
+  btnText.innerText = 'Processando…';
 
   const reader = new FileReader();
   reader.onload = () => {
@@ -37,14 +48,17 @@ $('generate').onclick = () => {
 
     $('shareLink').value = link;
     $('linkBox').hidden = false;
-    setStatus('Link gerado com sucesso.');
+
+    btn.classList.add('success');
+    btnText.innerText = 'Link gerado ✓';
+    setStatus('Link pronto para compartilhamento.');
   };
   reader.readAsDataURL(file);
 };
 
 $('copy').onclick = () => {
   navigator.clipboard.writeText($('shareLink').value);
-  setStatus('Link copiado.');
+  setStatus('Link copiado para a área de transferência.');
 };
 
 $('open').onclick = () => {

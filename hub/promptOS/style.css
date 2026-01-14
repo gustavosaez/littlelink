@@ -7,6 +7,7 @@
 --green:#198754;
 --orange:#fd7e14;
 --red:#dc3545;
+font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
 
 [data-theme=dark]{
@@ -110,3 +111,22 @@ opacity:0;transition:.3s;font-size:.9rem
 }
 
 .toast.show{opacity:1}
+
+/* === PromptOS | Tipografia padrão (FINAL) === */
+
+:root {
+  --font-ui: Inter, -apple-system, BlinkMacSystemFont,
+             "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Força tipografia consistente sem alterar layout */
+body,
+h1, h2, h3,
+p, span, label,
+button,
+input,
+textarea,
+select,
+option {
+  font-family: var(--font-ui) !important;
+}
