@@ -6,6 +6,7 @@
   --dark-text:#f1f1f1;
   --light-text:#111111;
   --accent:#0d5bd7;
+  --success:#16a34a;
 }
 
 html[data-theme="dark"] {
@@ -20,9 +21,7 @@ html[data-theme="light"] {
   --text:var(--light-text);
 }
 
-* {
-  box-sizing:border-box;
-}
+* { box-sizing:border-box; }
 
 body {
   margin:0;
@@ -32,9 +31,6 @@ body {
 }
 
 .header {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
   padding:1rem 1.25rem;
 }
 
@@ -58,8 +54,15 @@ body {
    -6px -6px 12px rgba(255,255,255,.08);
 }
 
-h2 {
-  margin-top:0;
+.card-header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:.75rem;
+}
+
+.card-header h2 {
+  margin:0;
 }
 
 input, button {
@@ -79,15 +82,6 @@ input {
     inset -3px -3px 6px rgba(255,255,255,.08);
 }
 
-.file {
-  display:block;
-  margin-top:.75rem;
-}
-
-.file input {
-  display:none;
-}
-
 .file span {
   display:block;
   padding:.75rem;
@@ -98,7 +92,13 @@ input {
     inset 3px 3px 6px rgba(0,0,0,.25),
     inset -3px -3px 6px rgba(255,255,255,.08);
   cursor:pointer;
+  
 }
+
+.file input {
+  display: none;
+}
+
 
 .primary {
   background:var(--accent);
@@ -106,14 +106,34 @@ input {
   font-weight:600;
 }
 
+.primary.success {
+  background:var(--success);
+}
+
 .secondary {
   background:#444;
   color:#fff;
 }
 
+.toggle {
+  background:var(--bg);
+  color:var(--text);
+  box-shadow:
+    inset 2px 2px 4px rgba(0,0,0,.25),
+    inset -2px -2px 4px rgba(255,255,255,.08);
+}
+
+.toggle.small {
+  width:auto;
+  padding:.4rem .7rem;
+  font-size:.85rem;
+  border-radius:999px;
+}
+
 .status {
+  margin-top:.5rem;
   font-size:.9rem;
-  opacity:.8;
+  opacity:.85;
 }
 
 .preview img,
@@ -129,4 +149,19 @@ input {
   padding:1.5rem 1rem;
   font-size:.85rem;
   opacity:.7;
+}
+
+button {
+  transition: transform .1s ease, box-shadow .1s ease;
+}
+
+button:active {
+  transform: translateY(1px);
+  box-shadow: inset 2px 2px 4px rgba(0,0,0,.35);
+}
+
+button:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgba(13,91,215,.4);
 }
