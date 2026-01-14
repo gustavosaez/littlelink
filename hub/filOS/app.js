@@ -1,145 +1,111 @@
-let pc, channel, fileBuffer, pinCode, ttlTimer, idleTimer;
-const viewerSection = document.getElementById("viewer");
-const hostSection = document.getElementById("host");
-const content = document.getElementById("content");
-const pinSpan = document.getElementById("pin");
-const linkInput = document.getElementById("link");
-const resultBox = document.getElementById("result");
-const timerBox = document.getElementById("timer");
+(() => {
+const MAX_SIZE = 500 * 1024;
+const $ = id => document.getElementById(id);
 
-const config = { iceServers: [{ urls: "stun:stun.l.google.com:19302" }] };
-
-const isViewer = location.hash.includes("offer=");
-
-// Bloqueios APENAS no viewer
-if (isViewer) {
-  ["copy","paste","cut","contextmenu"].forEach(e =>
-    document.addEventListener(e, ev => ev.preventDefault())
-  );
-}
-
-// Blur ao perder foco (ambos)
-window.addEventListener("blur", () => document.body.classList.add("blurred"));
-window.addEventListener("focus", () => document.body.classList.remove("blurred"));
-
-// Tema light/dark
-document.getElementById("themeToggle").onclick = () => {
+// Theme toggle
+const toggle = $('themeToggle');
+toggle.onclick = () => {
   const html = document.documentElement;
-  html.dataset.theme = html.dataset.theme === "dark" ? "light" : "dark";
+  const dark = html.dataset.theme === 'dark';
+  html.dataset.theme = dark ? 'light' : 'dark';
+  toggle.innerText = dark ? 'Modo Escuro' : 'Modo Claro';
 };
 
-function generatePIN() {
-  return Math.random().toString(36).substring(2, 6).toUpperCase();
+// Viewer mode
+if (location.hash.length > 1) {
+  $('encoder').hidden = true;
+  $('viewer').hidden = false;
 }
 
-// HOST
-if (!isViewer) {
-  document.getElementById("share").onclick = async () => {
-    const file = document.getElementById("fileInput").files[0];
-    if (!file) return;
+// Generate link
+$('generate').onclick = () => {
+  const file = $('fileInput').files[0];
+  const pwd = $('password').value;
 
-    pinCode = generatePIN();
-    pinSpan.innerText = pinCode;
+  if (!file) return setStatus('Selecione um arquivo.');
+  if (!pwd) return setStatus('Informe uma senha.');
+  if (file.size > MAX_SIZE) return setStatus('Arquivo maior que 500 KB.');
 
-    pc = new RTCPeerConnection(config);
-    channel = pc.createDataChannel("view");
+  const reader = new FileReader();
+  reader.onload = () => {
+    const base64 = reader.result.split(',')[1];
+    const payload = encrypt(base64, pwd);
+    const type = file.type || 'text/plain';
 
-    fileBuffer = await file.arrayBuffer();
+    const hash = `#v=1&t=${encodeURIComponent(type)}&d=${encodeURIComponent(payload)}`;
+    const link = location.href.split('#')[0] + hash;
 
-    channel.onmessage = e => {
-      if (e.data === pinCode) {
-        channel.send(fileBuffer);
-        startTTL();
-      }
-    };
-
-    const offer = await pc.createOffer();
-    await pc.setLocalDescription(offer);
-
-    const url = location.origin + location.pathname + "#offer=" + btoa(JSON.stringify(offer));
-    linkInput.value = url;
-    resultBox.hidden = false;
+    $('shareLink').value = link;
+    $('linkBox').hidden = false;
+    setStatus('Link gerado com sucesso.');
   };
+  reader.readAsDataURL(file);
+};
 
-  document.getElementById("copyLink").onclick = async () => {
-    await navigator.clipboard.writeText(linkInput.value);
-    alert("Link copiado.");
-  };
+$('copy').onclick = () => {
+  navigator.clipboard.writeText($('shareLink').value);
+  setStatus('Link copiado.');
+};
+
+$('open').onclick = () => {
+  const pwd = $('viewPassword').value;
+  if (!pwd) return alert('Informe a senha.');
+
+  try {
+    const params = new URLSearchParams(location.hash.substring(1));
+    const type = decodeURIComponent(params.get('t'));
+    const enc = decodeURIComponent(params.get('d'));
+
+    const base64 = decrypt(enc, pwd);
+    const blob = b64toBlob(base64, type);
+    render(blob, type);
+  } catch {
+    alert('Senha incorreta ou link inválido.');
+  }
+};
+
+function setStatus(msg) {
+  $('status').innerText = msg;
 }
 
-// VIEWER
-if (isViewer) {
-  hostSection.hidden = true;
-  viewerSection.hidden = false;
-
-  pc = new RTCPeerConnection(config);
-  pc.ondatachannel = e => {
-    channel = e.channel;
-    channel.onmessage = ev => renderFile(ev.data);
-  };
-
-  const offer = JSON.parse(atob(location.hash.split("offer=")[1]));
-  pc.setRemoteDescription(offer).then(async () => {
-    const answer = await pc.createAnswer();
-    await pc.setLocalDescription(answer);
-  });
-
-  document.getElementById("unlock").onclick = () => {
-    channel.send(document.getElementById("pinInput").value);
-    startIdle();
-  };
+function encrypt(data, pwd) {
+  return btoa([...data].map((c,i) =>
+    String.fromCharCode(c.charCodeAt(0) ^ pwd.charCodeAt(i % pwd.length))
+  ).join(''));
 }
 
-function renderFile(buffer) {
-  const blob = new Blob([buffer]);
+function decrypt(data, pwd) {
+  const raw = atob(data);
+  return [...raw].map((c,i) =>
+    String.fromCharCode(c.charCodeAt(0) ^ pwd.charCodeAt(i % pwd.length))
+  ).join('');
+}
+
+function b64toBlob(b64, type) {
+  const bin = atob(b64);
+  const bytes = new Uint8Array(bin.length);
+  for (let i=0;i<bin.length;i++) bytes[i] = bin.charCodeAt(i);
+  return new Blob([bytes], { type });
+}
+
+function render(blob, type) {
+  const c = $('content');
+  c.innerHTML = '';
   const url = URL.createObjectURL(blob);
-  content.innerHTML = "";
 
-  if (blob.type.startsWith("image")) {
-    const img = document.createElement("img");
+  if (type.startsWith('image')) {
+    const img = document.createElement('img');
     img.src = url;
-    content.appendChild(img);
-  } else if (blob.type === "application/pdf") {
-    const iframe = document.createElement("iframe");
+    c.appendChild(img);
+  } else if (type === 'application/pdf') {
+    const iframe = document.createElement('iframe');
     iframe.src = url;
-    content.appendChild(iframe);
+    iframe.height = '520';
+    c.appendChild(iframe);
   } else {
-    const pre = document.createElement("pre");
-    fetch(url).then(r => r.text()).then(t => pre.textContent = t);
-    content.appendChild(pre);
+    const pre = document.createElement('pre');
+    fetch(url).then(r=>r.text()).then(t=>pre.textContent=t);
+    c.appendChild(pre);
   }
 }
-
-function startTTL() {
-  const ttl = Number(document.getElementById("ttl").value) * 1000;
-  let remaining = ttl / 1000;
-
-  timerBox.innerText = "Expira em: " + remaining + "s";
-
-  ttlTimer = setInterval(() => {
-    remaining--;
-    timerBox.innerText = "Expira em: " + remaining + "s";
-    if (remaining <= 0) destroySession();
-  }, 1000);
-}
-
-function startIdle() {
-  const idleLimit = Number(document.getElementById("idle")?.value || 60) * 1000;
-
-  const reset = () => {
-    clearTimeout(idleTimer);
-    idleTimer = setTimeout(destroySession, idleLimit);
-  };
-
-  ["mousemove","keydown","scroll","touchstart"].forEach(e =>
-    document.addEventListener(e, reset)
-  );
-
-  reset();
-}
-
-function destroySession() {
-  if (pc) pc.close();
-  content.innerHTML = "Sessão encerrada";
-  clearInterval(ttlTimer);
-}
+})();
