@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<title>Chat P2P – v1</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<style>
+:root {
+  --bg: #0f1115;
+  --card: #1a1d24;
+  --text: #eaeaf0;
+  --muted: #9aa0b4;
+  --accent: #4f8cff;
+}
+* { box-sizing: border-box; user-select: none; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+#app {
+  width: 100%;
+  max-width: 420px;
+  height: 90vh;
+  background: var(--card);
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+header {
+  padding: 12px 16px;
+  border-bottom: 1px solid #2a2f3a;
+  font-weight: 600;
+}
+#messages {
+  flex: 1;
+  padding: 12px;
+  overflow-y: auto;
+}
+.msg {
+  margin-bottom: 8px;
+}
+.nick {
+  font-size: 12px;
+  color: var(--muted);
+}
+.text {
+  background: #2a2f3a;
+  padding: 8px 10px;
+  border-radius: 8px;
+  margin-top: 2px;
+  font-size: 14px;
+}
+footer {
+  display: flex;
+  padding: 10px;
+  gap: 8px;
+  border-top: 1px solid #2a2f3a;
+}
+input {
+  flex: 1;
+  background: #0f1115;
+  border: 1px solid #2a2f3a;
+  color: var(--text);
+  border-radius: 8px;
+  padding: 8px;
+}
+button {
+  background: var(--accent);
+  border: none;
+  color: white;
+  border-radius: 8px;
+  padding: 0 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+button:active {
+  transform: scale(0.97);
+}
+#join {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="join">
+    <h3>Entrar no chat</h3>
+    <input id="nickname" placeholder="Seu nickname" />
+    <input id="room" placeholder="Sala (ex: geral)" />
+    <button onclick="join()">Entrar</button>
+    <small style="color:#9aa0b4">P2P • sem histórico • texto apenas</small>
+  </div>
+
+  <div id="chat" style="display:none; flex:1; flex-direction:column;">
+    <header>Chat P2P</header>
+    <div id="messages"></div>
+    <footer>
+      <input id="messageInput" placeholder="Mensagem..." />
+      <button onclick="sendMessage()">Enviar</button>
+    </footer>
+  </div>
+</div>
+
+<script src="https://unpkg.com/simple-peer@9/simplepeer.min.js"></script>
+<script>
+let peer;
+let nick;
+
+function join() {
+  nick = document.getElementById("nickname").value.trim();
+  const room = document.getElementById("room").value.trim();
+  if (!nick || !room) return alert("Preencha tudo");
+
+  document.getElementById("join").style.display = "none";
+  document.getElementById("chat").style.display = "flex";
+
+  const ws = new WebSocket("wss://signal.simplewebrtc.com");
+
+  peer = new SimplePeer({ initiator: true, trickle: false });
+
+  peer.on("signal", data => {
+    ws.onopen = () => ws.send(JSON.stringify({ room, data }));
+  });
+
+  ws.onmessage = msg => {
+    const payload = JSON.parse(msg.data);
+    if (payload.data) peer.signal(payload.data);
+  };
+
+  peer.on("data", data => {
+    addMessage("peer", data.toString());
+  });
+}
+
+function sendMessage() {
+  const input = document.getElementById("messageInput");
+  const text = input.value.trim();
+  if (!text) return;
+  peer.send(nick + ": " + text);
+  addMessage("você", text);
+  input.value = "";
+}
+
+function addMessage(from, text) {
+  const box = document.createElement("div");
+  box.className = "msg";
+  box.innerHTML = '<div class="nick">'+from+'</div><div class="text">'+text+'</div>';
+  document.getElementById("messages").appendChild(box);
+  document.getElementById("messages").scrollTop = 99999;
+}
+</script>
+</body>
+</html>
