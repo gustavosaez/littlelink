@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>nephOS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+:root{
+ --bg:#222222;
+ --card:#2b2b2b;
+ --shadow-dark:#1a1a1a;
+ --shadow-light:#3a3a3a;
+ --text:#f5f5f5;
+ --accent:#38bdf8;
+}
+
+[data-theme="light"]{
+ --bg:#ECECEC;
+ --card:#ECECEC;
+ --shadow-dark:#cfcfcf;
+ --shadow-light:#ffffff;
+ --text:#111111;
+ --accent:#2563eb;
+}
+
+*{box-sizing:border-box}
+
+body{
+ margin:0;
+ background:var(--bg);
+ color:var(--text);
+ font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+ min-height:100vh;
+}
+
+header{
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ padding:16px 20px;
+ font-weight:600;
+}
+
+.toggle{
+ cursor:pointer;
+ padding:8px 14px;
+ border-radius:12px;
+ background:var(--card);
+ box-shadow:
+  6px 6px 12px var(--shadow-dark),
+ -6px -6px 12px var(--shadow-light);
+}
+
+main{
+ max-width:760px;
+ margin:auto;
+ padding:16px;
+}
+
+.card{
+ border-radius:18px;
+ padding:20px;
+ margin-bottom:20px;
+ background:var(--card);
+ box-shadow:
+  8px 8px 16px var(--shadow-dark),
+ -8px -8px 16px var(--shadow-light);
+}
+
+input,textarea,select,button{
+ width:100%;
+ border:none;
+ outline:none;
+ margin-top:12px;
+ padding:14px;
+ border-radius:14px;
+ background:var(--card);
+ color:var(--text);
+ box-shadow:
+  inset 6px 6px 12px var(--shadow-dark),
+  inset -6px -6px 12px var(--shadow-light);
+ font-size:15px;
+}
+
+button{
+ cursor:pointer;
+ color:var(--accent);
+ font-weight:600;
+}
+
+pre{
+ white-space:pre-wrap;
+ user-select:none;
+}
+
+small{opacity:.7}
+.hidden{display:none}
+</style>
+</head>
+
+<body>
+<header>
+<span>nephOS</span>
+<div class="toggle" onclick="toggleTheme()">Light / Dark</div>
+</header>
+
+<main>
+
+<div class="card" id="gen">
+<h3>Criar nota</h3>
+<textarea id="msg" rows="4" placeholder="Mensagem"></textarea>
+<select id="ttl">
+ <option value="15">15s</option>
+ <option value="30" selected>30s</option>
+ <option value="60">60s</option>
+</select>
+<input id="pwd" type="password" placeholder="Senha">
+<button onclick="generate()">Gerar link</button>
+<textarea id="link" rows="2" placeholder="Link"></textarea>
+<button onclick="copyLink()">Copiar link</button>
+</div>
+
+<div class="card hidden" id="view">
+<h3>Mensagem</h3>
+<input id="pwdView" type="password" placeholder="Digite a senha">
+<pre id="content"></pre>
+<small id="timer"></small>
+</div>
+
+</main>
+
+<script>
+const root=document.documentElement;
+const saved=localStorage.getItem("theme");
+if(saved) root.dataset.theme=saved;
+
+function toggleTheme(){
+ const t=root.dataset.theme==="light"?"dark":"light";
+ root.dataset.theme=t;
+ localStorage.setItem("theme",t);
+}
+
+const params=new URLSearchParams(location.search);
+const m=params.get("m");
+const tts=parseInt(params.get("t")||30);
+
+const gen=document.getElementById("gen");
+const view=document.getElementById("view");
+const content=document.getElementById("content");
+const timer=document.getElementById("timer");
+
+async function generate(){
+ const msg=document.getElementById("msg").value;
+ const pwd=document.getElementById("pwd").value;
+ const ttl=document.getElementById("ttl").value;
+
+ const enc=new TextEncoder();
+ const key=await crypto.subtle.importKey("raw",enc.encode(pwd),"PBKDF2",false,["deriveKey"]);
+ const aes=await crypto.subtle.deriveKey({name:"PBKDF2",salt:new Uint8Array(8),iterations:100000,hash:"SHA-256"},key,{name:"AES-GCM",length:256},false,["encrypt"]);
+ const iv=crypto.getRandomValues(new Uint8Array(12));
+ const encrypted=await crypto.subtle.encrypt({name:"AES-GCM",iv},aes,enc.encode(msg));
+ const full=new Uint8Array([...iv,...new Uint8Array(encrypted)]);
+ let b64=btoa(String.fromCharCode(...full)).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+ document.getElementById("link").value=location.origin+location.pathname+"?m="+b64+"&t="+ttl;
+}
+
+async function decode(){
+ const pwd=document.getElementById("pwdView").value;
+ try{
+ let s=m.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';
+ const data=Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+ const key=await crypto.subtle.importKey("raw",new TextEncoder().encode(pwd),"PBKDF2",false,["deriveKey"]);
+ const aes=await crypto.subtle.deriveKey({name:"PBKDF2",salt:new Uint8Array(8),iterations:100000,hash:"SHA-256"},key,{name:"AES-GCM",length:256},false,["decrypt"]);
+ const dec=await crypto.subtle.decrypt({name:"AES-GCM",iv:data.slice(0,12)},aes,data.slice(12));
+ content.textContent=new TextDecoder().decode(dec);
+ history.replaceState({},'',location.pathname);
+ gen.classList.add("hidden");
+ view.classList.remove("hidden");
+
+ let r=tts;
+ timer.textContent=`Autodestruição em ${r}s`;
+ const i=setInterval(()=>{
+  r--;timer.textContent=`Autodestruição em ${r}s`;
+  if(r<=0){clearInterval(i);content.textContent="Mensagem destruída";}
+ },1000);
+ }catch{content.textContent="Senha incorreta";}
+}
+
+function copyLink(){
+ navigator.clipboard.writeText(document.getElementById("link").value);
+}
+
+if(m){
+ gen.classList.add("hidden");
+ view.classList.remove("hidden");
+ document.getElementById("pwdView").addEventListener("change",decode);
+}
+</script>
+</body>
+</html>

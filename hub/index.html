@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ferramentas | Gustavo Sáez</title>
+  <meta name="description" content="Hub oficial de ferramentas simples, rápidas e focadas em segurança, produtividade e privacidade.">
+  <link rel="manifest" href="manifest.json">
+  <style>
+    :root {
+      --bg:#f5f6f7;--card:#fff;--text:#111;--muted:#666;--primary:#000;
+      --radius:14px;--shadow:0 8px 24px rgba(0,0,0,.08)
+    }
+    *{box-sizing:border-box;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial}
+    body{margin:0;background:var(--bg);color:var(--text)}
+    header,main{max-width:1100px;margin:auto;padding:32px 20px}
+    h1{margin:0;font-size:2rem;font-weight:800}
+    header p{max-width:520px;color:var(--muted)}
+    input{width:100%;padding:14px;border-radius:10px;border:1px solid #ccc;margin:20px 0}
+    .grid{display:grid;gap:24px}
+    @media(min-width:768px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media(min-width:1024px){.grid{grid-template-columns:repeat(3,1fr)}}
+    .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;display:flex;flex-direction:column;justify-content:space-between}
+    .btn{margin-top:16px;padding:14px;border-radius:10px;border:2px solid var(--primary);background:var(--primary);color:#fff;font-weight:600;cursor:pointer}
+    footer{text-align:center;color:var(--muted);padding:24px;font-size:.8rem}
+  </style>
+</head>
+<body>
+<header>
+  <h1>Ferramentas</h1>
+  <p>Hub oficial de utilitários focados em produtividade, segurança e privacidade.</p>
+  <input type="search" placeholder="Buscar ferramenta..." oninput="filterCards(this.value)">
+</header>
+
+<main>
+  <section class="grid" id="grid">
+    <article class="card" data-name="senhas segurança">
+      <h2>Gerador de Senhas</h2>
+      <p>Crie senhas fortes, seguras e aleatórias para proteger suas contas.</p>
+      <a href="https://gustavosaez.com.br/hub/geradordesenhas/"><button class="btn">Abrir</button></a>
+    </article>
+    <article class="card" data-name="cpf desenvolvimento">
+      <h2>Gerador de CPF</h2>
+      <p>Gere CPFs válidos para testes e ambientes de desenvolvimento.</p>
+      <a href="https://gustavosaez.com.br/hub/geradordecpf"><button class="btn">Abrir</button></a>
+    </article>
+    <article class="card" data-name="notas produtividade">
+      <h2>nephOS</h2>
+      <p>Anotações rápidas, simples e diretas para o dia a dia.</p>
+      <a href="https://gustavosaez.com.br/hub/nephOS"><button class="btn">Abrir</button></a>
+    </article>
+  </section>
+</main>
+
+<footer>© gustavosaez.com.br</footer>
+
+<script>
+function filterCards(q){
+  q=q.toLowerCase();
+  document.querySelectorAll('.card').forEach(c=>{
+    c.style.display=c.dataset.name.includes(q)?'flex':'none';
+  })
+}
+</script>
+</body>
+</html>
