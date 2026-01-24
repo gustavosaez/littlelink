@@ -59,6 +59,8 @@
             font-size: 0.75rem;
         }
         .log-item { margin-bottom: 5px; padding: 3px 0; }
+        .log-item.error { color: #ff0055; font-weight: bold; }
+        .log-item.success { color: #00ff41; font-weight: bold; }
         .input-group { margin-bottom: 20px; }
         label { display: block; margin-bottom: 8px; font-size: 0.85rem; }
         input, select {
@@ -72,6 +74,7 @@
             font-size: 1rem;
         }
         input:focus, select:focus { outline: none; box-shadow: 0 0 10px rgba(0, 255, 65, 0.5); }
+        input::placeholder { color: #006622; }
         .btn {
             width: 100%;
             background: #00ff41;
@@ -143,7 +146,7 @@
         ::-webkit-scrollbar-track { background: #000; }
         ::-webkit-scrollbar-thumb { background: #00ff41; border-radius: 10px; }
     </style>
-<script type="text/javascript" nonce="d402022b187f4419864b2c32f02" src="//local.adguard.org?ts=1769291150859&amp;type=content-script&amp;dmn=ppl-ai-code-interpreter-files.s3.amazonaws.com&amp;url=https%3A%2F%2Fppl-ai-code-interpreter-files.s3.amazonaws.com%2Fweb%2Fdirect-files%2F021ad8b2e860857e661899a2a8f45e86%2F64cb76d3-c2cf-4bba-8db6-8ba7b64f90e3%2Fee645b18.html%3Fresponse-content-disposition%3Dattachment%253B%2520filename%253Dparanos-v17-ROBUSTO.html%253B%2520filename%252A%253DUTF-8%2527%2527paranos-v17-ROBUSTO.html%26AWSAccessKeyId%3DASIA2F3EMEYE5MT6Y7YP%26Signature%3DFFpjyDIdFrqQBRpVFmtDvBH5d88%253D%26x-amz-security-token%3DIQoJb3JpZ2luX2VjEE4aCXVzLWVhc3QtMSJGMEQCIEt55y7IVYdgWfI5rdhIuPIyv9oyqrDl7Voc6dF7atjWAiBMpnGBZ0uI9F3Mt1HNWGB%252FZ32lWi6uSH21epUoJcv5SCrzBAgXEAEaDDY5OTc1MzMwOTcwNSIMfhKLTsjcEnUXCtqTKtAEAl66WIo7UCRPqyVbOp6m%252FIB7zZC24dNHg%252F6CM3EoLD%252B4vHqXjoEDAky9cSO%252FgPNCZCac0VeUDc1%252BBxuowAEOXwe42%252F4QhGOn7sn2lAqfZDlh1zc4bmXuffN%252BriNApZ1438qA5BvCmsoNv9KGK8JHltXI3zdRjACB6%252FkFr%252B6UlKvsvFsLndRgqXPoZBl5xvtV9c8C1TN1hpvvpRlCmsYaS36ZyLZcnFUjvTw5lr9QMNTeZHolrBB635w6%252F%252F9WqJj%252BJ0wg3HJwzEKTV67VPP%252F2Dlx2%252B9NSdTWb8gi33PNj69L2fBI%252BkeZuHXWV0RONbdud%252BS%252FZCbIeCCwnuoLNw85GCM7UDLzcUcrtskfa4i2Q094sbOsRT%252BnBuDMoKV23acaZUdzA6nbIQBN3l4tspoB01wEQDKvuw4sbZB%252FFQaKIRvQfiS%252FdZyOBxOgbaZL%252Bu938Y3zZydgKc9tFhXH3IupJc54u7N2ECZMYiE9KSZbHriVEbgvJsNorVVlaRGyIzWV7EKw9CjooCYh2lyvJnC57vwboXgGP9mpeKv3xdvD2XEYiFT7Z815shmQQRV8ECFKS9bIjro3GKMRsQmONyS5hs6Jln5YQrRmDgXZytaarYjXhmI2kn1AqBE9v5hKR7xqjLOMu1LQsdOE2g0VMEW20Rfzd7wRq3RZ0isreKGDbZA2tAr9MznhswPN0DCrRhYcQgF4sPovWwHleZW0%252F7qFTMzWI5hLZHFH4xMdMbgkPBVBm0SSkQq%252FBG2GVoS1JG7wCQ6b5clGm9HP85AbT19EajjD7gdXLBjqZAWU425S%252BE98egpmW2if%252FtpkVCMQdHSYJdXqHWOJtBDzXDosS59l%252F6iPXW7MNnE%252Fa4ysT6k43Toy4Chh3K41Rl25pfSsRTm0DBG3ExfZSk0iTmJBPDMJSfcf%252BP72jnugREpl12wrZtiD7NNPX7NnIvMWiy3X65nfsEIt31RWSI%252FO6By2B0YdXrO49OGwFRrd93gDuf1ldBhB%252BzA%253D%253D%26Expires%3D1769294070&amp;app=com.apple.Safari&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1&amp;stealth=1&amp;st-ua=TW96aWxsYS81LjAgKE1hY2ludG9zaDsgSW50ZWwgTWFjIE9TIFggMTBfMTVfNykgQXBwbGVXZWJLaXQvNjA1LjEuMTUgKEtIVE1MLCBsaWtlIEdlY2tvKSBWZXJzaW9uLzI2LjIgU2FmYXJpLzYwNS4xLjE1&amp;st-ch-brands=&amp;st-ch-mobile=&amp;st-ch-platform=&amp;st-wrtc&amp;st-push&amp;st-loc&amp;st-java&amp;st-dnt"></script><script type="text/javascript" nonce="d402022b187f4419864b2c32f02" src="//local.adguard.org?ts=1769291150859&amp;name=AdGuard%20Extra&amp;type=user-script"></script></head>
+<script type="text/javascript" nonce="d402022b187f4419864b2c32f02" src="//local.adguard.org?ts=1769291150859&amp;type=content-script&amp;dmn=ppl-ai-code-interpreter-files.s3.amazonaws.com&amp;url=https%3A%2F%2Fppl-ai-code-interpreter-files.s3.amazonaws.com%2Fweb%2Fdirect-files%2F67787d717cc7f703675456bea7dadd31%2Fed133259-aeef-4eb3-97b2-e4f994b231a8%2F52647f22.html%3Fresponse-content-disposition%3Dattachment%253B%2520filename%253Dparanos-v19-FINAL.html%253B%2520filename%252A%253DUTF-8%2527%2527paranos-v19-FINAL.html%26AWSAccessKeyId%3DASIA2F3EMEYESEEN63HE%26Signature%3D%252BD6dc8L3XELgJrgYi7ZiNPcQaGg%253D%26x-amz-security-token%3DIQoJb3JpZ2luX2VjEE8aCXVzLWVhc3QtMSJHMEUCIBVJ0XkAWEyyj7ee%252Fat9QRHv15gzasE92r%252Fjp8vnwelTAiEA%252FPN0qw4LG43BsodkiT63j3dreJTR2a5ByRSpnpLjjf8q8wQIGBABGgw2OTk3NTMzMDk3MDUiDPQaRw71R64oMtuCmSrQBIttoTC%252BlaGJjVWf1CQgZMRRnjmqHvQ7H2uC%252Blgy%252FBMOBgiXndYqh5w1cllN5VmYi%252FqfDbr6%252B0dbcSDRhC1bShX%252FpYW%252Bl%252FIEZcgz2nfAAOVfBJIWEyJ%252BwqJ%252FB9Mx97K0S3WR97pbO379S3r%252BWZeLS%252FIImsFNkYubeUxBCf0x3niotlueH01DWLO0xygmXUrbvgunT4Fj%252FQRtfPnHnXEE%252FeDSuiXcDB7NzS%252B0Wbyxjn8CPKf3YVP751BFhPwl%252BHYMKUiAWn%252BJT8kUDwhG4uzVtmQcgHCoP8hZj6IcGUdLyXMevOjeUKeAgAFfuo5mM0ooauJ7aNddpfjdwrKIounn5U40PTyCPkPPa2oDaBzUOI2vovbr53vuvi7pE%252BsUiN2Yv6DtgIQ8nETaFLNm%252B8uTf3VLtLf7VzY5wL4PgtpJTPNAndi0ShnV%252Bj7oUPECxCKsdU3Xxzf6bQbMgf4OnQCjUT7oVKzPTp6M44ybzZi%252BGSoRj0yIF7L%252BYhNYGgynkzGKhqJtM9TT3h8Glgtkm1Qm6pjh1iNiOqxod%252Br8ZVFdSD7ZF9SQo7gdLeTRQo1tNShhFpZejLjNhLQDZm9nDDlsDXK%252BW1RfKrH0F9e8hZK9FweO8rj01nZcApTsevKfj55dGH9Em9olUqeqgseHrcRfOrz2mc8pUUZomjFGq34gmB0kuL%252Fmc0xQhfpQN4WqZX%252FhMXHvSeymJPIyCHPRqLeoV5HWePFJ5jWkzxuJFqJaQkesnSoa41aUswigI76GldveWpi3eaY77Q%252FDrOU5PoQ44aww1YzVywY6mAGwXyh4%252Fla9TyVJ7fYCTJu6fb59xz4pDpjuOF%252B%252B1Mg6UdYZ%252B%252FgSFv1XuYRM2F3NyFtMDOBr%252FoyZc%252BQEtNKnZm3lk3Fdxocf6uGwEizbzAmiPsswuJp0isYM6i1uE1SE98JYQzCTVmVFQDXUA3DazVTMTGs2LwH2HakFdmA8X9IcCT5kUzjJQVTA024IrZ7%252BRQbcuW80TIz0bg%253D%253D%26Expires%3D1769295068&amp;app=com.apple.Safari&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1&amp;stealth=1&amp;st-ua=TW96aWxsYS81LjAgKE1hY2ludG9zaDsgSW50ZWwgTWFjIE9TIFggMTBfMTVfNykgQXBwbGVXZWJLaXQvNjA1LjEuMTUgKEtIVE1MLCBsaWtlIEdlY2tvKSBWZXJzaW9uLzI2LjIgU2FmYXJpLzYwNS4xLjE1&amp;st-ch-brands=&amp;st-ch-mobile=&amp;st-ch-platform=&amp;st-wrtc&amp;st-push&amp;st-loc&amp;st-java&amp;st-dnt"></script><script type="text/javascript" nonce="d402022b187f4419864b2c32f02" src="//local.adguard.org?ts=1769291150859&amp;name=AdGuard%20Extra&amp;type=user-script"></script></head>
 <body>
 
 <div class="scanlines"></div>
@@ -170,7 +173,7 @@
             <div class="log-box" id="logBox"></div>
 
             <div class="input-group">
-                <label>USERNAME</label>
+                <label>USERNAME (opcional - sera gerado se vazio)</label>
                 <input type="text" id="username" placeholder="Digite seu codinome..." maxlength="20">
             </div>
 
@@ -220,6 +223,19 @@
 (function() {
     'use strict';
 
+    // Detecta WebRTC com prefixes
+    window.RTCPeerConnection = window.RTCPeerConnection || 
+                                window.mozRTCPeerConnection || 
+                                window.webkitRTCPeerConnection;
+
+    window.RTCSessionDescription = window.RTCSessionDescription || 
+                                    window.mozRTCSessionDescription || 
+                                    window.webkitRTCSessionDescription;
+
+    window.RTCIceCandidate = window.RTCIceCandidate || 
+                              window.mozRTCIceCandidate || 
+                              window.webkitRTCIceCandidate;
+
     // Vars
     let db = null;
     let myUsername = '';
@@ -229,20 +245,33 @@
     let isReady = false;
     let isInitiator = false;
     let iceList = [];
+    let webrtcAvailable = false;
 
     const rtcConfig = {
         iceServers: [
             { urls: 'stun:stun.l.google.com:19302' },
-            { urls: 'stun:stun1.l.google.com:19302' }
+            { urls: 'stun:stun1.l.google.com:19302' },
+            { urls: 'stun:stun2.l.google.com:19302' }
         ]
     };
 
+    // Random username generator
+    const adjectives = ['Veloz', 'Sombrio', 'Brilhante', 'Feroz', 'Astuto', 'Forte', 'Rapido', 'Oculto', 'Misterioso', 'Lendario'];
+    const nouns = ['Lobo', 'Falcao', 'Tigre', 'Dragao', 'Fenix', 'Cobra', 'Aguia', 'Leao', 'Corvo', 'Raposa'];
+
+    function generateUsername() {
+        const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
+        const noun = nouns[Math.floor(Math.random() * nouns.length)];
+        const num = Math.floor(Math.random() * 99);
+        return adj + noun + num;
+    }
+
     // Helpers
-    function log(msg) {
+    function log(msg, type) {
         console.log('[paranOS]', msg);
         const box = document.getElementById('logBox');
         const item = document.createElement('div');
-        item.className = 'log-item';
+        item.className = 'log-item' + (type ? ' ' + type : '');
         item.textContent = msg;
         box.appendChild(item);
         box.scrollTop = box.scrollHeight;
@@ -278,18 +307,42 @@
         document.getElementById('clock').textContent = new Date().toLocaleTimeString('pt-BR', {hour: '2-digit', minute: '2-digit'});
     }, 1000);
 
+    // Check WebRTC
+    function checkWebRTC() {
+        log('Verificando WebRTC...');
+
+        const protocol = window.location.protocol;
+        const hostname = window.location.hostname;
+
+        log('Protocolo: ' + protocol);
+        log('Hostname: ' + hostname);
+
+        if (typeof RTCPeerConnection === 'undefined') {
+            log('ERRO: WebRTC nao suportado neste navegador!', 'error');
+            updateFB('WEBRTC ERRO', false);
+            alert('ERRO: Seu navegador nao suporta WebRTC!');
+            return false;
+        }
+
+        log('WebRTC disponivel!', 'success');
+        webrtcAvailable = true;
+        return true;
+    }
+
     // Init Firebase
     function initFirebase() {
         log('Carregando Firebase...');
 
         if (typeof firebase === 'undefined') {
-            log('ERRO: Firebase SDK nao carregou!');
+            log('ERRO: Firebase SDK nao carregou!', 'error');
             updateFB('ERRO SDK', false);
-            alert('Erro ao carregar Firebase SDK. Verifique sua conexao com a internet e recarregue a pagina.');
+            setTimeout(function() {
+                alert('Erro ao carregar Firebase SDK. Recarregue a pagina.');
+            }, 1000);
             return false;
         }
 
-        log('Firebase SDK OK!');
+        log('Firebase SDK OK!', 'success');
 
         try {
             const firebaseConfig = {
@@ -305,14 +358,17 @@
             firebase.initializeApp(firebaseConfig);
             db = firebase.database();
 
-            log('Firebase inicializado!');
+            log('Firebase inicializado!', 'success');
 
             db.ref('.info/connected').on('value', function(snap) {
                 if (snap.val()) {
-                    log('Firebase conectado!');
+                    log('Firebase conectado!', 'success');
                     updateFB('ONLINE', true);
-                    document.getElementById('createBtn').disabled = false;
-                    document.getElementById('joinBtn').disabled = false;
+
+                    if (webrtcAvailable) {
+                        document.getElementById('createBtn').disabled = false;
+                        document.getElementById('joinBtn').disabled = false;
+                    }
                 } else {
                     log('Firebase offline');
                     updateFB('OFFLINE', false);
@@ -322,19 +378,26 @@
             return true;
 
         } catch (error) {
-            log('ERRO ao inicializar Firebase: ' + error.message);
+            log('ERRO ao inicializar Firebase: ' + error.message, 'error');
             updateFB('ERRO', false);
-            alert('Erro ao inicializar Firebase: ' + error.message);
+            setTimeout(function() {
+                alert('Erro ao inicializar Firebase: ' + error.message);
+            }, 1000);
             return false;
         }
     }
 
     // Create
     document.getElementById('createBtn').addEventListener('click', async function() {
+        if (!webrtcAvailable) {
+            alert('WebRTC nao esta disponivel!');
+            return;
+        }
+
         myUsername = document.getElementById('username').value.trim();
         if (!myUsername) {
-            alert('Digite username!');
-            return;
+            myUsername = generateUsername();
+            log('Username gerado: ' + myUsername, 'success');
         }
 
         isInitiator = true;
@@ -350,9 +413,9 @@
                 expires: exp
             });
 
-            log('Sala criada!');
+            log('Sala criada!', 'success');
         } catch (error) {
-            log('ERRO ao criar sala: ' + error.message);
+            log('ERRO ao criar sala: ' + error.message, 'error');
             alert('Erro: ' + error.message);
             return;
         }
@@ -368,18 +431,30 @@
         document.getElementById('chatScreen').classList.add('active');
         document.getElementById('userDisplay').textContent = myUsername;
 
-        addMsg('', 'Sala criada! Aguardando peer...', 'system');
+        addMsg('', 'Sala criada! ID: ' + roomId, 'system');
+        addMsg('', 'Seu username: ' + myUsername, 'system');
+        addMsg('', 'Aguardando peer...', 'system');
 
         initWebRTC();
     });
 
     // Join
     document.getElementById('joinBtn').addEventListener('click', async function() {
+        if (!webrtcAvailable) {
+            alert('WebRTC nao esta disponivel!');
+            return;
+        }
+
         myUsername = document.getElementById('username').value.trim();
+        if (!myUsername) {
+            myUsername = generateUsername();
+            log('Username gerado: ' + myUsername, 'success');
+        }
+
         roomId = document.getElementById('roomId').value.trim();
 
-        if (!myUsername || !roomId) {
-            alert('Preencha tudo!');
+        if (!roomId) {
+            alert('Digite o ID da sala!');
             return;
         }
 
@@ -394,9 +469,9 @@
                 return;
             }
 
-            log('Sala encontrada!');
+            log('Sala encontrada!', 'success');
         } catch (error) {
-            log('ERRO: ' + error.message);
+            log('ERRO: ' + error.message, 'error');
             alert('Erro: ' + error.message);
             return;
         }
@@ -405,7 +480,8 @@
         document.getElementById('chatScreen').classList.add('active');
         document.getElementById('userDisplay').textContent = myUsername;
 
-        addMsg('', 'Conectando...', 'system');
+        addMsg('', 'Seu username: ' + myUsername, 'system');
+        addMsg('', 'Conectando a sala...', 'system');
 
         waitOffer();
     });
@@ -417,7 +493,7 @@
         db.ref('rooms/' + roomId + '/offer').on('value', async function(snap) {
             const offer = snap.val();
             if (offer && offer.sdp) {
-                log('Offer recebido!');
+                log('Offer recebido!', 'success');
                 db.ref('rooms/' + roomId + '/offer').off();
                 await initWebRTC(offer);
             }
@@ -428,17 +504,39 @@
     async function initWebRTC(remoteOffer) {
         log('Iniciando WebRTC...');
 
-        pc = new RTCPeerConnection(rtcConfig);
+        try {
+            pc = new RTCPeerConnection(rtcConfig);
+            log('PeerConnection criado!', 'success');
+        } catch (error) {
+            log('ERRO ao criar PeerConnection: ' + error.message, 'error');
+            addMsg('', 'ERRO: ' + error.message, 'system');
+            alert('ERRO ao criar PeerConnection: ' + error.message);
+            return;
+        }
+
         iceList = [];
 
         pc.onicecandidate = function(e) {
             if (e.candidate) {
                 iceList.push(e.candidate.toJSON());
+                log('ICE candidate coletado (' + iceList.length + ')');
+            } else {
+                log('ICE gathering completo!', 'success');
             }
         };
 
+        pc.oniceconnectionstatechange = function() {
+            log('ICE connection: ' + pc.iceConnectionState);
+        };
+
         pc.onconnectionstatechange = function() {
-            log('P2P: ' + pc.connectionState);
+            log('P2P state: ' + pc.connectionState);
+            if (pc.connectionState === 'connected') {
+                log('P2P CONECTADO!', 'success');
+            } else if (pc.connectionState === 'failed') {
+                log('P2P FALHOU!', 'error');
+                addMsg('', 'Conexao P2P falhou. Tente novamente.', 'system');
+            }
         };
 
         try {
@@ -448,10 +546,11 @@
 
                 const offer = await pc.createOffer();
                 await pc.setLocalDescription(offer);
+                log('Offer criado!', 'success');
 
                 await waitICE();
 
-                log('Salvando offer (' + iceList.length + ' ICE)...');
+                log('Salvando offer (' + iceList.length + ' ICE candidates)...');
                 await db.ref('rooms/' + roomId + '/offer').set({
                     type: offer.type,
                     sdp: offer.sdp,
@@ -459,23 +558,26 @@
                     ts: Date.now()
                 });
 
-                log('Offer salvo! Aguardando answer...');
+                log('Offer salvo!', 'success');
+                addMsg('', 'Aguardando peer conectar...', 'system');
 
                 db.ref('rooms/' + roomId + '/answer').on('value', async function(snap) {
                     const ans = snap.val();
                     if (ans && ans.sdp && !pc.currentRemoteDescription) {
-                        log('Answer recebido!');
+                        log('Answer recebido!', 'success');
 
                         await pc.setRemoteDescription({ type: ans.type, sdp: ans.sdp });
+                        log('Answer aplicado!', 'success');
 
                         if (ans.ice && ans.ice.length > 0) {
-                            log('Aplicando ' + ans.ice.length + ' ICE...');
+                            log('Aplicando ' + ans.ice.length + ' ICE candidates do peer...');
                             for (let i = 0; i < ans.ice.length; i++) {
                                 await pc.addIceCandidate(ans.ice[i]);
                             }
+                            log('ICE candidates do peer aplicados!', 'success');
                         }
 
-                        log('Answer aplicado!');
+                        addMsg('', 'Estabelecendo conexao P2P...', 'system');
                     }
                 });
 
@@ -485,21 +587,25 @@
                     setupDC();
                 };
 
+                log('Aplicando offer remoto...');
                 await pc.setRemoteDescription({ type: remoteOffer.type, sdp: remoteOffer.sdp });
+                log('Offer aplicado!', 'success');
 
                 if (remoteOffer.ice && remoteOffer.ice.length > 0) {
-                    log('Aplicando ' + remoteOffer.ice.length + ' ICE...');
+                    log('Aplicando ' + remoteOffer.ice.length + ' ICE candidates do criador...');
                     for (let i = 0; i < remoteOffer.ice.length; i++) {
                         await pc.addIceCandidate(remoteOffer.ice[i]);
                     }
+                    log('ICE candidates aplicados!', 'success');
                 }
 
                 const answer = await pc.createAnswer();
                 await pc.setLocalDescription(answer);
+                log('Answer criado!', 'success');
 
                 await waitICE();
 
-                log('Salvando answer (' + iceList.length + ' ICE)...');
+                log('Salvando answer (' + iceList.length + ' ICE candidates)...');
                 await db.ref('rooms/' + roomId + '/answer').set({
                     type: answer.type,
                     sdp: answer.sdp,
@@ -507,29 +613,34 @@
                     ts: Date.now()
                 });
 
-                log('Answer salvo!');
+                log('Answer salvo!', 'success');
+                addMsg('', 'Estabelecendo conexao P2P...', 'system');
             }
         } catch (error) {
-            log('ERRO WebRTC: ' + error.message);
+            log('ERRO WebRTC: ' + error.message, 'error');
             addMsg('', 'ERRO: ' + error.message, 'system');
+            alert('ERRO WebRTC: ' + error.message);
         }
     }
 
     function waitICE() {
         return new Promise(function(resolve) {
             if (pc.iceGatheringState === 'complete') {
+                log('ICE ja completo!');
                 resolve();
             } else {
+                log('Aguardando ICE gathering...');
                 function check() {
                     if (pc.iceGatheringState === 'complete') {
                         pc.removeEventListener('icegatheringstatechange', check);
+                        log('ICE gathering finalizado!', 'success');
                         resolve();
                     }
                 }
                 pc.addEventListener('icegatheringstatechange', check);
                 setTimeout(function() {
                     pc.removeEventListener('icegatheringstatechange', check);
-                    log('ICE timeout (continuando com ' + iceList.length + ')');
+                    log('ICE timeout (continuando com ' + iceList.length + ' candidates)');
                     resolve();
                 }, 10000);
             }
@@ -537,15 +648,17 @@
     }
 
     function setupDC() {
-        log('Setup DataChannel...');
+        log('Configurando DataChannel...');
 
         dc.onopen = function() {
-            log('CONECTADO!');
+            log('DataChannel ABERTO!', 'success');
             document.getElementById('p2pStatus').textContent = 'P2P ATIVO';
             document.getElementById('messageInput').disabled = false;
-            document.getElementById('messageInput').placeholder = 'Digite...';
+            document.getElementById('messageInput').placeholder = 'Digite sua mensagem...';
             document.getElementById('sendBtn').disabled = false;
             isReady = true;
+
+            addMsg('', 'Conexao P2P estabelecida!', 'system');
 
             dc.send(JSON.stringify({ type: 'hello', user: myUsername }));
         };
@@ -553,15 +666,21 @@
         dc.onmessage = function(e) {
             const data = JSON.parse(e.data);
             if (data.type === 'hello') {
-                addMsg('', data.user + ' entrou!', 'system');
+                addMsg('', data.user + ' entrou no chat!', 'system');
             } else if (data.type === 'msg') {
                 addMsg(data.user, data.text, 'peer');
             }
         };
 
         dc.onclose = function() {
-            log('Desconectado');
+            log('DataChannel fechado');
+            addMsg('', 'Peer desconectou', 'system');
+            document.getElementById('p2pStatus').textContent = 'DESCONECTADO';
             isReady = false;
+        };
+
+        dc.onerror = function(error) {
+            log('DataChannel erro: ' + error, 'error');
         };
     }
 
@@ -582,12 +701,11 @@
     });
 
     // Start
-    log('Sistema iniciando...');
+    log('paranOS iniciando...');
 
     setTimeout(function() {
-        if (!initFirebase()) {
-            log('Falha ao inicializar!');
-        }
+        checkWebRTC();
+        initFirebase();
     }, 500);
 
 })();
