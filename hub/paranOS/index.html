@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>paranOS | Anonymous P2P Chat</title>
+    <title>paranOS - Chat P2P</title>
 
-    <script type="text/javascript" nonce="d402022b187f4419864b2c32f02" src="//local.adguard.org?ts=1769291150859&amp;type=content-script&amp;dmn=ppl-ai-code-interpreter-files.s3.amazonaws.com&amp;url=https%3A%2F%2Fppl-ai-code-interpreter-files.s3.amazonaws.com%2Fweb%2Fdirect-files%2Faa7e6f0c939befbed48b1a619d2efb3d%2F6d4ed80a-2496-4941-94bf-551875d4e7cf%2F74ac0fb1.html%3Fresponse-content-disposition%3Dattachment%253B%2520filename%253Dparanos-v15-REESCRITO.html%253B%2520filename%252A%253DUTF-8%2527%2527paranos-v15-REESCRITO.html%26AWSAccessKeyId%3DASIA2F3EMEYE2BHQINL7%26Signature%3Dcm0BvHyPJyynt3%252BFKmuyRDddWmo%253D%26x-amz-security-token%3DIQoJb3JpZ2luX2VjEE4aCXVzLWVhc3QtMSJIMEYCIQCDC3NFz70dww8Io2%252BljbevJwLPfTG8nRno9pm%252Fd1oGBQIhALZr8IfFIiyF1rRyyvicXb3kRU%252Fj17XSNTdFXv1gQaC3KvMECBcQARoMNjk5NzUzMzA5NzA1IgwCCtL1y6WwIKJgBNYq0ARThcB2OpUZJs3W0IoBqUsds9KrER2ho%252FEe5DW%252B1QFvMDmqYewbgcsOiTIHlG1CE0A3c2AMLoFw3U%252Bj4k%252B%252BDy21%252FCJQMm8%252B9UfaT4Y0b%252BnzdpczhsQJUY%252FZUSmJwpXpV6d%252BE7ceyLbX%252FUtgRCs2m75c0zU7hc85ZGV7mODmzg2q6Yl1njFuPAwCJ3N%252FzvRLPNuOzdd4YXgWQzikhqT0lCg2GCZMk%252BCMKrO9ZH4svZ%252BwFPmU%252B7pc%252BK0preDtGyZtqTCsAiVojPeO1XapBVU7Gb%252FeSZP1btYGxe3TIvE%252BB5C1EgEEFDjTRj4g18Ug5RKbG2LCneyy5kpOFL3y2SbT31aAI1K2OlFjgjZufwgIeQcAGenRFz8N4N%252B2TBdoXqGS0pvlbAT0%252B06ev22n8Wlmz3rN%252BZnniHPHz1eqd1E40DCh%252BzwGmDkdMBQjoBYMUw4EwK4ivp%252FnndSbAOIltSJGFhkDXmjBmAwVg8rxPhqnkCLP1a5JshYyy9IIQz%252BDFPraFbcSxsAbxKlP6KqLgEKTcJwUAv1sWiJGFwM%252Fhz7NazhRDMGfHSN6R%252BAik9Q8xMYoYaH%252BXdKoa867Ps9a48U2hvfhapFZif2QxFH11ZRLrGtEwKyvVb479AT5CLIdrfq6EU3AgPohgEArimac75hLbPNx%252BFa2om1lOAFeC3Q4kTvTm7yOIgk59DQvB1AJt9VCzme6t2bww7KTU7yPBBzWAH7W1R7RrmsfEw59jUEjXBnw6RKCLihWzLnCSnbMvOAq6BHuDvFywHbpj3sIYwXK%252F6%252FAMKCB1csGOpcBKkMp%252FbvN7US7rHzWAox8pepYpA%252BpCW%252FIlpkt4RtnCtU6GIPzEwUFyiQEdpOWaeJjJ6BItfwN9lzag2eyazZ8ApklzLCJjNRIUDZdu8zPinlcjbe%252FmOZE4ZsF%252BM7r9tzk5ZjrMoTi9X4o5A7%252FDGL%252BtgRo9ShOZGjEu6HWf5XTcDNEAEnDUPikyjWPxa03%252FxZx6nBz1IK%252BHw%253D%253D%26Expires%3D1769292985&amp;app=com.apple.Safari&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1&amp;stealth=1&amp;st-ua=TW96aWxsYS81LjAgKE1hY2ludG9zaDsgSW50ZWwgTWFjIE9TIFggMTBfMTVfNykgQXBwbGVXZWJLaXQvNjA1LjEuMTUgKEtIVE1MLCBsaWtlIEdlY2tvKSBWZXJzaW9uLzI2LjIgU2FmYXJpLzYwNS4xLjE1&amp;st-ch-brands=&amp;st-ch-mobile=&amp;st-ch-platform=&amp;st-wrtc&amp;st-push&amp;st-loc&amp;st-java&amp;st-dnt"></script><script type="text/javascript" nonce="d402022b187f4419864b2c32f02" src="//local.adguard.org?ts=1769291150859&amp;name=AdGuard%20Extra&amp;type=user-script"></script><script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 
     <style>
@@ -25,17 +24,13 @@
             overflow: hidden;
         }
 
-        body::before {
-            content: '';
+        .scanlines {
             position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: repeating-linear-gradient(
-                0deg,
-                rgba(0, 0, 0, 0.15),
-                rgba(0, 0, 0, 0.15) 1px,
-                transparent 1px,
-                transparent 2px
-            );
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(0deg, rgba(0,0,0,0.15), rgba(0,0,0,0.15) 1px, transparent 1px, transparent 2px);
             pointer-events: none;
             z-index: 9999;
         }
@@ -53,7 +48,6 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
         }
 
         .logo {
@@ -63,7 +57,7 @@
             letter-spacing: 3px;
         }
 
-        .status {
+        .status-bar {
             display: flex;
             gap: 20px;
             font-size: 0.8rem;
@@ -80,22 +74,14 @@
             height: 8px;
             border-radius: 50%;
             background: #ffd700;
-            animation: pulse 1.5s infinite;
         }
 
-        .dot.connected {
+        .dot.active {
             background: #00ff41;
-            animation: none;
         }
 
         .dot.error {
             background: #ff0055;
-            animation: none;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
         }
 
         .setup-screen {
@@ -113,21 +99,36 @@
             padding: 40px;
             max-width: 500px;
             width: 100%;
-            box-shadow: 0 0 30px rgba(0, 255, 65, 0.2);
         }
 
-        .setup-title {
+        .title {
             font-size: 1.8rem;
             margin-bottom: 10px;
             text-align: center;
             text-shadow: 0 0 10px #00ff41;
         }
 
-        .setup-subtitle {
+        .subtitle {
             font-size: 0.9rem;
             color: #00cc33;
             text-align: center;
             margin-bottom: 30px;
+        }
+
+        .log-box {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid #00ff41;
+            border-radius: 6px;
+            padding: 15px;
+            margin-bottom: 20px;
+            max-height: 200px;
+            overflow-y: auto;
+            font-size: 0.75rem;
+        }
+
+        .log-item {
+            margin-bottom: 5px;
+            padding: 3px 0;
         }
 
         .input-group {
@@ -138,7 +139,6 @@
             display: block;
             margin-bottom: 8px;
             font-size: 0.85rem;
-            color: #00ff41;
         }
 
         input, select {
@@ -157,10 +157,6 @@
             box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
         }
 
-        input::placeholder {
-            color: #006622;
-        }
-
         .btn {
             width: 100%;
             background: #00ff41;
@@ -173,13 +169,11 @@
             cursor: pointer;
             text-transform: uppercase;
             letter-spacing: 2px;
-            transition: all 0.3s;
             font-family: inherit;
         }
 
         .btn:hover:not(:disabled) {
             background: #00cc33;
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
         }
 
         .btn:disabled {
@@ -195,8 +189,7 @@
             color: #006622;
         }
 
-        .divider::before,
-        .divider::after {
+        .divider::before, .divider::after {
             content: '';
             position: absolute;
             top: 50%;
@@ -224,32 +217,7 @@
             border-bottom: 1px solid #00ff41;
             display: flex;
             justify-content: space-between;
-            align-items: center;
             font-size: 0.85rem;
-        }
-
-        .p2p-status {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .p2p-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: #ffd700;
-            animation: pulse 1s infinite;
-        }
-
-        .p2p-dot.ready {
-            background: #00ff41;
-            animation: none;
-        }
-
-        .timer {
-            color: #ff0055;
-            font-weight: 700;
         }
 
         .messages {
@@ -265,12 +233,6 @@
             border-radius: 8px;
             max-width: 70%;
             word-wrap: break-word;
-            animation: fadeIn 0.3s;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .message.system {
@@ -292,33 +254,12 @@
             border: 1px solid #006622;
         }
 
-        .message-author {
-            font-weight: 700;
-            font-size: 0.8rem;
-            margin-bottom: 4px;
-            color: #00ff41;
-        }
-
-        .message-text {
-            line-height: 1.5;
-        }
-
-        .message-time {
-            font-size: 0.7rem;
-            color: #006622;
-            margin-top: 4px;
-        }
-
         .input-area {
             background: #001a0d;
             border-top: 2px solid #00ff41;
             padding: 20px;
             display: flex;
             gap: 10px;
-        }
-
-        #messageInput {
-            flex: 1;
         }
 
         .btn-send {
@@ -338,87 +279,44 @@
             background: #00ff41;
             border-radius: 10px;
         }
-
-        .warning {
-            background: rgba(255, 0, 85, 0.1);
-            border: 1px solid #ff0055;
-            padding: 12px;
-            border-radius: 6px;
-            margin-top: 20px;
-            font-size: 0.8rem;
-            color: #ff0055;
-        }
-
-        .status-message {
-            text-align: center;
-            color: #ffd700;
-            margin-bottom: 15px;
-            font-size: 0.85rem;
-            min-height: 20px;
-        }
-
-        .toast {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: #00ff41;
-            color: #000;
-            padding: 15px 25px;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            box-shadow: 0 0 30px rgba(0, 255, 65, 0.5);
-            z-index: 10000;
-            animation: slideIn 0.3s, slideOut 0.3s 2.7s;
-        }
-
-        @keyframes slideIn {
-            from { transform: translateX(400px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        @keyframes slideOut {
-            from { transform: translateX(0); opacity: 1; }
-            to { transform: translateX(400px); opacity: 0; }
-        }
-
     </style>
 </head>
 <body>
 
+<div class="scanlines"></div>
+
 <div class="container">
     <div class="header">
         <div class="logo">[ paranOS ]</div>
-        <div class="status">
+        <div class="status-bar">
             <div class="status-item">
-                <div class="dot" id="connectionDot"></div>
-                <span id="statusText">INICIANDO...</span>
+                <div class="dot" id="fbDot"></div>
+                <span id="fbStatus">INICIANDO</span>
             </div>
             <div class="status-item">
-                <span id="timeDisplay">--:--</span>
+                <span id="clock">--:--</span>
             </div>
         </div>
     </div>
 
     <div class="setup-screen" id="setupScreen">
         <div class="setup-box">
-            <h1 class="setup-title">ACESSO ANÔNIMO</h1>
-            <p class="setup-subtitle">Chat P2P • Zero Logs • Criptografado</p>
+            <h1 class="title">ACESSO ANÔNIMO</h1>
+            <p class="subtitle">Chat P2P - Zero Logs - Criptografado</p>
 
-            <div class="status-message" id="statusMessage">Carregando...</div>
+            <div class="log-box" id="logBox"></div>
 
             <div class="input-group">
-                <label>USERNAME (Anônimo)</label>
+                <label>USERNAME</label>
                 <input type="text" id="username" placeholder="Digite seu codinome..." maxlength="20">
             </div>
 
             <div class="input-group">
-                <label>TEMPO DE EXPIRAÇÃO</label>
+                <label>TEMPO DE EXPIRACAO</label>
                 <select id="expiration">
                     <option value="10">10 minutos</option>
                     <option value="30" selected>30 minutos</option>
                     <option value="60">60 minutos</option>
-                    <option value="120">2 horas</option>
                 </select>
             </div>
 
@@ -427,652 +325,339 @@
             <div class="divider">OU</div>
 
             <div class="input-group">
-                <label>ID DA SALA (Recebido do criador)</label>
+                <label>ID DA SALA</label>
                 <input type="text" id="roomId" placeholder="Cole o ID aqui">
             </div>
 
             <button class="btn" id="joinBtn" disabled>CONECTAR</button>
-
-            <div class="warning">
-                ⚠️ Chat P2P via WebRTC. Firebase necessário para sinalização.
-            </div>
         </div>
     </div>
 
     <div class="chat-screen" id="chatScreen">
         <div class="chat-info">
-            <div class="p2p-status">
-                <div class="p2p-dot" id="p2pDot"></div>
-                <span id="p2pStatus">CONECTANDO...</span>
-            </div>
-            <div>
-                <span style="color: #00ff41;">USER:</span> 
-                <span id="usernameDisplay">-</span>
-            </div>
-            <div class="timer">
-                EXPIRA: <span id="expirationTimer">--:--</span>
-            </div>
+            <div>USER: <span id="userDisplay">-</span></div>
+            <div id="p2pStatus">CONECTANDO...</div>
+            <div>EXPIRA: <span id="timer">--:--</span></div>
         </div>
 
         <div class="messages" id="messages"></div>
 
         <div class="input-area">
-            <input type="text" id="messageInput" placeholder="Aguarde conexão P2P..." disabled>
+            <input type="text" id="messageInput" placeholder="Aguarde..." disabled>
             <button class="btn btn-send" id="sendBtn" disabled>ENVIAR</button>
         </div>
     </div>
 </div>
 
 <script>
-    // ============================================
-    // CONFIGURAÇÃO FIREBASE
-    // ============================================
-    const firebaseConfig = {
-        apiKey: "AIzaSyDF0rikXftQM5WmRRJ_XUsL_EzJybUJK3A",
-        authDomain: "nephos-1304c.firebaseapp.com",
-        databaseURL: "https://nephos-1304c-default-rtdb.firebaseio.com",
-        projectId: "nephos-1304c",
-        storageBucket: "nephos-1304c.firebasestorage.app",
-        messagingSenderId: "33963342048",
-        appId: "1:33963342048:web:17ba3249dcc5e2c80f3885"
+// Config
+const firebaseConfig = {
+    apiKey: "AIzaSyDF0rikXftQM5WmRRJ_XUsL_EzJybUJK3A",
+    authDomain: "nephos-1304c.firebaseapp.com",
+    databaseURL: "https://nephos-1304c-default-rtdb.firebaseio.com",
+    projectId: "nephos-1304c",
+    storageBucket: "nephos-1304c.firebasestorage.app",
+    messagingSenderId: "33963342048",
+    appId: "1:33963342048:web:17ba3249dcc5e2c80f3885"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+
+// Vars
+let myUsername = '';
+let roomId = '';
+let pc = null;
+let dc = null;
+let isReady = false;
+let isInitiator = false;
+let iceList = [];
+
+const rtcConfig = {
+    iceServers: [
+        { urls: 'stun:stun.l.google.com:19302' },
+        { urls: 'stun:stun1.l.google.com:19302' }
+    ]
+};
+
+// Helpers
+function log(msg) {
+    console.log(msg);
+    const box = document.getElementById('logBox');
+    const item = document.createElement('div');
+    item.className = 'log-item';
+    item.textContent = msg;
+    box.appendChild(item);
+    box.scrollTop = box.scrollHeight;
+}
+
+function updateFB(status, isOk) {
+    document.getElementById('fbStatus').textContent = status;
+    const dot = document.getElementById('fbDot');
+    dot.className = 'dot ' + (isOk ? 'active' : (isOk === false ? 'error' : ''));
+}
+
+function addMsg(user, text, type) {
+    const msgs = document.getElementById('messages');
+    const m = document.createElement('div');
+    m.className = 'message ' + type;
+    m.textContent = (type === 'system' ? text : user + ': ' + text);
+    msgs.appendChild(m);
+    msgs.scrollTop = msgs.scrollHeight;
+}
+
+function genId() {
+    return Math.random().toString(36).substring(2, 10) + Date.now().toString(36);
+}
+
+// Clock
+setInterval(() => {
+    document.getElementById('clock').textContent = new Date().toLocaleTimeString('pt-BR', {hour: '2-digit', minute: '2-digit'});
+}, 1000);
+
+// Init Firebase
+log('Conectando Firebase...');
+db.ref('.info/connected').on('value', (snap) => {
+    if (snap.val()) {
+        log('Firebase OK!');
+        updateFB('ONLINE', true);
+        document.getElementById('createBtn').disabled = false;
+        document.getElementById('joinBtn').disabled = false;
+    } else {
+        log('Firebase OFFLINE');
+        updateFB('OFFLINE', false);
+    }
+});
+
+// Create
+document.getElementById('createBtn').addEventListener('click', async () => {
+    myUsername = document.getElementById('username').value.trim();
+    if (!myUsername) {
+        alert('Digite username!');
+        return;
+    }
+
+    isInitiator = true;
+    roomId = genId();
+    const exp = Date.now() + (parseInt(document.getElementById('expiration').value) * 60000);
+
+    log('Criando sala: ' + roomId);
+
+    await db.ref('rooms/' + roomId).set({
+        creator: myUsername,
+        created: Date.now(),
+        expires: exp
+    });
+
+    try {
+        await navigator.clipboard.writeText(roomId);
+        alert('ID copiado: ' + roomId);
+    } catch {
+        prompt('ID da sala:', roomId);
+    }
+
+    document.getElementById('setupScreen').style.display = 'none';
+    document.getElementById('chatScreen').classList.add('active');
+    document.getElementById('userDisplay').textContent = myUsername;
+
+    addMsg('', 'Sala criada! Aguardando peer...', 'system');
+
+    initWebRTC();
+});
+
+// Join
+document.getElementById('joinBtn').addEventListener('click', async () => {
+    myUsername = document.getElementById('username').value.trim();
+    roomId = document.getElementById('roomId').value.trim();
+
+    if (!myUsername || !roomId) {
+        alert('Preencha tudo!');
+        return;
+    }
+
+    isInitiator = false;
+
+    log('Entrando: ' + roomId);
+
+    const snap = await db.ref('rooms/' + roomId).once('value');
+    if (!snap.exists()) {
+        alert('Sala nao encontrada!');
+        return;
+    }
+
+    document.getElementById('setupScreen').style.display = 'none';
+    document.getElementById('chatScreen').classList.add('active');
+    document.getElementById('userDisplay').textContent = myUsername;
+
+    addMsg('', 'Conectando...', 'system');
+
+    waitOffer();
+});
+
+// Wait offer
+async function waitOffer() {
+    log('Aguardando offer...');
+
+    db.ref('rooms/' + roomId + '/offer').on('value', async (snap) => {
+        const offer = snap.val();
+        if (offer && offer.sdp) {
+            log('Offer recebido!');
+            db.ref('rooms/' + roomId + '/offer').off();
+            await initWebRTC(offer);
+        }
+    });
+}
+
+// WebRTC
+async function initWebRTC(remoteOffer) {
+    log('Iniciando WebRTC...');
+
+    pc = new RTCPeerConnection(rtcConfig);
+    iceList = [];
+
+    pc.onicecandidate = (e) => {
+        if (e.candidate) {
+            iceList.push(e.candidate.toJSON());
+        }
     };
 
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-
-    // ============================================
-    // VARIÁVEIS GLOBAIS
-    // ============================================
-    let myUsername = '';
-    let roomId = '';
-    let expirationMinutes = 30;
-    let expirationTime = null;
-    let timerInterval = null;
-    let pc = null;
-    let dc = null;
-    let isReady = false;
-    let isInitiator = false;
-    let iceCandidates = [];
-
-    // Configuração WebRTC com múltiplos STUN servers
-    const rtcConfig = {
-        iceServers: [
-            { urls: 'stun:stun.l.google.com:19302' },
-            { urls: 'stun:stun1.l.google.com:19302' },
-            { urls: 'stun:stun2.l.google.com:19302' },
-            { urls: 'stun:stun3.l.google.com:19302' },
-            { urls: 'stun:stun4.l.google.com:19302' }
-        ],
-        iceCandidatePoolSize: 10
+    pc.onconnectionstatechange = () => {
+        log('P2P: ' + pc.connectionState);
     };
 
-    // ============================================
-    // INICIALIZAÇÃO
-    // ============================================
-    console.log('%c[paranOS v15] 🚀 Inicializando...', 'color: #00ff41; font-weight: bold;');
+    if (isInitiator) {
+        dc = pc.createDataChannel('chat');
+        setupDC();
 
-    // Relógio
-    setInterval(() => {
-        document.getElementById('timeDisplay').textContent = 
-            new Date().toLocaleTimeString('pt-BR', {hour: '2-digit', minute: '2-digit'});
-    }, 1000);
+        const offer = await pc.createOffer();
+        await pc.setLocalDescription(offer);
 
-    // Testa conexão Firebase
-    db.ref('.info/connected').on('value', (snap) => {
-        if (snap.val()) {
-            updateStatus('✅ Sistema pronto!', 'success');
-            document.getElementById('createBtn').disabled = false;
-            document.getElementById('joinBtn').disabled = false;
-            console.log('✅ Firebase conectado');
-        } else {
-            updateStatus('❌ Firebase offline', 'error');
-            console.error('❌ Firebase desconectado');
-        }
-    });
+        await waitICE();
 
-    // ============================================
-    // FUNÇÕES AUXILIARES
-    // ============================================
-    function toast(msg) {
-        const t = document.createElement('div');
-        t.className = 'toast';
-        t.textContent = msg;
-        document.body.appendChild(t);
-        setTimeout(() => t.remove(), 3000);
-    }
-
-    function updateStatus(msg, type = 'loading') {
-        const statusMsg = document.getElementById('statusMessage');
-        const statusText = document.getElementById('statusText');
-        const dot = document.getElementById('connectionDot');
-
-        statusMsg.textContent = msg;
-
-        if (type === 'success') {
-            dot.classList.add('connected');
-            dot.classList.remove('error');
-            statusText.textContent = 'ONLINE';
-        } else if (type === 'error') {
-            dot.classList.add('error');
-            dot.classList.remove('connected');
-            statusText.textContent = 'ERRO';
-        } else {
-            dot.classList.remove('connected', 'error');
-            statusText.textContent = 'CARREGANDO';
-        }
-    }
-
-    function updateP2P(msg, ready = false) {
-        const status = document.getElementById('p2pStatus');
-        const dot = document.getElementById('p2pDot');
-        const input = document.getElementById('messageInput');
-        const btn = document.getElementById('sendBtn');
-
-        status.textContent = msg;
-
-        if (ready) {
-            dot.classList.add('ready');
-            input.disabled = false;
-            input.placeholder = 'Digite sua mensagem...';
-            input.focus();
-            btn.disabled = false;
-            isReady = true;
-        } else {
-            dot.classList.remove('ready');
-            input.disabled = true;
-            btn.disabled = true;
-            isReady = false;
-        }
-    }
-
-    function genId() {
-        return Math.random().toString(36).substring(2, 10) + Date.now().toString(36);
-    }
-
-    function showChat() {
-        document.getElementById('setupScreen').style.display = 'none';
-        document.getElementById('chatScreen').classList.add('active');
-        document.getElementById('usernameDisplay').textContent = myUsername;
-    }
-
-    function addMsg(user, text, type) {
-        const msgs = document.getElementById('messages');
-        const m = document.createElement('div');
-        m.className = 'message ' + type;
-
-        const time = new Date().toLocaleTimeString('pt-BR', {hour: '2-digit', minute: '2-digit'});
-
-        m.innerHTML = `<div class="message-author">${esc(user)}</div>` +
-                      `<div class="message-text">${esc(text)}</div>` +
-                      `<div class="message-time">${time}</div>`;
-
-        msgs.appendChild(m);
-        msgs.scrollTop = msgs.scrollHeight;
-    }
-
-    function addSys(text) {
-        const msgs = document.getElementById('messages');
-        const m = document.createElement('div');
-        m.className = 'message system';
-        m.innerHTML = `<div class="message-text">⚙️ ${esc(text)}</div>`;
-        msgs.appendChild(m);
-        msgs.scrollTop = msgs.scrollHeight;
-    }
-
-    function esc(t) {
-        const d = document.createElement('div');
-        d.textContent = t;
-        return d.innerHTML;
-    }
-
-    // ============================================
-    // CRIAR SALA
-    // ============================================
-    document.getElementById('createBtn').addEventListener('click', async () => {
-        myUsername = document.getElementById('username').value.trim();
-        expirationMinutes = parseInt(document.getElementById('expiration').value);
-
-        if (!myUsername) {
-            alert('⚠️ Digite um username!');
-            return;
-        }
-
-        isInitiator = true;
-        roomId = genId();
-        const expires = Date.now() + (expirationMinutes * 60 * 1000);
-
-        console.log('%c[CRIAR SALA] 🏗️ ID: ' + roomId, 'color: #ffd700; font-weight: bold;');
-
-        // Cria sala no Firebase
-        try {
-            await db.ref('rooms/' + roomId).set({
-                creator: myUsername,
-                created: Date.now(),
-                expires: expires,
-                status: 'waiting'
-            });
-            console.log('✅ Sala criada no Firebase');
-        } catch (error) {
-            console.error('❌ Erro ao criar sala:', error);
-            alert('❌ Erro ao criar sala: ' + error.message);
-            return;
-        }
-
-        // Copia ID
-        try {
-            await navigator.clipboard.writeText(roomId);
-            toast('📋 ID COPIADO: ' + roomId);
-        } catch {
-            prompt('📋 Copie o ID da sala:', roomId);
-        }
-
-        showChat();
-        startTimer(expires);
-        addSys('✅ Sala criada! ID: ' + roomId);
-        addSys('⏳ Aguardando peer...');
-
-        // Inicia WebRTC
-        await initWebRTC();
-    });
-
-    // ============================================
-    // ENTRAR NA SALA
-    // ============================================
-    document.getElementById('joinBtn').addEventListener('click', async () => {
-        myUsername = document.getElementById('username').value.trim();
-        roomId = document.getElementById('roomId').value.trim();
-
-        if (!myUsername || !roomId) {
-            alert('⚠️ Preencha username e ID!');
-            return;
-        }
-
-        isInitiator = false;
-
-        console.log('%c[ENTRAR] 🔗 Sala: ' + roomId, 'color: #ffd700; font-weight: bold;');
-
-        // Verifica se sala existe
-        try {
-            const snapshot = await db.ref('rooms/' + roomId).once('value');
-            if (!snapshot.exists()) {
-                alert('❌ Sala não encontrada! Verifique o ID.');
-                return;
-            }
-
-            const roomData = snapshot.val();
-
-            showChat();
-            startTimer(roomData.expires);
-            addSys('🔄 Conectando à sala...');
-
-            // Aguarda offer estar disponível
-            addSys('⏳ Aguardando criador...');
-            await waitForOffer();
-
-        } catch (error) {
-            console.error('❌ Erro ao entrar:', error);
-            alert('❌ Erro: ' + error.message);
-        }
-    });
-
-    // ============================================
-    // AGUARDA OFFER (JOINER)
-    // ============================================
-    async function waitForOffer() {
-        console.log('[JOINER] ⏳ Aguardando offer...');
-
-        return new Promise((resolve, reject) => {
-            const timeout = setTimeout(() => {
-                reject(new Error('Timeout aguardando offer'));
-            }, 30000);
-
-            db.ref('rooms/' + roomId + '/offer').on('value', async (snap) => {
-                const offer = snap.val();
-
-                if (offer && offer.sdp) {
-                    clearTimeout(timeout);
-                    console.log('[JOINER] ✅ Offer recebido!');
-                    addSys('✅ Criador encontrado!');
-
-                    // Remove listener
-                    db.ref('rooms/' + roomId + '/offer').off();
-
-                    // Inicia WebRTC
-                    await initWebRTC(offer);
-                    resolve();
-                }
-            });
+        log('Salvando offer...');
+        await db.ref('rooms/' + roomId + '/offer').set({
+            type: offer.type,
+            sdp: offer.sdp,
+            ice: iceList,
+            ts: Date.now()
         });
-    }
 
-    // ============================================
-    // WEBRTC - NÚCLEO REESCRITO
-    // ============================================
-    async function initWebRTC(remoteOffer = null) {
-        console.log('%c[WebRTC] 🚀 Iniciando como ' + (isInitiator ? 'INITIATOR' : 'JOINER'), 'color: #00ff41; font-weight: bold;');
+        log('Offer salvo! Aguardando answer...');
 
-        // Cria PeerConnection
-        pc = new RTCPeerConnection(rtcConfig);
-        iceCandidates = [];
+        db.ref('rooms/' + roomId + '/answer').on('value', async (snap) => {
+            const ans = snap.val();
+            if (ans && ans.sdp && !pc.currentRemoteDescription) {
+                log('Answer recebido!');
 
-        // Coleta ICE candidates
-        pc.onicecandidate = (event) => {
-            if (event.candidate) {
-                console.log('[ICE] 🧊 Candidate:', event.candidate.candidate.substring(0, 50) + '...');
-                iceCandidates.push(event.candidate.toJSON());
-            } else {
-                console.log('[ICE] ✅ Gathering completo! Total:', iceCandidates.length);
-            }
-        };
+                await pc.setRemoteDescription({ type: ans.type, sdp: ans.sdp });
 
-        pc.oniceconnectionstatechange = () => {
-            console.log('[ICE] Estado:', pc.iceConnectionState);
-            if (pc.iceConnectionState === 'connected') {
-                console.log('[ICE] ✅ CONECTADO!');
-            } else if (pc.iceConnectionState === 'failed') {
-                console.error('[ICE] ❌ FALHOU!');
-                addSys('❌ Falha na conexão P2P');
-            }
-        };
-
-        pc.onconnectionstatechange = () => {
-            console.log('[P2P] Estado:', pc.connectionState);
-            if (pc.connectionState === 'failed') {
-                addSys('❌ Conexão falhou. Recarregue.');
-            }
-        };
-
-        if (isInitiator) {
-            // ==========================================
-            // MODO CRIADOR (INITIATOR)
-            // ==========================================
-            console.log('[INITIATOR] 📤 Criando offer...');
-
-            // Cria DataChannel
-            dc = pc.createDataChannel('chat');
-            setupDataChannel();
-
-            // Cria offer
-            const offer = await pc.createOffer();
-            await pc.setLocalDescription(offer);
-
-            console.log('[INITIATOR] ⏳ Aguardando ICE gathering...');
-
-            // AGUARDA ICE GATHERING COMPLETO
-            await waitForICEGathering();
-
-            console.log('[INITIATOR] 📤 Salvando offer com ' + iceCandidates.length + ' ICE candidates...');
-
-            // Salva offer com todos ICE candidates
-            try {
-                await db.ref('rooms/' + roomId + '/offer').set({
-                    type: offer.type,
-                    sdp: offer.sdp,
-                    ice: iceCandidates,
-                    timestamp: Date.now()
-                });
-                console.log('[INITIATOR] ✅ Offer salvo!');
-                addSys('✅ Aguardando peer conectar...');
-            } catch (error) {
-                console.error('[INITIATOR] ❌ Erro ao salvar offer:', error);
-                addSys('❌ Erro ao salvar offer: ' + error.message);
-                return;
-            }
-
-            // Escuta answer
-            console.log('[INITIATOR] 👂 Aguardando answer...');
-            db.ref('rooms/' + roomId + '/answer').on('value', async (snap) => {
-                const answer = snap.val();
-
-                if (answer && answer.sdp && !pc.currentRemoteDescription) {
-                    console.log('[INITIATOR] 📥 Answer recebido!');
-                    addSys('📥 Peer conectou!');
-
-                    try {
-                        await pc.setRemoteDescription(new RTCSessionDescription({
-                            type: answer.type,
-                            sdp: answer.sdp
-                        }));
-
-                        console.log('[INITIATOR] ✅ Answer aplicado!');
-
-                        // Adiciona ICE candidates do peer
-                        if (answer.ice && answer.ice.length > 0) {
-                            console.log('[INITIATOR] 🧊 Adicionando ' + answer.ice.length + ' ICE candidates...');
-                            for (const ice of answer.ice) {
-                                try {
-                                    await pc.addIceCandidate(new RTCIceCandidate(ice));
-                                } catch (e) {
-                                    console.warn('[INITIATOR] ⚠️ ICE candidate inválido:', e);
-                                }
-                            }
-                            console.log('[INITIATOR] ✅ ICE candidates adicionados!');
-                        }
-
-                        addSys('⚡ Estabelecendo P2P...');
-
-                    } catch (error) {
-                        console.error('[INITIATOR] ❌ Erro ao processar answer:', error);
-                        addSys('❌ Erro: ' + error.message);
+                if (ans.ice) {
+                    for (const ice of ans.ice) {
+                        await pc.addIceCandidate(ice);
                     }
                 }
-            });
 
+                log('Answer aplicado!');
+            }
+        });
+
+    } else {
+        pc.ondatachannel = (e) => {
+            dc = e.channel;
+            setupDC();
+        };
+
+        await pc.setRemoteDescription({ type: remoteOffer.type, sdp: remoteOffer.sdp });
+
+        if (remoteOffer.ice) {
+            for (const ice of remoteOffer.ice) {
+                await pc.addIceCandidate(ice);
+            }
+        }
+
+        const answer = await pc.createAnswer();
+        await pc.setLocalDescription(answer);
+
+        await waitICE();
+
+        log('Salvando answer...');
+        await db.ref('rooms/' + roomId + '/answer').set({
+            type: answer.type,
+            sdp: answer.sdp,
+            ice: iceList,
+            ts: Date.now()
+        });
+
+        log('Answer salvo!');
+    }
+}
+
+function waitICE() {
+    return new Promise((resolve) => {
+        if (pc.iceGatheringState === 'complete') {
+            resolve();
         } else {
-            // ==========================================
-            // MODO JOINER (RESPONDER)
-            // ==========================================
-            console.log('[JOINER] 📥 Processando offer...');
-
-            // Listener para DataChannel
-            pc.ondatachannel = (event) => {
-                dc = event.channel;
-                setupDataChannel();
+            const check = () => {
+                if (pc.iceGatheringState === 'complete') {
+                    pc.removeEventListener('icegatheringstatechange', check);
+                    resolve();
+                }
             };
-
-            try {
-                // Aplica offer remoto
-                await pc.setRemoteDescription(new RTCSessionDescription({
-                    type: remoteOffer.type,
-                    sdp: remoteOffer.sdp
-                }));
-                console.log('[JOINER] ✅ Offer aplicado!');
-
-                // Adiciona ICE candidates do criador
-                if (remoteOffer.ice && remoteOffer.ice.length > 0) {
-                    console.log('[JOINER] 🧊 Adicionando ' + remoteOffer.ice.length + ' ICE candidates...');
-                    for (const ice of remoteOffer.ice) {
-                        try {
-                            await pc.addIceCandidate(new RTCIceCandidate(ice));
-                        } catch (e) {
-                            console.warn('[JOINER] ⚠️ ICE candidate inválido:', e);
-                        }
-                    }
-                    console.log('[JOINER] ✅ ICE candidates adicionados!');
-                }
-
-                // Cria answer
-                const answer = await pc.createAnswer();
-                await pc.setLocalDescription(answer);
-
-                console.log('[JOINER] ⏳ Aguardando ICE gathering...');
-
-                // AGUARDA ICE GATHERING COMPLETO
-                await waitForICEGathering();
-
-                console.log('[JOINER] 📤 Salvando answer com ' + iceCandidates.length + ' ICE candidates...');
-
-                // Salva answer com todos ICE candidates
-                try {
-                    await db.ref('rooms/' + roomId + '/answer').set({
-                        type: answer.type,
-                        sdp: answer.sdp,
-                        ice: iceCandidates,
-                        timestamp: Date.now()
-                    });
-                    console.log('[JOINER] ✅ Answer salvo!');
-                    addSys('✅ Resposta enviada!');
-                    addSys('⚡ Estabelecendo P2P...');
-                } catch (error) {
-                    console.error('[JOINER] ❌ Erro ao salvar answer:', error);
-                    addSys('❌ Erro ao salvar answer: ' + error.message);
-                    alert('❌ ERRO CRÍTICO ao salvar answer: ' + error.message + '
-
-Verifique as regras do Firebase!');
-                    return;
-                }
-
-            } catch (error) {
-                console.error('[JOINER] ❌ Erro:', error);
-                addSys('❌ Erro: ' + error.message);
-            }
-        }
-    }
-
-    // ============================================
-    // AGUARDA ICE GATHERING COMPLETO
-    // ============================================
-    function waitForICEGathering() {
-        return new Promise((resolve) => {
-            if (pc.iceGatheringState === 'complete') {
+            pc.addEventListener('icegatheringstatechange', check);
+            setTimeout(() => {
+                pc.removeEventListener('icegatheringstatechange', check);
                 resolve();
-            } else {
-                const checkState = () => {
-                    if (pc.iceGatheringState === 'complete') {
-                        pc.removeEventListener('icegatheringstatechange', checkState);
-                        resolve();
-                    }
-                };
-                pc.addEventListener('icegatheringstatechange', checkState);
-
-                // Timeout de 10 segundos
-                setTimeout(() => {
-                    pc.removeEventListener('icegatheringstatechange', checkState);
-                    console.warn('[ICE] ⏱️ Timeout gathering (continuando com ' + iceCandidates.length + ' candidates)');
-                    resolve();
-                }, 10000);
-            }
-        });
-    }
-
-    // ============================================
-    // DATA CHANNEL
-    // ============================================
-    function setupDataChannel() {
-        console.log('[DC] 📡 Configurando DataChannel...');
-
-        dc.onopen = () => {
-            console.log('%c[DC] ✅ ABERTO!', 'color: #00ff41; font-weight: bold; font-size: 16px;');
-            addSys('✅ Conexão P2P estabelecida!');
-            updateP2P('P2P ATIVO ✓', true);
-
-            // Envia saudação
-            dc.send(JSON.stringify({
-                type: 'hello',
-                user: myUsername,
-                timestamp: Date.now()
-            }));
-        };
-
-        dc.onmessage = (event) => {
-            try {
-                const data = JSON.parse(event.data);
-                console.log('[DC] 📨 Mensagem:', data.type);
-
-                if (data.type === 'hello') {
-                    addSys('👋 ' + data.user + ' entrou!');
-                } else if (data.type === 'message') {
-                    addMsg(data.user, data.text, 'peer');
-                }
-            } catch (e) {
-                console.error('[DC] ❌ Erro ao processar mensagem:', e);
-            }
-        };
-
-        dc.onclose = () => {
-            console.log('[DC] ❌ Fechado');
-            addSys('⚠️ Peer desconectou');
-            updateP2P('DESCONECTADO', false);
-        };
-
-        dc.onerror = (error) => {
-            console.error('[DC] ❌ Erro:', error);
-        };
-    }
-
-    // ============================================
-    // ENVIAR MENSAGEM
-    // ============================================
-    function send() {
-        const input = document.getElementById('messageInput');
-        const text = input.value.trim();
-
-        if (!text || !isReady || !dc || dc.readyState !== 'open') {
-            console.warn('[SEND] ⚠️ Não pode enviar');
-            return;
+            }, 10000);
         }
-
-        try {
-            dc.send(JSON.stringify({
-                type: 'message',
-                user: myUsername,
-                text: text,
-                timestamp: Date.now()
-            }));
-
-            addMsg(myUsername, text, 'me');
-            input.value = '';
-            console.log('[SEND] ✅ Mensagem enviada');
-        } catch (error) {
-            console.error('[SEND] ❌ Erro:', error);
-            addSys('❌ Erro ao enviar mensagem');
-        }
-    }
-
-    document.getElementById('sendBtn').addEventListener('click', send);
-    document.getElementById('messageInput').addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') send();
     });
+}
 
-    // ============================================
-    // TIMER
-    // ============================================
-    function startTimer(expires) {
-        expirationTime = expires;
+function setupDC() {
+    log('Setup DataChannel...');
 
-        timerInterval = setInterval(() => {
-            const remaining = expirationTime - Date.now();
+    dc.onopen = () => {
+        log('CONECTADO!');
+        document.getElementById('p2pStatus').textContent = 'P2P ATIVO';
+        document.getElementById('messageInput').disabled = false;
+        document.getElementById('messageInput').placeholder = 'Digite...';
+        document.getElementById('sendBtn').disabled = false;
+        isReady = true;
 
-            if (remaining <= 0) {
-                clearInterval(timerInterval);
-                expire();
-                return;
-            }
+        dc.send(JSON.stringify({ type: 'hello', user: myUsername }));
+    };
 
-            const mins = Math.floor(remaining / 60000);
-            const secs = Math.floor((remaining % 60000) / 1000);
-            document.getElementById('expirationTimer').textContent = 
-                mins.toString().padStart(2, '0') + ':' + secs.toString().padStart(2, '0');
-        }, 1000);
-    }
-
-    async function expire() {
-        addSys('⏰ Sala expirada!');
-
-        if (dc) dc.close();
-        if (pc) pc.close();
-
-        try {
-            await db.ref('rooms/' + roomId).remove();
-        } catch (e) {
-            console.error('Erro ao remover sala:', e);
+    dc.onmessage = (e) => {
+        const data = JSON.parse(e.data);
+        if (data.type === 'hello') {
+            addMsg('', data.user + ' entrou!', 'system');
+        } else if (data.type === 'msg') {
+            addMsg(data.user, data.text, 'peer');
         }
+    };
 
-        document.getElementById('expirationTimer').textContent = '00:00';
-        setTimeout(() => location.reload(), 3000);
-    }
+    dc.onclose = () => {
+        log('Desconectado');
+        isReady = false;
+    };
+}
 
-    console.log('%c✅ paranOS v15 carregado!', 'color: #00ff41; font-weight: bold;');
+function send() {
+    const input = document.getElementById('messageInput');
+    const text = input.value.trim();
+
+    if (!text || !isReady) return;
+
+    dc.send(JSON.stringify({ type: 'msg', user: myUsername, text: text }));
+    addMsg(myUsername, text, 'me');
+    input.value = '';
+}
+
+document.getElementById('sendBtn').addEventListener('click', send);
+document.getElementById('messageInput').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') send();
+});
+
+log('Sistema carregado!');
 </script>
 
 </body>
