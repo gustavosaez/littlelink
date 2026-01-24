@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+          <meta name="theme-color" content="#F5F6F7">
+        <div style="background-color:#F5F6F7;
+          border-bottom-left-radius:15px; 
+          border-bottom-right-radius:15px;
+          border-top-right-radius:15px;
+          border-top-left-radius:15px;
+          box-shadow: 6px 6px 12px rgba(0, 0, 0, .25), -6px -6px 12px rgba(255, 255, 255, .08);"">
+    <figure aligncenter size-full is-resized is-style-default>
+        <a href="https://gustavosaez.com.br/hub/">
+    <center>
+      <img src="https://gustavosaez.com.br/hub/geradordesenhas/favicon.png" height="68">
+    </center>
+        </a>
+    </figure>
+  </div>
+<meta charset="UTF-8">
+<title>filOS</title>
+  <!-- Favicon –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link rel="icon" type="image/png" href="images/favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="style.css">
+    <header>
+</head>
+<body>
+
+<header class="header">
+  <div class="brand">filOS</div>
+</header>
+
+<main class="container">
+  <section id="encoder" class="card">
+    <div class="card-header">
+      <h2>Enviar arquivo</h2>
+      <button id="themeToggle" class="toggle small">Modo Claro</button>
+    </div>
+
+    <p class="hint">Limite máximo: <strong>500 KB</strong></p>
+
+    <label class="file">
+      <input type="file" id="fileInput" accept=".txt,.png,.jpg,.jpeg,.pdf">
+      <span id="fileLabel">Selecionar arquivo</span>
+    </label>
+
+    <input type="password" id="password" placeholder="Senha">
+
+    <button id="generate" class="primary">
+      <span id="btnText">Gerar link</span>
+    </button>
+
+    <p id="status" class="status"></p>
+
+    <div id="linkBox" hidden>
+      <input id="shareLink" readonly>
+      <button id="copy" class="secondary">Copiar link</button>
+    </div>
+  </section>
+
+  <section id="viewer" class="card" hidden>
+    <h2>Visualização</h2>
+    <input type="password" id="viewPassword" placeholder="Senha para abrir">
+    <button id="open" class="primary">Abrir</button>
+    <div id="content" class="preview"></div>
+  </section>
+</main>
+
+<footer class="footer">
+  filOS • Powered by Gustavo Saez
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

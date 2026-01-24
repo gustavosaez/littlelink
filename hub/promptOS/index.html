@@ -1,97 +1,929 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>promptOS Pure | Professional Edition</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
-            <meta name="theme-color" content="#F5F6F7">
-        <div style="background-color:#F5F6F7;
-          border-bottom-left-radius:15px; 
-          border-bottom-right-radius:15px;
-          border-top-right-radius:15px;
-          border-top-left-radius:15px;
-          box-shadow: 6px 6px 12px rgba(0, 0, 0, .25), -6px -6px 12px rgba(255, 255, 255, .08);">
-    <figure aligncenter size-full is-resized is-style-default>
-        <a href="https://gustavosaez.com.br/hub/">
-    <center>
-      <img src="https://gustavosaez.com.br/hub/geradordesenhas/favicon.png" height="68">
-    </center>
-        </a>
-    </figure>
-  </div>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<meta name="theme-color" content="#F5F6F7">
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>promptOS</title>
-  <!-- Favicon –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-<link rel="icon" type="image/png" href="images/favicon.png">
-<link rel="manifest" href="manifest.json"/>
-<link rel="stylesheet" href="style.css"/>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-</head>
+        /* ========== TEMA ESCURO (Padrão) ========== */
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #13131a;
+            --bg-tertiary: #1a1a24;
+            --border: #2a2a38;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent-primary: #6366f1;
+            --accent-secondary: #8b5cf6;
+            --accent-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            --success: #10b981;
+            --error: #ef4444;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --glow: rgba(99, 102, 241, 0.15);
+        }
+
+        /* ========== TEMA CLARO ========== */
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f1f5f9;
+            --border: #e2e8f0;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #94a3b8;
+            --accent-primary: #6366f1;
+            --accent-secondary: #8b5cf6;
+            --success: #059669;
+            --error: #dc2626;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --glow: rgba(99, 102, 241, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        .app {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 340px 1fr;
+        }
+
+        @media (max-width: 968px) {
+            .app {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                position: static !important;
+                height: auto !important;
+            }
+        }
+
+        /* ========== SIDEBAR ========== */
+        .sidebar {
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border);
+            padding: 32px 24px;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            transition: background 0.3s ease;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 10px;
+        }
+
+        .logo-section {
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 800;
+            margin-bottom: 6px;
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        .tagline {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: absolute;
+            top: 32px;
+            right: 24px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .theme-toggle:hover {
+            background: var(--accent-primary);
+            border-color: var(--accent-primary);
+            transform: scale(1.05);
+        }
+
+        .nav-section {
+            margin-bottom: 28px;
+        }
+
+        .nav-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        .nav-item {
+            padding: 14px 16px;
+            margin-bottom: 6px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            border: 1px solid transparent;
+        }
+
+        .nav-item:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            transform: translateX(4px);
+        }
+
+        .nav-item.active {
+            background: var(--accent-gradient);
+            color: white;
+            box-shadow: 0 4px 20px var(--glow);
+            border-color: transparent;
+        }
+
+        .nav-item-icon {
+            font-size: 1.1rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        /* ========== MAIN CONTENT ========== */
+        .main {
+            padding: 48px 40px;
+            max-width: 1100px;
+            background: var(--bg-primary);
+            transition: background 0.3s ease;
+        }
+
+        h1 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 36px;
+            font-size: 1.05rem;
+        }
+
+        /* ========== CARDS ========== */
+        .card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 28px;
+            margin-bottom: 24px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px var(--shadow);
+        }
+
+        .card:hover {
+            box-shadow: 0 10px 20px -5px var(--shadow);
+        }
+
+        .card-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-primary);
+        }
+
+        /* ========== INPUT ========== */
+        textarea {
+            width: 100%;
+            min-height: 160px;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            padding: 18px;
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 1rem;
+            resize: vertical;
+            transition: all 0.3s ease;
+            line-height: 1.7;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 4px var(--glow);
+            background: var(--bg-secondary);
+        }
+
+        textarea::placeholder {
+            color: var(--text-muted);
+        }
+
+        /* ========== BUTTONS ========== */
+        .btn-primary {
+            width: 100%;
+            padding: 18px;
+            background: var(--accent-gradient);
+            color: white;
+            border: none;
+            border-radius: 14px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            margin-top: 18px;
+            box-shadow: 0 4px 15px var(--glow);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--glow);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        /* ========== OUTPUT ========== */
+        .output {
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            padding: 24px;
+            min-height: 220px;
+            font-family: 'SF Mono', 'Monaco', 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            color: var(--text-primary);
+            white-space: pre-wrap;
+            transition: all 0.3s ease;
+        }
+
+        .output.empty {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-family: 'Inter', sans-serif;
+            font-style: italic;
+        }
+
+        /* ========== ACTIONS ========== */
+        .actions {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .btn-secondary {
+            padding: 14px;
+            background: var(--bg-tertiary);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.25s ease;
+            font-size: 0.95rem;
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-secondary);
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+            transform: translateY(-2px);
+        }
+
+        /* ========== HISTORY ========== */
+        .history-item {
+            background: var(--bg-tertiary);
+            padding: 14px 16px;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .history-item:hover {
+            background: var(--bg-secondary);
+            border-left-color: var(--accent-primary);
+            transform: translateX(4px);
+        }
+
+        .history-time {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+
+        .history-text {
+            font-size: 0.9rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: var(--text-secondary);
+        }
+
+        /* ========== STATS ========== */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .stat-card {
+            background: var(--bg-tertiary);
+            padding: 20px;
+            border-radius: 14px;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: var(--accent-primary);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px var(--shadow);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--accent-primary);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* ========== SCROLLBAR CUSTOMIZATION ========== */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-primary);
+        }
+
+    </style>
+<script type="text/javascript" nonce="d402022b187f4419864b2c32f02" src="//local.adguard.org?ts=1769269551327&amp;type=content-script&amp;dmn=ppl-ai-code-interpreter-files.s3.amazonaws.com&amp;url=https%3A%2F%2Fppl-ai-code-interpreter-files.s3.amazonaws.com%2Fweb%2Fdirect-files%2F64f4ea134be78ae992b655c94fe0d685%2F7d953f6e-688b-4ab5-8c24-6b6d77eb0756%2F3cd6861f.html%3Fresponse-content-disposition%3Dattachment%253B%2520filename%253Dpromptos-pure-v2.html%253B%2520filename%252A%253DUTF-8%2527%2527promptos-pure-v2.html%26AWSAccessKeyId%3DASIA2F3EMEYEZFC5TQD4%26Signature%3DKzDlfLrYMYKvCOac286%252BcEpekc8%253D%26x-amz-security-token%3DIQoJb3JpZ2luX2VjEEkaCXVzLWVhc3QtMSJGMEQCIGcIJaLDT9Z6d1tk9hOwlN9ar64eUleXZ6ql9okQFBeqAiAXi0cmVH02%252Bi%252BEl7xpnQnIJoQA0OLnKqg09MalYvnh8CrzBAgSEAEaDDY5OTc1MzMwOTcwNSIMlfXE9Ux%252FaBf6FuH2KtAEJLiv4L%252Ft4CpaS4EZUyGEpiDI%252BPudmaJYIOrar4yZ2jog0KVDB9qOmxj5wTDJCs7w5yPk3D0ik5IEGqzLeB2SrXbY1lSWSmwNPT2hV1sO4Uj6IcWCHsKDTwRPlqPk42WbfivGfesUJRSH1B0POLuxnBQ7BcHOEoCaRC123MNlM%252BbtzkZ2zGmpQhZIGjaFKUatppvmFwmHm%252BwGbkZN7iUd%252BOzBd2dFBkAfz41NqFGygboYyxtSwHAdAELF79WFd7BCUfZIr4NK7UKr9otLBqU0929bQbPhsIdulMdothA6K%252FFv2aSQL1EsuPJ6FPFDePxnHLbFsTiWQxdE1FhYFmGtvXGyA8EpnKjY3N2OP8%252BR6fHVtsGYpzTm62333g8JLkN1DobmTy9tJc%252Bd6AGP%252BLOdkEEX8jK0oM%252FWV31Q%252FTiuBeAOinXtGQQ1rimyfd%252BZcq9ljZ%252BbAzeQ%252F2zrVbSFvJynVH0tiquKXv%252Fyi4savUJj7TDAdySE7Xe3w%252Ff7IZvcR3rgfArr8%252FxoGhxTNFlPNWqYWys5v6rZBtXR58xF5E1dIfnathVqOSQtPePXP1aA%252FUTAHi1yaGMK0kPRC9yWiwzfqi7CR9JjdgZhIMLJz7Auwqc3J47ouG9YzZNRuk9nL3EeDQW%252FkKgwDdBXbmoYeV46dBXstUbhEsXa1jZfQyk4VeAW%252F5CTwaPbRB2B5ECgbsa1SGN6mrmptqKz6f4YwhAZ%252BSOkquO8CH0hRv%252BE1FxFJhCbvA0Wi3ILtuOy7D9j8VThd1H1YevYoJ%252F%252BjKN30%252Ft1uTCO5dPLBjqZAZRHQv5h%252FTR5i%252Bvk2nAfBeZqrE12%252F64ZFo7OjEWen0Aj4pYNf5aPF9PQ78xcxYHGCbuMpU1Y%252BBxi3o%252BeJZwH4LqKvErBselY4Xdxfmvgro2IklvY%252F2jUEQu1qtorxyIoxyWhy68CMZhEKIr%252F6inFtL9Is%252B0UlegJmBs4tVKzRHwcuh0knsUPzrhbbMmYj7wvu0dqWUEkRZaCag%253D%253D%26Expires%3D1769273289&amp;app=com.apple.Safari&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1&amp;stealth=1&amp;st-ua=TW96aWxsYS81LjAgKE1hY2ludG9zaDsgSW50ZWwgTWFjIE9TIFggMTBfMTVfNykgQXBwbGVXZWJLaXQvNjA1LjEuMTUgKEtIVE1MLCBsaWtlIEdlY2tvKSBWZXJzaW9uLzI2LjIgU2FmYXJpLzYwNS4xLjE1&amp;st-ch-brands=&amp;st-ch-mobile=&amp;st-ch-platform=&amp;st-wrtc&amp;st-push&amp;st-loc&amp;st-java&amp;st-dnt"></script><script type="text/javascript" nonce="d402022b187f4419864b2c32f02" src="//local.adguard.org?ts=1769269551327&amp;name=AdGuard%20Extra&amp;type=user-script"></script></head>
 <body>
+
 <div class="app">
-<header>
-  <h1>promptOS</h1>
-  <button id="themeToggle" class="theme-toggle">🌙 Modo Escuro</button>
-</header>
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div class="logo-section">
+            <div class="logo">promptOS Pure</div>
+            <div class="tagline">Engenharia de Prompts Profissional</div>
+        </div>
 
-<p class="subtitle">Escreva sua ideia. O prompt evolui.</p>
+        <!-- Theme Toggle -->
+        <div class="theme-toggle" onclick="toggleTheme()" title="Alternar tema">
+            <span id="themeIcon">🌙</span>
+        </div>
 
-<textarea id="raw" placeholder="Descreva sua ideia de forma simples..."></textarea>
+        <div class="nav-section">
+            <div class="nav-title">Modelos</div>
+            <div class="nav-item active" data-mode="chatgpt">
+                <span class="nav-item-icon">🤖</span>
+                <span>ChatGPT Pro</span>
+            </div>
+            <div class="nav-item" data-mode="claude">
+                <span class="nav-item-icon">🧠</span>
+                <span>Claude Sonnet</span>
+            </div>
+            <div class="nav-item" data-mode="midjourney">
+                <span class="nav-item-icon">🎨</span>
+                <span>Midjourney v6</span>
+            </div>
+            <div class="nav-item" data-mode="code">
+                <span class="nav-item-icon">💻</span>
+                <span>Senior Dev</span>
+            </div>
+            <div class="nav-item" data-mode="email">
+                <span class="nav-item-icon">✉️</span>
+                <span>Copywriter</span>
+            </div>
+            <div class="nav-item" data-mode="seo">
+                <span class="nav-item-icon">📈</span>
+                <span>SEO Expert</span>
+            </div>
+        </div>
 
-<div class="grid">
-  <div>
-    <label>Mídia</label>
-    <select id="media">
-      <option value="texto">Texto</option>
-      <option value="imagem">Imagem</option>
-      <option value="video">Vídeo</option>
-    </select>
-  </div>
-  <div>
-    <label>Objetivo</label>
-    <select id="goal">
-      <option value="educar">Educar</option>
-      <option value="vender">Vender</option>
-      <option value="criar">Criar</option>
-      <option value="resumir">Resumir</option>
-    </select>
-  </div>
-  <div>
-    <label>Tom de voz</label>
-    <select id="tone">
-      <option value="formal">Formal</option>
-      <option value="didatico">Didático</option>
-      <option value="persuasivo">Persuasivo</option>
-    </select>
-  </div>
+        <div class="nav-section">
+            <div class="nav-title">Histórico Recente</div>
+            <div id="history" style="max-height: 320px; overflow-y: auto;">
+                <div style="color: var(--text-muted); font-size: 0.9rem; padding: 12px; text-align: center;">
+                    Nenhum histórico ainda
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+        <h1 id="modeTitle">🤖 ChatGPT Pro</h1>
+        <p class="subtitle" id="modeDesc">Prompts otimizados para conversação avançada</p>
+
+        <!-- INPUT CARD -->
+        <div class="card">
+            <div class="card-title">💭 Sua Ideia</div>
+            <textarea id="input" placeholder="Descreva o que você quer de forma simples..."></textarea>
+            <button class="btn-primary" onclick="generatePrompt()">
+                ⚡ Otimizar Prompt
+            </button>
+        </div>
+
+        <!-- OUTPUT CARD -->
+        <div class="card">
+            <div class="card-title">✨ Prompt Profissional</div>
+            <div class="output empty" id="output">
+                Digite sua ideia e clique em "Otimizar Prompt"
+            </div>
+            <div class="actions">
+                <button class="btn-secondary" onclick="copyOutput()">📋 Copiar</button>
+                <button class="btn-secondary" onclick="downloadOutput()">💾 Baixar</button>
+                <button class="btn-secondary" onclick="clearAll()">🗑️ Limpar</button>
+            </div>
+        </div>
+
+        <!-- STATS -->
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-value" id="statTotal">0</div>
+                <div class="stat-label">Prompts Criados</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="statChars">0</div>
+                <div class="stat-label">Caracteres</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="statTokens">0</div>
+                <div class="stat-label">Tokens (~)</div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<button class="primary" onclick="generate()">Gerar prompt</button>
+<script>
+    // ============================================
+    // SISTEMA DE TEMAS
+    // ============================================
+    function initTheme() {
+        // Verificar se há preferência salva
+        const savedTheme = localStorage.getItem('promptos_theme');
 
-<textarea id="result" readonly></textarea>
+        if (savedTheme) {
+            document.body.setAttribute('data-theme', savedTheme);
+            updateThemeIcon(savedTheme);
+        } else {
+            // Detectar tema do sistema
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            const theme = prefersDark ? 'dark' : 'light';
+            document.body.setAttribute('data-theme', theme);
+            updateThemeIcon(theme);
+        }
+    }
 
-<div class="scores-actions">
-  <div class="scores">
-    <span id="userScore" class="score">Score do usuário: –</span>
-    <span id="currentScore" class="score">Score atual: –</span>
-  </div>
-  <div class="actions">
-    <button id="improveBtn" onclick="improve()">Melhorar ainda mais</button>
-    <button onclick="copy()">Copiar</button>
-    <button onclick="exportPrompt('txt')">TXT</button>
-    <button onclick="exportPrompt('md')">MD</button>
-  </div>
-</div>
+    function toggleTheme() {
+        const currentTheme = document.body.getAttribute('data-theme') || 'dark';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
 
-<canvas id="scoreChart" height="70"></canvas>
+        document.body.setAttribute('data-theme', newTheme);
+        localStorage.setItem('promptos_theme', newTheme);
+        updateThemeIcon(newTheme);
+    }
 
-<div id="toast" class="toast">Prompt copiado ✓</div>
+    function updateThemeIcon(theme) {
+        const icon = document.getElementById('themeIcon');
+        icon.textContent = theme === 'dark' ? '🌙' : '☀️';
+    }
 
-</div>
-<script src="script.js"></script>
+    // ============================================
+    // ESTADO & CONFIGURAÇÃO
+    // ============================================
+    let currentMode = 'chatgpt';
+    let history = JSON.parse(localStorage.getItem('promptos_history') || '[]');
+    let stats = JSON.parse(localStorage.getItem('promptos_stats') || '{"total":0}');
+
+    // ============================================
+    // TEMPLATES (Mesmos da versão anterior)
+    // ============================================
+    const TEMPLATES = {
+        chatgpt: {
+            title: '🤖 ChatGPT Pro',
+            desc: 'Prompts otimizados para conversação avançada',
+            build: (input) => `# CONTEXTO E PAPEL
+Atue como um Especialista de Classe Mundial com profundo conhecimento no assunto.
+
+# TAREFA PRINCIPAL
+${input}
+
+# DIRETRIZES DE EXECUÇÃO
+1. Pense passo a passo antes de responder
+2. Considere múltiplas perspectivas
+3. Forneça exemplos práticos quando relevante
+4. Use formatação Markdown para clareza
+5. Seja preciso e aprofundado
+
+# FORMATO DE RESPOSTA
+- Estruture sua resposta em seções claras
+- Use listas e tabelas quando apropriado
+- Destaque pontos-chave em **negrito**
+- Conclua com insights acionáveis
+
+# RESTRIÇÕES
+- Evite respostas genéricas
+- Não assuma informações não fornecidas
+- Priorize qualidade sobre quantidade`
+        },
+
+        claude: {
+            title: '🧠 Claude Sonnet',
+            desc: 'Estrutura XML otimizada para Claude',
+            build: (input) => `<context>
+    <role>Expert Consultant</role>
+    <task>${input}</task>
+</context>
+
+<instructions>
+    <step>Analyze the request thoroughly</step>
+    <step>Structure your response logically</step>
+    <step>Provide concrete examples</step>
+    <step>Include relevant considerations</step>
+</instructions>
+
+<output_format>
+    Use clear sections with headings.
+    Employ bullet points for lists.
+    Bold key concepts.
+    End with actionable takeaways.
+</output_format>
+
+<constraints>
+    - Be precise and detailed
+    - Avoid unnecessary jargon
+    - Focus on practical applicability
+</constraints>`
+        },
+
+        midjourney: {
+            title: '🎨 Midjourney v6',
+            desc: 'Comandos otimizados para geração de arte',
+            build: (input) => `/imagine prompt: ${input}, masterpiece quality, ultra detailed, 8k resolution, professional photography, cinematic lighting, depth of field, rule of thirds composition, volumetric lighting, photorealistic rendering, vivid colors, sharp focus, bokeh effect --ar 16:9 --v 6.0 --style raw --q 2
+
+Variações para testar:
+• --ar 1:1 (quadrado)
+• --ar 9:16 (vertical)
+• --stylize 1000 (mais artístico)
+• --chaos 50 (mais variação)`
+        },
+
+        code: {
+            title: '💻 Senior Dev',
+            desc: 'Especificações técnicas completas',
+            build: (input) => `# ESPECIFICAÇÃO TÉCNICA
+
+## Objetivo
+${input}
+
+## Requisitos Funcionais
+- [Descrever funcionalidade principal]
+- [Casos de uso esperados]
+- [Comportamento em edge cases]
+
+## Stack Recomendada
+- Linguagem: [Especificar]
+- Framework: [Se aplicável]
+- Bibliotecas: [Listar dependências]
+
+## Padrões de Qualidade
+✓ Clean Code: Nomes descritivos, funções pequenas
+✓ SOLID: Seguir princípios de design
+✓ Testes: Cobertura mínima de 80%
+✓ Segurança: Sanitizar inputs, validar dados
+✓ Performance: Complexidade O(n) quando possível
+
+## Tratamento de Erros
+- Try-catch em operações críticas
+- Logs estruturados
+- Mensagens de erro claras para o usuário
+
+## Entregáveis
+1. Código fonte documentado
+2. README com instruções
+3. Exemplos de uso
+4. Testes unitários`
+        },
+
+        email: {
+            title: '✉️ Copywriter',
+            desc: 'Estrutura persuasiva de email',
+            build: (input) => `# BRIEFING DE EMAIL
+
+## Objetivo da Comunicação
+${input}
+
+## Estrutura do Email
+
+**ASSUNTO** (5-7 palavras, claro e direto)
+[Criar 3 opções de assunto]
+
+**ABERTURA** (Primeira linha - gancho)
+Iniciar com uma frase que capture atenção imediatamente
+
+**CONTEXTO** (Parágrafo 1)
+- Estabelecer relevância
+- Criar conexão com o leitor
+- Apresentar o problema/oportunidade
+
+**PROPOSTA** (Parágrafo 2-3)
+- Solução clara
+- Benefícios tangíveis
+- Prova social ou dados (se aplicável)
+
+**CALL-TO-ACTION** (Claro e único)
+[Verbo de ação] + [Benefício imediato]
+Exemplo: "Agende sua demonstração gratuita agora"
+
+**ENCERRAMENTO** (Tom cordial)
+Encerramento profissional com disponibilidade para dúvidas
+
+## Tom de Voz
+- Profissional, mas humano
+- Persuasivo sem ser agressivo
+- Focado no valor para o destinatário
+
+## Métricas de Sucesso
+- Taxa de abertura esperada: >25%
+- Taxa de cliques: >5%
+- Taxa de conversão: >2%`
+        },
+
+        seo: {
+            title: '📈 SEO Expert',
+            desc: 'Estratégia de conteúdo otimizado',
+            build: (input) => `# PLANO DE CONTEÚDO SEO
+
+## Tópico Principal
+${input}
+
+## Pesquisa de Palavras-Chave
+### Palavra-chave Principal
+- Volume: [Pesquisar]
+- Dificuldade: [Avaliar]
+- Intenção: [Informacional/Transacional/Navegacional]
+
+### Palavras-chave Secundárias (LSI)
+- [Listar 5-7 variações semânticas]
+- [Incluir long-tail keywords]
+
+## Estrutura do Artigo (SEO-Friendly)
+
+**H1**: [Título principal com palavra-chave]
+**Meta Description** (150-160 caracteres): [Incluir CTA]
+
+**Introdução** (100-150 palavras)
+- Hook inicial
+- Problema/pergunta do usuário
+- Preview do que será abordado
+
+**H2**: [Subtópico 1]
+- Parágrafo explicativo (200-300 palavras)
+- Lista ou bullet points
+- Exemplo ou caso de uso
+
+**H2**: [Subtópico 2]
+- Conteúdo complementar
+- Dados e estatísticas
+- Quote ou insight de expert
+
+**H2**: FAQ
+- [5-7 perguntas relacionadas do Google]
+- Respostas diretas (40-60 palavras cada)
+
+**Conclusão**
+- Resumo dos pontos principais
+- CTA relevante
+- Link interno para conteúdo relacionado
+
+## Checklist de Otimização
+✓ Palavra-chave no título, H1 e primeiros 100 caracteres
+✓ Densidade de palavra-chave: 1-2%
+✓ Imagens com alt text descritivo
+✓ Links internos e externos relevantes
+✓ URL amigável (slug curto)
+✓ Schema markup (quando aplicável)
+✓ Conteúdo mínimo: 1500 palavras
+✓ Tempo de leitura: 6-8 minutos
+
+## Métricas de Performance
+- Posição alvo no Google: Top 3
+- CTR esperado: >10%
+- Tempo na página: >3 minutos`
+        }
+    };
+
+    // ============================================
+    // INICIALIZAÇÃO
+    // ============================================
+    document.addEventListener('DOMContentLoaded', () => {
+        initTheme();
+        updateStats();
+        renderHistory();
+
+        // Event Listeners para navegação
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+                this.classList.add('active');
+                currentMode = this.dataset.mode;
+                updateModeUI();
+            });
+        });
+    });
+
+    // ============================================
+    // FUNÇÃO PRINCIPAL
+    // ============================================
+    function generatePrompt() {
+        const input = document.getElementById('input').value.trim();
+
+        if (!input) {
+            alert('Por favor, digite sua ideia primeiro!');
+            return;
+        }
+
+        const template = TEMPLATES[currentMode];
+        const output = template.build(input);
+
+        // Exibir resultado
+        const outputEl = document.getElementById('output');
+        outputEl.textContent = output;
+        outputEl.classList.remove('empty');
+
+        // Salvar no histórico
+        saveToHistory(input, output);
+
+        // Atualizar estatísticas
+        stats.total = (stats.total || 0) + 1;
+        localStorage.setItem('promptos_stats', JSON.stringify(stats));
+        updateStats();
+    }
+
+    // ============================================
+    // HISTÓRICO
+    // ============================================
+    function saveToHistory(input, output) {
+        const item = {
+            id: Date.now(),
+            mode: currentMode,
+            input: input.substring(0, 100),
+            output: output,
+            timestamp: new Date().toLocaleString('pt-BR')
+        };
+
+        history.unshift(item);
+        if (history.length > 20) history.pop();
+
+        localStorage.setItem('promptos_history', JSON.stringify(history));
+        renderHistory();
+    }
+
+    function renderHistory() {
+        const container = document.getElementById('history');
+
+        if (history.length === 0) {
+            container.innerHTML = '<div style="color: var(--text-muted); font-size: 0.9rem; padding: 12px; text-align: center;">Nenhum histórico ainda</div>';
+            return;
+        }
+
+        container.innerHTML = history.slice(0, 10).map(item => `
+            <div class="history-item" onclick="loadFromHistory(${item.id})">
+                <div class="history-time">${item.timestamp}</div>
+                <div class="history-text">${item.input}</div>
+            </div>
+        `).join('');
+    }
+
+    function loadFromHistory(id) {
+        const item = history.find(h => h.id === id);
+        if (item) {
+            document.getElementById('output').textContent = item.output;
+            document.getElementById('output').classList.remove('empty');
+            updateStats();
+        }
+    }
+
+    // ============================================
+    // AÇÕES
+    // ============================================
+    function copyOutput() {
+        const output = document.getElementById('output').textContent;
+        if (output && !document.getElementById('output').classList.contains('empty')) {
+            navigator.clipboard.writeText(output);
+            alert('✅ Copiado para a área de transferência!');
+        }
+    }
+
+    function downloadOutput() {
+        const output = document.getElementById('output').textContent;
+        if (output && !document.getElementById('output').classList.contains('empty')) {
+            const blob = new Blob([output], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `prompt-${Date.now()}.txt`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+    }
+
+    function clearAll() {
+        if (confirm('Limpar o prompt atual?')) {
+            document.getElementById('input').value = '';
+            document.getElementById('output').textContent = 'Digite sua ideia e clique em "Otimizar Prompt"';
+            document.getElementById('output').classList.add('empty');
+        }
+    }
+
+    // ============================================
+    // UI HELPERS
+    // ============================================
+    function updateModeUI() {
+        const template = TEMPLATES[currentMode];
+        document.getElementById('modeTitle').textContent = template.title;
+        document.getElementById('modeDesc').textContent = template.desc;
+    }
+
+    function updateStats() {
+        const output = document.getElementById('output').textContent;
+        const chars = output.length;
+        const tokens = Math.ceil(chars / 4);
+
+        document.getElementById('statTotal').textContent = stats.total || 0;
+        document.getElementById('statChars').textContent = chars;
+        document.getElementById('statTokens').textContent = tokens;
+    }
+
+</script>
+
 </body>
 </html>

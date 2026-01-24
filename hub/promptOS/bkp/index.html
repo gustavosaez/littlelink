@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+            <meta name="theme-color" content="#F5F6F7">
+        <div style="background-color:#F5F6F7;
+          border-bottom-left-radius:15px; 
+          border-bottom-right-radius:15px;
+          border-top-right-radius:15px;
+          border-top-left-radius:15px;
+          box-shadow: 6px 6px 12px rgba(0, 0, 0, .25), -6px -6px 12px rgba(255, 255, 255, .08);">
+    <figure aligncenter size-full is-resized is-style-default>
+        <a href="https://gustavosaez.com.br/hub/">
+    <center>
+      <img src="https://gustavosaez.com.br/hub/geradordesenhas/favicon.png" height="68">
+    </center>
+        </a>
+    </figure>
+  </div>
+
+<meta name="theme-color" content="#F5F6F7">
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>promptOS</title>
+  <!-- Favicon –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="manifest" href="manifest.json"/>
+<link rel="stylesheet" href="style.css"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="app">
+<header>
+  <h1>promptOS</h1>
+  <button id="themeToggle" class="theme-toggle">🌙 Modo Escuro</button>
+</header>
+
+<p class="subtitle">Escreva sua ideia. O prompt evolui.</p>
+
+<textarea id="raw" placeholder="Descreva sua ideia de forma simples..."></textarea>
+
+<div class="grid">
+  <div>
+    <label>Mídia</label>
+    <select id="media">
+      <option value="texto">Texto</option>
+      <option value="imagem">Imagem</option>
+      <option value="video">Vídeo</option>
+    </select>
+  </div>
+  <div>
+    <label>Objetivo</label>
+    <select id="goal">
+      <option value="educar">Educar</option>
+      <option value="vender">Vender</option>
+      <option value="criar">Criar</option>
+      <option value="resumir">Resumir</option>
+    </select>
+  </div>
+  <div>
+    <label>Tom de voz</label>
+    <select id="tone">
+      <option value="formal">Formal</option>
+      <option value="didatico">Didático</option>
+      <option value="persuasivo">Persuasivo</option>
+    </select>
+  </div>
+</div>
+
+<button class="primary" onclick="generate()">Gerar prompt</button>
+
+<textarea id="result" readonly></textarea>
+
+<div class="scores-actions">
+  <div class="scores">
+    <span id="userScore" class="score">Score do usuário: –</span>
+    <span id="currentScore" class="score">Score atual: –</span>
+  </div>
+  <div class="actions">
+    <button id="improveBtn" onclick="improve()">Melhorar ainda mais</button>
+    <button onclick="copy()">Copiar</button>
+    <button onclick="exportPrompt('txt')">TXT</button>
+    <button onclick="exportPrompt('md')">MD</button>
+  </div>
+</div>
+
+<canvas id="scoreChart" height="70"></canvas>
+
+<div id="toast" class="toast">Prompt copiado ✓</div>
+
+</div>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,135 +1,692 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<div style="background-color:#F5F6F7;
-            border-bottom-left-radius:15px; 
-            border-bottom-right-radius:15px;
-            border-top-right-radius:15px;
-            border-top-left-radius:15px;
-            box-shadow: 6px 6px 12px rgba(0, 0, 0, .25), -6px -6px 12px rgba(255, 255, 255, .08);">
-    <figure aligncenter size-full is-resized is-style-default>
-        <a href="https://gustavosaez.com.br/hub/">
-    <center>
-      <img src="https://gustavosaez.com.br/hub/geradordesenhas/favicon.png" height="68">
-    </center>
-        </a>
-    </figure>
-  </div>
-<meta charset="UTF-8">
-<title>ParanOS</title>
-  <!-- Favicon –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-<link rel="icon" type="image/png" href="images/favicon.png">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-:root{
- --bg:#111;--card:#1c1c1c;--text:#f2f2f2;--muted:#aaa;--accent:#4f8cff;
-}
-*{box-sizing:border-box}
-body{
- margin:0;font-family:system-ui;background:var(--bg);color:var(--text);
- display:flex;justify-content:center;align-items:center;height:100vh;
-}
-#app{
- width:420px;height:90vh;background:var(--card);
- border-radius:14px;display:flex;flex-direction:column;overflow:hidden;
-}
-header{padding:14px;border-bottom:1px solid #333;font-weight:600}
-#join{padding:16px;display:flex;flex-direction:column;gap:10px}
-#chat{flex:1;display:none;flex-direction:column}
-#messages{flex:1;padding:16px;overflow:auto}
-.msg{margin-bottom:10px}
-.nick{font-size:12px;color:var(--muted)}
-.text{background:#2a2a2a;padding:8px;border-radius:8px;margin-top:4px}
-footer{display:flex;gap:8px;padding:10px;border-top:1px solid #333}
-input,button{
- padding:10px;border-radius:8px;border:none;font-size:14px;
-}
-input{flex:1;background:#111;color:var(--text)}
-button{background:var(--accent);color:#fff;font-weight:600;cursor:pointer}
-small{opacity:.6}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>paranOS | Anonymous P2P Chat</title>
+
+    <!-- PeerJS -->
+    <script type="text/javascript" nonce="d402022b187f4419864b2c32f02" src="//local.adguard.org?ts=1769273150476&amp;type=content-script&amp;dmn=ppl-ai-code-interpreter-files.s3.amazonaws.com&amp;url=https%3A%2F%2Fppl-ai-code-interpreter-files.s3.amazonaws.com%2Fweb%2Fdirect-files%2Feec84c9f7bf925e9431da0d1df5410c8%2F146247a6-d4d6-48b5-8951-8d28598dbd36%2F0b9f07b4.html%3Fresponse-content-disposition%3Dattachment%253B%2520filename%253Dparanos-v4.html%253B%2520filename%252A%253DUTF-8%2527%2527paranos-v4.html%26AWSAccessKeyId%3DASIA2F3EMEYE7XJI7R4B%26Signature%3DaRAlvzk8IPOuFu5jbxP8GlpvFMc%253D%26x-amz-security-token%3DIQoJb3JpZ2luX2VjEEkaCXVzLWVhc3QtMSJGMEQCIEhlkqiI1CXN4l987p1qw6Jw4%252FFN1PB9VdWc%252F5wK%252BRDRAiB8Z0Toa6jw%252BF2KyC%252FyLndoxtpH2CbSATJhN7wK0PodiSrzBAgSEAEaDDY5OTc1MzMwOTcwNSIMbz5s5ubyLinewC3zKtAEDTzfsLLVz4QDmpf95jy0qdg6%252F1LJXiqojuv06LxUeU8EogEtTQ0IChUWQXHVvkruHgmtHBV8TFs8ETEZSsQlpnVeRWSu41rI6rVVtRCPnmjj%252BXNBYy0PUdur7HB%252F5AduwmnNvzB%252BA6mu8uiJhYmXxlupI3%252BTuvrDRUNr5HMt2WP5vNHvty8%252FgBAJF%252BqIOukMIrMqZaCQdSCYyuYP35T6BuWR7pmS7IFA2u6bcJy5TK1kd5Y0pIcoZ%252FQfp%252BZM6JDBAS5o3uYmiJzVzpg1INRB81G4JnZwiiD0NPPozFQdTq%252BO3Ynq9KoyngQpXukI5QFKTU7u2cgdJOA6lBfneTIRBxVSDL1m2AWU9N6rBXLDcen4oiLU9YV%252FKzisb4hIV4GNdc1aVUwJXDz%252Bof2BDsjY2%252FpZxoBzzmqfvcg4DuVim7IeDWTnzmVI%252BerHE1wTXjayJDPq5BSav33qeNEUHV0UEvpnwnTuHfOdjY1aE8%252Fztvlutom0DQueRL3gOZEjO4t9MSNmteBLn5EKxojhMe5ShYcIUJoMPkK9VOxRjHFHx4d5CMI0hH%252FYr7gNiadwkVZL%252BX8%252FoVy4sKkq2AjJoFQgUi9D8WKu22PUk7lwuCPJPRrCS8GB%252BiNUaqfn4dxL7FWmkfFt7tSN7C6XrgcUnD0OQaw5DCDQhanOSTJkofggudN%252FP83K7JYhsvFIkEvuL6nVaqRNQ1cBBo7uDHfcTKxlHYJ%252FLfUmYWDIacVmHAFSU1pF%252FkZ17UMvrzNYosIjSy7wgdok2PsPPdyY7QVMyVZM1jDI5dPLBjqZAVqVF1bxlWNb2nsHMZzn%252F5f3NwL3ljSOzUs29sexdjHQzzGjGSroDuliWP6H0E25D%252B45XxRzrjXdSj23AVZPnwtzgjo3nkGGNxr06nNO1D1u8uYLPq2wWbFEolbPm22%252FaEH6pMikonzckLUyHeBwPNZ%252FcKdX8t7eIkQky7QJPgEiscdVkTPKAnI756t%252BcEe0qPiEKF5lgFeU%252Fw%253D%253D%26Expires%3D1769275061&amp;app=com.apple.Safari&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1&amp;stealth=1&amp;st-ua=TW96aWxsYS81LjAgKE1hY2ludG9zaDsgSW50ZWwgTWFjIE9TIFggMTBfMTVfNykgQXBwbGVXZWJLaXQvNjA1LjEuMTUgKEtIVE1MLCBsaWtlIEdlY2tvKSBWZXJzaW9uLzI2LjIgU2FmYXJpLzYwNS4xLjE1&amp;st-ch-brands=&amp;st-ch-mobile=&amp;st-ch-platform=&amp;st-wrtc&amp;st-push&amp;st-loc&amp;st-java&amp;st-dnt"></script><script type="text/javascript" nonce="d402022b187f4419864b2c32f02" src="//local.adguard.org?ts=1769273150476&amp;name=AdGuard%20Extra&amp;type=user-script"></script><script src="https://unpkg.com/peerjs@1.5.4/dist/peerjs.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: #000;
+            color: #00ff41;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        .container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: #001a0d;
+            border-bottom: 2px solid #00ff41;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-shadow: 0 0 10px #00ff41;
+            letter-spacing: 3px;
+        }
+
+        .status {
+            display: flex;
+            gap: 20px;
+            font-size: 0.8rem;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ffd700;
+            animation: pulse 1.5s infinite;
+        }
+
+        .dot.connected {
+            background: #00ff41;
+            animation: none;
+        }
+
+        .dot.error {
+            background: #ff0055;
+            animation: none;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .setup-screen {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            padding: 40px;
+        }
+
+        .setup-box {
+            background: rgba(0, 26, 13, 0.9);
+            border: 2px solid #00ff41;
+            border-radius: 10px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.2);
+        }
+
+        .setup-title {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            text-align: center;
+            text-shadow: 0 0 10px #00ff41;
+        }
+
+        .setup-subtitle {
+            font-size: 0.9rem;
+            color: #00cc33;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            color: #00ff41;
+        }
+
+        input, select {
+            width: 100%;
+            background: #000;
+            border: 1px solid #00ff41;
+            color: #00ff41;
+            padding: 12px;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
+        }
+
+        input::placeholder {
+            color: #006622;
+        }
+
+        .btn {
+            width: 100%;
+            background: #00ff41;
+            color: #000;
+            border: none;
+            padding: 14px;
+            border-radius: 6px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+
+        .btn:hover:not(:disabled) {
+            background: #00cc33;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: #003311;
+        }
+
+        .divider {
+            text-align: center;
+            margin: 25px 0;
+            position: relative;
+            color: #006622;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 40%;
+            height: 1px;
+            background: #00ff41;
+        }
+
+        .divider::before { left: 0; }
+        .divider::after { right: 0; }
+
+        .chat-screen {
+            display: none;
+            flex: 1;
+            flex-direction: column;
+        }
+
+        .chat-screen.active {
+            display: flex;
+        }
+
+        .chat-info {
+            background: #001a0d;
+            padding: 12px 25px;
+            border-bottom: 1px solid #00ff41;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+
+        .timer {
+            color: #ff0055;
+            font-weight: 700;
+        }
+
+        .messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #000;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            max-width: 70%;
+            word-wrap: break-word;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .message.system {
+            background: rgba(0, 255, 65, 0.1);
+            border-left: 3px solid #00ff41;
+            color: #00cc33;
+            max-width: 100%;
+            font-size: 0.85rem;
+        }
+
+        .message.me {
+            background: rgba(0, 255, 65, 0.2);
+            border: 1px solid #00ff41;
+            margin-left: auto;
+        }
+
+        .message.peer {
+            background: rgba(0, 102, 34, 0.3);
+            border: 1px solid #006622;
+        }
+
+        .message-author {
+            font-weight: 700;
+            font-size: 0.8rem;
+            margin-bottom: 4px;
+            color: #00ff41;
+        }
+
+        .message-text {
+            line-height: 1.5;
+        }
+
+        .message-time {
+            font-size: 0.7rem;
+            color: #006622;
+            margin-top: 4px;
+        }
+
+        .input-area {
+            background: #001a0d;
+            border-top: 2px solid #00ff41;
+            padding: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        #messageInput {
+            flex: 1;
+        }
+
+        .btn-send {
+            width: auto;
+            padding: 14px 30px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #00ff41;
+            border-radius: 10px;
+        }
+
+        .warning {
+            background: rgba(255, 0, 85, 0.1);
+            border: 1px solid #ff0055;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 20px;
+            font-size: 0.8rem;
+            color: #ff0055;
+        }
+
+        .status-message {
+            text-align: center;
+            color: #ffd700;
+            margin-bottom: 15px;
+            font-size: 0.85rem;
+            min-height: 20px;
+        }
+
+    </style>
 </head>
 <body>
-<div id="app">
-<header>ParanOS</header>
-</header>
-<div id="join">
-<input id="nick" placeholder="Nickname">
-<input id="room" placeholder="Código da sala (ex: ABCD)">
-<button onclick="join()">Entrar</button>
-<small>1:1 • tempo real • sem histórico</small>
+
+<div class="container">
+    <div class="header">
+        <div class="logo">[ paranOS ]</div>
+        <div class="status">
+            <div class="status-item">
+                <div class="dot" id="connectionDot"></div>
+                <span id="statusText">INICIANDO...</span>
+            </div>
+            <div class="status-item">
+                <span id="timeDisplay">--:--</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="setup-screen" id="setupScreen">
+        <div class="setup-box">
+            <h1 class="setup-title">ACESSO ANÔNIMO</h1>
+            <p class="setup-subtitle">Chat P2P • Zero Logs • Criptografado</p>
+
+            <div class="status-message" id="statusMessage">Conectando...</div>
+
+            <div class="input-group">
+                <label>USERNAME (Anônimo)</label>
+                <input type="text" id="username" placeholder="Digite seu codinome..." maxlength="20">
+            </div>
+
+            <div class="input-group">
+                <label>TEMPO DE EXPIRAÇÃO</label>
+                <select id="expiration">
+                    <option value="10">10 minutos</option>
+                    <option value="30" selected>30 minutos</option>
+                    <option value="60">60 minutos</option>
+                    <option value="120">2 horas</option>
+                </select>
+            </div>
+
+            <button class="btn" id="createBtn" disabled>CRIAR SALA</button>
+
+            <div class="divider">OU</div>
+
+            <div class="input-group">
+                <label>ID DO PEER (Recebido do criador)</label>
+                <input type="text" id="peerId" placeholder="Cole o ID aqui">
+            </div>
+
+            <button class="btn" id="joinBtn" disabled>CONECTAR</button>
+
+            <div class="warning">
+                ⚠️ AVISO: Chat P2P via WebRTC. Mensagens vão direto entre navegadores. Zero logs, zero armazenamento.
+            </div>
+        </div>
+    </div>
+
+    <div class="chat-screen" id="chatScreen">
+        <div class="chat-info">
+            <div>
+                <span style="color: #00ff41;">USER:</span> 
+                <span id="usernameDisplay">-</span>
+            </div>
+            <div class="timer">
+                EXPIRA EM: <span id="expirationTimer">--:--</span>
+            </div>
+        </div>
+
+        <div class="messages" id="messages"></div>
+
+        <div class="input-area">
+            <input type="text" id="messageInput" placeholder="Digite sua mensagem...">
+            <button class="btn btn-send" id="sendBtn">ENVIAR</button>
+        </div>
+    </div>
 </div>
 
-<div id="chat">
-<div id="messages"></div>
-<footer>
-<input id="msg" placeholder="Mensagem">
-<button onclick="send()">Enviar</button>
-</footer>
-</div>
-</div>
-
-<script src="https://unpkg.com/simple-peer@9/simplepeer.min.js"></script>
 <script>
-let ws, peer, nick, room;
+    let peer = null;
+    let conn = null;
+    let myUsername = '';
+    let myPeerId = '';
+    let expirationMinutes = 30;
+    let expirationTimestamp = null;
+    let timerInterval = null;
+    let connectionTimeout = null;
 
-function join(){
-  nick = nickInput.value.trim();
-  room = roomInput.value.trim();
-  if(!nick || !room) return alert("Preencha tudo");
+    // Time Display
+    setInterval(() => {
+        document.getElementById('timeDisplay').textContent = new Date().toLocaleTimeString('pt-BR', {hour: '2-digit', minute: '2-digit'});
+    }, 1000);
 
-  joinDiv.style.display = "none";
-  chatDiv.style.display = "flex";
+    // Status Update
+    function updateStatus(message, type = 'loading') {
+        const statusMsg = document.getElementById('statusMessage');
+        const statusText = document.getElementById('statusText');
+        const dot = document.getElementById('connectionDot');
 
-  ws = new WebSocket("ws://localhost:8080");
+        statusMsg.textContent = message;
 
-  peer = new SimplePeer({
-    initiator: true,
-    trickle: false
-  });
-
-  peer.on("signal", data => {
-    ws.send(JSON.stringify({ type: "signal", room, data }));
-  });
-
-  peer.on("data", data => {
-    add("peer", data.toString());
-  });
-
-  ws.onmessage = e => {
-    const msg = JSON.parse(e.data);
-    if(msg.type === "signal") {
-      peer.signal(msg.data);
+        if (type === 'success') {
+            dot.classList.add('connected');
+            dot.classList.remove('error');
+            statusText.textContent = 'ONLINE';
+            statusMsg.style.color = '#00ff41';
+        } else if (type === 'error') {
+            dot.classList.add('error');
+            dot.classList.remove('connected');
+            statusText.textContent = 'ERRO';
+            statusMsg.style.color = '#ff0055';
+        } else {
+            dot.classList.remove('connected', 'error');
+            statusText.textContent = 'CONECTANDO...';
+            statusMsg.style.color = '#ffd700';
+        }
     }
-    if(msg.type === "full") {
-      alert("Sala cheia");
+
+    // Initialize Peer with timeout
+    function initPeer() {
+        updateStatus('🔄 Conectando ao servidor P2P...', 'loading');
+
+        // Timeout de 10 segundos
+        connectionTimeout = setTimeout(() => {
+            if (!peer || !myPeerId) {
+                updateStatus('❌ Timeout. Clique em CRIAR SALA para tentar novamente.', 'error');
+                enableButtons();
+            }
+        }, 10000);
+
+        try {
+            peer = new Peer({
+                debug: 2,
+                config: {
+                    iceServers: [
+                        { urls: 'stun:stun.l.google.com:19302' },
+                        { urls: 'stun:stun1.l.google.com:19302' }
+                    ]
+                }
+            });
+
+            peer.on('open', (id) => {
+                clearTimeout(connectionTimeout);
+                myPeerId = id;
+                updateStatus('✅ Conectado! Pronto para usar.', 'success');
+                enableButtons();
+                console.log('✅ Peer ID:', id);
+            });
+
+            peer.on('connection', (connection) => {
+                conn = connection;
+                setupConnection();
+            });
+
+            peer.on('error', (err) => {
+                clearTimeout(connectionTimeout);
+                console.error('❌ Peer Error:', err);
+                updateStatus('❌ Erro: ' + err.type + '. Tente novamente.', 'error');
+                enableButtons();
+            });
+
+            peer.on('disconnected', () => {
+                updateStatus('⚠️ Desconectado. Reconectando...', 'loading');
+                setTimeout(() => {
+                    if (peer && !peer.destroyed) {
+                        peer.reconnect();
+                    }
+                }, 1000);
+            });
+
+        } catch (error) {
+            clearTimeout(connectionTimeout);
+            console.error('❌ Init Error:', error);
+            updateStatus('❌ Erro ao inicializar. Recarregue a página.', 'error');
+        }
     }
-  };
-}
 
-function send(){
-  const text = msgInput.value.trim();
-  if(!text) return;
-  peer.send(text);
-  add(nick, text);
-  msgInput.value = "";
-}
+    function enableButtons() {
+        document.getElementById('createBtn').disabled = false;
+        document.getElementById('joinBtn').disabled = false;
+    }
 
-function add(n,t){
-  const d=document.createElement("div");
-  d.className="msg";
-  d.innerHTML=`<div class=nick>${n}</div><div class=text>${t}</div>`;
-  messages.appendChild(d);
-  messages.scrollTop=9999;
-}
+    // Initialize
+    initPeer();
 
-const nickInput=document.getElementById("nick");
-const roomInput=document.getElementById("room");
-const joinDiv=document.getElementById("join");
-const chatDiv=document.getElementById("chat");
-const msgInput=document.getElementById("msg");
-const messages=document.getElementById("messages");
+    // CREATE ROOM
+    document.getElementById('createBtn').addEventListener('click', () => {
+        myUsername = document.getElementById('username').value.trim();
+        expirationMinutes = parseInt(document.getElementById('expiration').value);
+
+        if (!myUsername) {
+            alert('⚠️ Digite um username!');
+            return;
+        }
+
+        if (!myPeerId) {
+            updateStatus('⚠️ Sem conexão. Aguarde ou recarregue.', 'error');
+            return;
+        }
+        const shareMsg = \`✅ SALA CRIADA!\n\nSeu ID:\n\${myPeerId}\n\nCompartilhe com seu contato.\`;
+
+        navigator.clipboard.writeText(myPeerId).then(() => {
+            alert(shareMsg + '\n\n(ID copiado!)');
+        }).catch(() => {
+            prompt('Copie seu ID:', myPeerId);
+        });
+
+        showChat();
+        startExpirationTimer();
+        addSystemMessage('Aguardando conexão... Seu ID: ' + myPeerId);
+    });
+
+    // JOIN ROOM
+    document.getElementById('joinBtn').addEventListener('click', () => {
+        myUsername = document.getElementById('username').value.trim();
+        const targetPeerId = document.getElementById('peerId').value.trim();
+
+        if (!myUsername || !targetPeerId) {
+            alert('⚠️ Preencha todos os campos!');
+            return;
+        }
+
+        if (!peer) {
+            alert('⚠️ Sem conexão. Recarregue a página.');
+            return;
+        }
+
+        addSystemMessage('Conectando ao peer ' + targetPeerId + '...');
+
+        conn = peer.connect(targetPeerId);
+        setupConnection();
+
+        showChat();
+        startExpirationTimer();
+    });
+
+    // CONNECTION SETUP
+    function setupConnection() {
+        conn.on('open', () => {
+            addSystemMessage('✅ Conexão P2P estabelecida! Chat seguro ativo.');
+            conn.send({ type: 'handshake', username: myUsername });
+        });
+
+        conn.on('data', (data) => {
+            if (data.type === 'handshake') {
+                addSystemMessage(data.username + ' conectou.');
+            } else if (data.type === 'message') {
+                addMessage(data.username, data.text, 'peer');
+            }
+        });
+
+        conn.on('close', () => {
+            addSystemMessage('⚠️ Peer desconectou.');
+        });
+
+        conn.on('error', (err) => {
+            console.error('❌ Connection Error:', err);
+            addSystemMessage('ERRO: ' + err);
+        });
+    }
+
+    // SEND MESSAGE
+    function sendMessage() {
+        const input = document.getElementById('messageInput');
+        const text = input.value.trim();
+
+        if (!text) return;
+
+        if (!conn || !conn.open) {
+            alert('⚠️ Não conectado ao peer!');
+            return;
+        }
+
+        conn.send({ type: 'message', username: myUsername, text: text });
+        addMessage(myUsername, text, 'me');
+        input.value = '';
+    }
+
+    document.getElementById('sendBtn').addEventListener('click', sendMessage);
+    document.getElementById('messageInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') sendMessage();
+    });
+
+    // ADD MESSAGE
+    function addMessage(username, text, type) {
+        const messagesDiv = document.getElementById('messages');
+        const msg = document.createElement('div');
+        msg.className = 'message ' + type;
+
+        const time = new Date().toLocaleTimeString('pt-BR', {hour: '2-digit', minute: '2-digit'});
+
+        msg.innerHTML = '<div class="message-author">' + escapeHtml(username) + '</div>' +
+                        '<div class="message-text">' + escapeHtml(text) + '</div>' +
+                        '<div class="message-time">' + time + '</div>';
+
+        messagesDiv.appendChild(msg);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+
+    function addSystemMessage(text) {
+        const messagesDiv = document.getElementById('messages');
+        const msg = document.createElement('div');
+        msg.className = 'message system';
+        msg.innerHTML = '<div class="message-text">⚙️ ' + escapeHtml(text) + '</div>';
+        messagesDiv.appendChild(msg);
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+    }
+
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+
+    // SHOW CHAT
+    function showChat() {
+        document.getElementById('setupScreen').style.display = 'none';
+        document.getElementById('chatScreen').classList.add('active');
+        document.getElementById('usernameDisplay').textContent = myUsername;
+        document.getElementById('messageInput').focus();
+    }
+
+    // EXPIRATION TIMER
+    function startExpirationTimer() {
+        expirationTimestamp = Date.now() + (expirationMinutes * 60 * 1000);
+
+        timerInterval = setInterval(() => {
+            const remaining = expirationTimestamp - Date.now();
+
+            if (remaining <= 0) {
+                clearInterval(timerInterval);
+                expireRoom();
+                return;
+            }
+
+            const minutes = Math.floor(remaining / 60000);
+            const seconds = Math.floor((remaining % 60000) / 1000);
+            document.getElementById('expirationTimer').textContent = minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0');
+        }, 1000);
+    }
+
+    function expireRoom() {
+        addSystemMessage('⏰ TEMPO EXPIRADO! Sala destruída.');
+        if (conn) conn.close();
+        if (peer) peer.destroy();
+        document.getElementById('expirationTimer').textContent = '00:00';
+        setTimeout(() => location.reload(), 3000);
+    }
+
 </script>
+
 </body>
 </html>

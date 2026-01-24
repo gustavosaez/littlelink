@@ -1,125 +1,777 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-            <meta name="theme-color" content="#F5F6F7">
-        <div style="background-color:#F5F6F7;
-          border-bottom-left-radius:15px; 
-          border-bottom-right-radius:15px;
-          border-top-right-radius:15px;
-          border-top-left-radius:15px;
-          box-shadow: 6px 6px 12px rgba(0, 0, 0, .25), -6px -6px 12px rgba(255, 255, 255, .08);"">
-    <figure aligncenter size-full is-resized is-style-default>
-        <a href="https://gustavosaez.com.br/hub/">
-    <center>
-      <img src="https://gustavosaez.com.br/hub/geradordesenhas/favicon.png" height="68">
-    </center>
-        </a>
-    </figure>
-  </div>
-<meta charset="UTF-8">
-<title>nephOS</title>
-  <!-- Favicon –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-<link rel="icon" type="image/png" href="images/favicon.png">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-:root{
- --bg:#222222;
- --card:#2b2b2b;
- --shadow-dark:#1a1a1a;
- --shadow-light:#3a3a3a;
- --text:#f5f5f5;
- --accent:#38bdf8;
-}
-[data-theme="light"]{
- --bg:#ECECEC;
- --card:#ECECEC;
- --shadow-dark:#cfcfcf;
- --shadow-light:#ffffff;
- --text:#111111;
- --accent:#2563eb;
-}
-*{box-sizing:border-box;-webkit-user-select:none;user-select:none}
-body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui;min-height:100vh}
-header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;font-weight:600}
-.toggle{cursor:pointer;padding:8px 14px;border-radius:12px;background:var(--card);box-shadow:6px 6px 12px var(--shadow-dark),-6px -6px 12px var(--shadow-light)}
-main{max-width:760px;margin:auto;padding:16px}
-.card{border-radius:18px;padding:20px;margin-bottom:20px;background:var(--card);box-shadow:8px 8px 16px var(--shadow-dark),-8px -8px 16px var(--shadow-light);position:relative}
-.blur{filter:blur(12px)}
-.watermark{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:42px;font-weight:700;opacity:0.04;pointer-events:none;transform:rotate(-20deg)}
-.sensitive{text-align:center;font-size:12px;opacity:.7;margin-bottom:10px}
-input,textarea,select,button{width:100%;border:none;outline:none;margin-top:12px;padding:14px;border-radius:14px;background:var(--card);color:var(--text);box-shadow:inset 6px 6px 12px var(--shadow-dark),inset -6px -6px 12px var(--shadow-light)}
-button{cursor:pointer;color:var(--accent);font-weight:600}
-pre{white-space:pre-wrap}
-.hidden{display:none}
-footer{text-align:center;font-size:12px;opacity:.6;padding:20px}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nephOS - Notas Seguras</title>
+    <script type="text/javascript" nonce="d402022b187f4419864b2c32f02" src="//local.adguard.org?ts=1769262351251&amp;type=content-script&amp;dmn=ppl-ai-code-interpreter-files.s3.amazonaws.com&amp;url=https%3A%2F%2Fppl-ai-code-interpreter-files.s3.amazonaws.com%2Fweb%2Fdirect-files%2F9671bdc34bf0892ea27b8c65c946bb63%2Fb46f994c-7a1c-487b-afb9-5896399b37fc%2F540321b7.html%3Fresponse-content-disposition%3Dattachment%253B%2520filename%253Dnephos-firebase-v2.html%253B%2520filename%252A%253DUTF-8%2527%2527nephos-firebase-v2.html%26AWSAccessKeyId%3DASIA2F3EMEYEQEU5SMVY%26Signature%3DLEmrlrc6rgPoeIM9IO%252FAAgxJUVI%253D%26x-amz-security-token%3DIQoJb3JpZ2luX2VjEEcaCXVzLWVhc3QtMSJIMEYCIQCT3FyIl1YshU%252BWGhNAawpl%252BlF%252FV2A4rqoG%252FvtznH4p3QIhAJYyfz8ile1PDrR%252FwU8UWvdOzky5yppiZKyHXgR8wuxpKvMECA8QARoMNjk5NzUzMzA5NzA1Igxjz2cifRYPfaPfxkAq0ASWq97AH9dlQccYEuvotvQtajYFMicVFhulaNzSeV9FFT%252BVNRJeEmorSJ8719FxiBy20Q%252FBYEAexpgolI5L5771zxD%252FQrPEXIe1h5cXNYd7V4pAylku8maSTtg9in2d0rTfaLuO0LrSZI7OP1FaeTN9qsso%252BRcBgDr0HaMnbPu5CWN5coZMREYRXgMcCK3BpZUInyjp9eEP09ckYDxZ5QDbA1qoG6bjWP0LSPn5WYNoY4SE3PgRLuXGp%252FrNeJ%252BxOP%252FtJOsDkzmo6fT9Lg%252FQa%252BFaknT3Z7LiCB%252B1NV6bttFV7C5RsdLBaNDhtU71Oe7LxaeBpQLonHpOspTItpttP4IurD9Jy1PbSqTISpWFldv72tMEH7ERbzZbo2162ST%252BPCIpLmmbRrcbbdtY5bKFlipSAn0qPwSn8ZxlfvGdsbZRjPNRmcoF0HOXI6qUpAmkQGsHNXA5tBaQah8bblzaZLkcg1y9Ed30l3dEbWW5lhe6q3c%252FTx9fn710rAw1pTBjW7HthZPChHOi6wpHKO6wVFxQqH3MKZp6KTXBj6HjXpYGkLQALBShJNtUB3Bd8WlyVLPXUonw8fD0aED12lIE7ZFl5fCTGm4bd%252Bn61e03HjOmG%252F8hNU%252FwqFrShAY0T76o9ZhbE9i1oJKq81jgS0z9mbFLxijsTgWs7ncZhvTNojjJi2NDyllyp45JUWLKh4WU2XA3o7v4TPLgpElrj5D%252Fx4VTs7UuCVmQPH%252BN7V9938axhKa2mvNV06UbM7oVQDBDYbDz%252B1Vzj1vp3%252F8KRN%252FgBNDKMMKj08sGOpcBjW7kLEBvxrMY3bWIIrsquIOLojVACYxB%252FZUB1ll3%252FoSsAfrNvz2HRomQzKrG%252Bc4nbTQtdScntj31N8vCVjrslzm8bK53jjL%252BPWfiIqPpci7QTmeYJYF8fwQssAZaZjnHQViVcgDVblnS5180VES3ygjQoUmMyxLpAxvMCD%252FlZBi20FVQQhbfyB9kh0ilyE52Ted8CFGkJA%253D%253D%26Expires%3D1769265256&amp;app=com.apple.Safari&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1&amp;stealth=1&amp;st-ua=TW96aWxsYS81LjAgKE1hY2ludG9zaDsgSW50ZWwgTWFjIE9TIFggMTBfMTVfNykgQXBwbGVXZWJLaXQvNjA1LjEuMTUgKEtIVE1MLCBsaWtlIEdlY2tvKSBWZXJzaW9uLzI2LjIgU2FmYXJpLzYwNS4xLjE1&amp;st-ch-brands=&amp;st-ch-mobile=&amp;st-ch-platform=&amp;st-wrtc&amp;st-push&amp;st-loc&amp;st-java&amp;st-dnt"></script><script type="text/javascript" nonce="d402022b187f4419864b2c32f02" src="//local.adguard.org?ts=1769262351251&amp;name=AdGuard%20Extra&amp;type=user-script"></script><link rel="icon" type="image/png" href="https://gustavosaez.com.br/hub/geradordesenhas/favicon.png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+        }
+
+        .main-wrapper {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            width: 100%;
+            padding: 40px;
+            animation: slideIn 0.5s ease;
+            align-self: flex-start;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .header h1 {
+            color: #667eea;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .security-badge {
+            background: #ede9fe;
+            border: 2px solid #a78bfa;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .security-badge span {
+            color: #6d28d9;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .firebase-status {
+            background: #f0fdf4;
+            border: 2px solid #86efac;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 0.85em;
+        }
+
+        .firebase-status.error {
+            background: #fee;
+            border-color: #fca5a5;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 1em;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 200px;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1em;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            resize: vertical;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        input[type="password"],
+        input[type="number"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .checkbox-group label {
+            margin: 0;
+            cursor: pointer;
+            font-weight: normal;
+        }
+
+        .char-count {
+            text-align: right;
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .char-count.warning {
+            color: #f59e0b;
+            font-weight: 600;
+        }
+
+        .char-count.error {
+            color: #ef4444;
+            font-weight: 600;
+        }
+
+        .time-hint {
+            font-size: 0.85em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        .btn-unlock {
+            margin-top: 15px;
+        }
+
+        .result-box {
+            background: #f8f9fa;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            display: none;
+        }
+
+        .result-box.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        .result-box h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .link-display {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            word-break: break-all;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+
+        .view-container {
+            display: none;
+        }
+
+        .view-container.show {
+            display: block;
+        }
+
+        .note-display {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #667eea;
+            margin-bottom: 20px;
+            position: relative;
+            min-height: 200px;
+        }
+
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-20deg);
+            font-size: 48px;
+            font-weight: 700;
+            opacity: 0.03;
+            pointer-events: none;
+            color: #000;
+            white-space: nowrap;
+        }
+
+        .note-content {
+            position: relative;
+            z-index: 1;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-size: 1em;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .warning {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: #856404;
+        }
+
+        .error {
+            background: #fee;
+            border: 2px solid #f88;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 10px;
+            color: #c33;
+            display: none;
+        }
+
+        .error.show {
+            display: block;
+        }
+
+        .sensitive-warning {
+            text-align: center;
+            font-size: 14px;
+            color: #ff9800;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .timer-display {
+            text-align: center;
+            font-size: 1.2em;
+            color: #667eea;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.9em;
+            color: rgba(255,255,255,0.9);
+            width: 100%;
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            .main-wrapper {
+                padding: 10px 0;
+            }
+
+            .container {
+                padding: 25px;
+            }
+
+            .header h1 {
+                font-size: 2em;
+            }
+
+            .watermark {
+                font-size: 32px;
+            }
+        }
+    </style>
 </head>
 <body>
-<header>
-<span>nephOS</span>
-<div class="toggle" onclick="toggleTheme()">Light / Dark</div>
-</header>
-<main>
-<div class="card" id="gen">
-<h3>Criar nota</h3>
-<textarea id="msg" rows="4"></textarea>
-<select id="ttl"><option value="15">15s</option><option value="30" selected>30s</option><option value="60">60s</option></select>
-<input id="pwd" type="password" placeholder="Senha">
-<button onclick="generate()">Gerar link</button>
-<textarea id="link" rows="2"></textarea>
-<button onclick="copyLink()">Copiar link</button>
-</div>
-<div class="card hidden" id="view">
-<div class="watermark">nephOS • CONFIDENCIAL</div>
-<div class="sensitive">⚠️ Conteúdo sensível — não compartilhe, não capture.</div>
-<input id="pwdView" type="password" placeholder="Digite a senha">
-<pre id="content"></pre>
-<small id="timer"></small>
-</div>
-</main>
-<footer>nephOS • Privacidade por padrão • © Gustavo Sáez</footer>
-<script>
-const root=document.documentElement;
-const saved=localStorage.getItem("theme");
-if(saved)root.dataset.theme=saved;
-function toggleTheme(){const t=root.dataset.theme==="light"?"dark":"light";root.dataset.theme=t;localStorage.setItem("theme",t);}
-document.addEventListener("contextmenu",e=>e.preventDefault());
-const params=new URLSearchParams(location.search);
-const m=params.get("m");
-const tts=parseInt(params.get("t")||30);
-const gen=document.getElementById("gen");
-const view=document.getElementById("view");
-const content=document.getElementById("content");
-const timer=document.getElementById("timer");
-async function generate(){
- const enc=new TextEncoder();
- const key=await crypto.subtle.importKey("raw",enc.encode(pwd.value),"PBKDF2",false,["deriveKey"]);
- const aes=await crypto.subtle.deriveKey({name:"PBKDF2",salt:new Uint8Array(8),iterations:100000,hash:"SHA-256"},key,{name:"AES-GCM",length:256},false,["encrypt"]);
- const iv=crypto.getRandomValues(new Uint8Array(12));
- const encrypted=await crypto.subtle.encrypt({name:"AES-GCM",iv},aes,enc.encode(msg.value));
- const full=new Uint8Array([...iv,...new Uint8Array(encrypted)]);
- let b64=btoa(String.fromCharCode(...full)).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
- link.value=location.origin+location.pathname+"?m="+b64+"&t="+ttl.value;
-}
-async function decode(){
- try{
- let s=m.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';
- const data=Uint8Array.from(atob(s),c=>c.charCodeAt(0));
- const key=await crypto.subtle.importKey("raw",new TextEncoder().encode(pwdView.value),"PBKDF2",false,["deriveKey"]);
- const aes=await crypto.subtle.deriveKey({name:"PBKDF2",salt:new Uint8Array(8),iterations:100000,hash:"SHA-256"},key,{name:"AES-GCM",length:256},false,["decrypt"]);
- const dec=await crypto.subtle.decrypt({name:"AES-GCM",iv:data.slice(0,12)},aes,data.slice(12));
- content.textContent=new TextDecoder().decode(dec);
- history.replaceState({},'',location.pathname);
- gen.classList.add("hidden");view.classList.remove("hidden");
- let r=tts;timer.textContent=`Autodestruição em ${r}s`;
- const i=setInterval(()=>{r--;timer.textContent=`Autodestruição em ${r}s`;if(r<=0){clearInterval(i);wipe();}},1000);
- }catch{content.textContent="Senha incorreta";}
-}
-function wipe(){content.textContent="Mensagem destruída";}
-function copyLink(){navigator.clipboard.writeText(link.value);}
-window.addEventListener("blur",()=>{view.classList.add("blur")});
-window.addEventListener("focus",()=>{view.classList.remove("blur")});
-if(m){gen.classList.add("hidden");view.classList.remove("hidden");pwdView.addEventListener("change",decode);}
-</script>
+    <div class="main-wrapper">
+        <div class="container">
+            <div class="header">
+                <h1>🔒 nephOS</h1>
+                <p>Notas seguras, anônimas e autodestrutivas</p>
+            </div>
+
+            <div class="security-badge">
+                <span>🛡️ Criptografia AES-256-GCM | Zero Conhecimento | Sem Rastreamento</span>
+            </div>
+
+            <div class="firebase-status" id="firebaseStatus">
+                🔄 Conectando ao Firebase...
+            </div>
+
+            <!-- Tela de Criação -->
+            <div id="createView" class="view-container show">
+                <div class="form-group">
+                    <label for="noteText">📝 Digite sua nota (até 500KB):</label>
+                    <textarea id="noteText" placeholder="Digite sua mensagem secreta aqui..."></textarea>
+                    <div class="char-count" id="charCount">0 caracteres</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="notePassword">🔑 Senha (obrigatória):</label>
+                    <input type="password" id="notePassword" placeholder="Digite uma senha forte (mínimo 4 caracteres)">
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="burnAfterReading" checked>
+                    <label for="burnAfterReading">🔥 Autodestruir após primeira leitura</label>
+                </div>
+
+                <div class="form-group">
+                    <label for="expirationTime">⏱️ Tempo disponível antes da autodestruição (segundos):</label>
+                    <input type="number" id="expirationTime" value="60" min="10" max="3600" placeholder="60">
+                    <div class="time-hint">Padrão: 60 segundos | Máximo: 3600 segundos (1 hora)</div>
+                </div>
+
+                <button class="btn btn-primary" onclick="createSecureNote()" id="createBtn">🚀 Criar Link Seguro</button>
+
+                <div class="error" id="createError"></div>
+
+                <div class="result-box" id="resultBox">
+                    <h3>✅ Link criado com sucesso!</h3>
+                    <div class="warning">
+                        ⚠️ <strong>Atenção:</strong> Salve este link! Ele não poderá ser recuperado depois.
+                    </div>
+                    <div class="link-display" id="generatedLink"></div>
+                    <button class="btn btn-secondary" onclick="copyLink()">📋 Copiar Link</button>
+                    <button class="btn btn-secondary" onclick="resetForm()">➕ Criar Nova Nota</button>
+                </div>
+            </div>
+
+            <!-- Tela de Visualização -->
+            <div id="viewView" class="view-container">
+                <div class="sensitive-warning">⚠️ Conteúdo sensível — não compartilhe, não capture.</div>
+
+                <div class="form-group" id="passwordPrompt">
+                    <label for="viewPassword">🔑 Digite a senha para desbloquear:</label>
+                    <input type="password" id="viewPassword" placeholder="Digite a senha">
+                    <button class="btn btn-primary btn-unlock" onclick="decryptNote()">🔓 Desbloquear</button>
+                </div>
+
+                <div class="error" id="viewError"></div>
+
+                <div id="noteContentDisplay" style="display: none;">
+                    <div class="note-display">
+                        <div class="watermark">nephOS | CONFIDENCIAL</div>
+                        <div class="note-content" id="noteContent"></div>
+                    </div>
+
+                    <div class="timer-display" id="timerDisplay"></div>
+                    <div class="warning" id="burnMessage" style="display: none;">
+                        🔥 Esta nota foi destruída automaticamente.
+                    </div>
+                    <button class="btn btn-secondary" onclick="location.reload()">➕ Criar Nova Nota</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>nephOS • Privacidade por padrão • © Gustavo Saez</footer>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFirestore, doc, setDoc, getDoc, deleteDoc } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDF0rikXftQM5WmRRJ_XUsL_EzJybUJK3A",
+            authDomain: "nephos-1304c.firebaseapp.com",
+            projectId: "nephos-1304c",
+            storageBucket: "nephos-1304c.firebasestorage.app",
+            messagingSenderId: "33963342048",
+            appId: "1:33963342048:web:17ba3249dcc5e2c80f3885"
+        };
+
+        try {
+            const app = initializeApp(firebaseConfig);
+            const db = getFirestore(app);
+
+            window.db = db;
+            window.firestoreDoc = doc;
+            window.firestoreSetDoc = setDoc;
+            window.firestoreGetDoc = getDoc;
+            window.firestoreDeleteDoc = deleteDoc;
+
+            document.getElementById('firebaseStatus').innerHTML = '🔒 Criptografia habilitada';
+            document.getElementById('firebaseStatus').style.borderColor = '#86efac';
+
+            setTimeout(() => {
+                document.getElementById('firebaseStatus').style.display = 'none';
+            }, 3000);
+        } catch (error) {
+            document.getElementById('firebaseStatus').innerHTML = '❌ Erro ao criptografar: ' + error.message;
+            document.getElementById('firebaseStatus').classList.add('error');
+            console.error('Firebase error:', error);
+        }
+    </script>
+
+    <script>
+        const MAX_TEXT_SIZE = 500 * 1024; // 500KB
+        const noteTextarea = document.getElementById('noteText');
+        const charCountEl = document.getElementById('charCount');
+
+        noteTextarea.addEventListener('input', () => {
+            const length = noteTextarea.value.length;
+            const bytes = new Blob([noteTextarea.value]).size;
+
+            charCountEl.textContent = `${length} caracteres (${formatBytes(bytes)})`;
+
+            if (bytes > MAX_TEXT_SIZE) {
+                charCountEl.className = 'char-count error';
+            } else if (bytes > MAX_TEXT_SIZE * 0.8) {
+                charCountEl.className = 'char-count warning';
+            } else {
+                charCountEl.className = 'char-count';
+            }
+        });
+
+        function formatBytes(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+        }
+
+        function generateId() {
+            return Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
+        }
+
+        function arrayBufferToBase64(buffer) {
+            const bytes = new Uint8Array(buffer);
+            const chunkSize = 0x8000;
+            let result = '';
+
+            for (let i = 0; i < bytes.length; i += chunkSize) {
+                const chunk = bytes.subarray(i, Math.min(i + chunkSize, bytes.length));
+                result += String.fromCharCode.apply(null, chunk);
+            }
+
+            return btoa(result).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
+        }
+
+        function base64ToArrayBuffer(base64) {
+            let s = base64.replace(/-/g, '+').replace(/_/g, '/');
+            while (s.length % 4) s += '=';
+            const binary = atob(s);
+            const bytes = new Uint8Array(binary.length);
+            for (let i = 0; i < binary.length; i++) {
+                bytes[i] = binary.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+
+        async function deriveKey(password, salt) {
+            const enc = new TextEncoder();
+            const keyMaterial = await crypto.subtle.importKey(
+                'raw',
+                enc.encode(password),
+                'PBKDF2',
+                false,
+                ['deriveKey']
+            );
+
+            return await crypto.subtle.deriveKey(
+                {
+                    name: 'PBKDF2',
+                    salt: salt,
+                    iterations: 100000,
+                    hash: 'SHA-256'
+                },
+                keyMaterial,
+                { name: 'AES-GCM', length: 256 },
+                true,
+                ['encrypt', 'decrypt']
+            );
+        }
+
+        function showError(elementId, message) {
+            const elem = document.getElementById(elementId);
+            elem.textContent = message;
+            elem.classList.add('show');
+            setTimeout(() => elem.classList.remove('show'), 5000);
+        }
+
+        async function createSecureNote() {
+            const noteText = document.getElementById('noteText').value.trim();
+            const password = document.getElementById('notePassword').value.trim();
+            let expirationTime = parseInt(document.getElementById('expirationTime').value);
+
+            if (!noteText) {
+                showError('createError', '❌ Digite uma nota primeiro.');
+                return;
+            }
+
+            const noteBytes = new Blob([noteText]).size;
+            if (noteBytes > MAX_TEXT_SIZE) {
+                showError('createError', `❌ Nota muito grande! Limite: ${formatBytes(MAX_TEXT_SIZE)}`);
+                return;
+            }
+
+            if (!password) {
+                showError('createError', '❌ A senha é obrigatória.');
+                return;
+            }
+
+            if (password.length < 4) {
+                showError('createError', '❌ A senha deve ter no mínimo 4 caracteres.');
+                return;
+            }
+
+            if (!expirationTime || expirationTime < 10) {
+                expirationTime = 60;
+            }
+
+            if (expirationTime > 3600) {
+                showError('createError', '❌ O tempo máximo é 3600 segundos (1 hora).');
+                return;
+            }
+
+            if (!window.db) {
+                showError('createError', '❌ Firebase não conectado. Recarregue a página.');
+                return;
+            }
+
+            try {
+                document.getElementById('createBtn').disabled = true;
+                document.getElementById('createBtn').textContent = '🔄 Criando...';
+
+                const noteId = generateId();
+                const salt = crypto.getRandomValues(new Uint8Array(16));
+                const iv = crypto.getRandomValues(new Uint8Array(12));
+                const key = await deriveKey(password, salt);
+
+                const enc = new TextEncoder();
+                const encrypted = await crypto.subtle.encrypt(
+                    { name: 'AES-GCM', iv: iv },
+                    key,
+                    enc.encode(noteText)
+                );
+
+                const burnAfterReading = document.getElementById('burnAfterReading').checked;
+
+                const noteData = {
+                    encrypted: arrayBufferToBase64(encrypted),
+                    iv: arrayBufferToBase64(iv),
+                    salt: arrayBufferToBase64(salt),
+                    burnAfterReading: burnAfterReading,
+                    readTime: expirationTime,
+                    createdAt: Date.now()
+                };
+
+                console.log('Salvando nota no Firestore...');
+                await window.firestoreSetDoc(window.firestoreDoc(window.db, 'notes', noteId), noteData);
+                console.log('Nota salva com sucesso!');
+
+                const exportedKey = await crypto.subtle.exportKey('raw', key);
+                const keyString = arrayBufferToBase64(exportedKey);
+                const baseUrl = window.location.origin + window.location.pathname;
+                const link = `${baseUrl}#id=${noteId}&k=${keyString}`;
+
+                document.getElementById('generatedLink').textContent = link;
+                document.getElementById('resultBox').classList.add('show');
+                document.getElementById('createBtn').textContent = '🚀 Criar Link Seguro';
+                document.getElementById('createBtn').disabled = false;
+
+            } catch (error) {
+                showError('createError', '❌ Erro ao criar nota: ' + error.message);
+                console.error('Erro completo:', error);
+                document.getElementById('createBtn').disabled = false;
+                document.getElementById('createBtn').textContent = '🚀 Criar Link Seguro';
+            }
+        }
+
+        function copyLink() {
+            const link = document.getElementById('generatedLink').textContent;
+            navigator.clipboard.writeText(link).then(() => {
+                const btn = event.target;
+                const original = btn.textContent;
+                btn.textContent = '✅ Copiado!';
+                setTimeout(() => btn.textContent = original, 2000);
+            });
+        }
+
+        function resetForm() {
+            location.reload();
+        }
+
+        async function decryptNote() {
+            const params = new URLSearchParams(window.location.hash.substring(1));
+            const noteId = params.get('id');
+            const keyB64 = params.get('k');
+            const password = document.getElementById('viewPassword').value.trim();
+
+            if (!password) {
+                showError('viewError', '❌ Digite a senha.');
+                return;
+            }
+
+            if (!window.db) {
+                showError('viewError', '❌ Firebase não conectado. Recarregue a página.');
+                return;
+            }
+
+            try {
+                console.log('Buscando nota:', noteId);
+                const docRef = window.firestoreDoc(window.db, 'notes', noteId);
+                const docSnap = await window.firestoreGetDoc(docRef);
+
+                if (!docSnap.exists()) {
+                    showError('viewError', '❌ Nota não encontrada. Pode ter sido destruída ou expirada.');
+                    console.log('Documento não existe');
+                    return;
+                }
+
+                console.log('Nota encontrada, descriptografando...');
+                const noteData = docSnap.data();
+                const salt = base64ToArrayBuffer(noteData.salt);
+                const iv = base64ToArrayBuffer(noteData.iv);
+                const encrypted = base64ToArrayBuffer(noteData.encrypted);
+
+                const key = await deriveKey(password, salt);
+
+                const decrypted = await crypto.subtle.decrypt(
+                    { name: 'AES-GCM', iv: iv },
+                    key,
+                    encrypted
+                );
+
+                const dec = new TextDecoder();
+                const noteText = dec.decode(decrypted);
+
+                document.getElementById('noteContent').textContent = noteText;
+                document.getElementById('passwordPrompt').style.display = 'none';
+                document.getElementById('noteContentDisplay').style.display = 'block';
+
+                history.replaceState({}, '', location.pathname);
+
+                if (noteData.burnAfterReading) {
+                    console.log('Burn after reading ativo, deletando...');
+                    await window.firestoreDeleteDoc(docRef);
+                }
+
+                let timeLeft = noteData.readTime || 60;
+                const timerDisplay = document.getElementById('timerDisplay');
+                timerDisplay.textContent = `Nota disponível por ${timeLeft}s`;
+
+                const interval = setInterval(() => {
+                    timeLeft--;
+                    if (timeLeft <= 0) {
+                        clearInterval(interval);
+                        document.getElementById('noteContent').textContent = '';
+                        document.getElementById('burnMessage').style.display = 'block';
+                        timerDisplay.textContent = '💥 Nota destruída';
+                    } else {
+                        timerDisplay.textContent = `Nota disponível por ${timeLeft}s`;
+                    }
+                }, 1000);
+
+            } catch (error) {
+                showError('viewError', '❌ Senha incorreta ou dados corrompidos.');
+                console.error('Erro completo:', error);
+            }
+        }
+
+        document.getElementById('viewPassword')?.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') decryptNote();
+        });
+
+        window.addEventListener('load', () => {
+            const hash = window.location.hash;
+            if (hash && hash.includes('id=')) {
+                document.getElementById('createView').classList.remove('show');
+                document.getElementById('viewView').classList.add('show');
+            }
+        });
+    </script>
 </body>
 </html>
