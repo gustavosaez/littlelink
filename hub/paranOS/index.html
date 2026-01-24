@@ -5,17 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>paranOS - Chat P2P</title>
 
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-
     <style>
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap');
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'JetBrains Mono', monospace;
             background: #000;
@@ -23,24 +15,14 @@
             height: 100vh;
             overflow: hidden;
         }
-
         .scanlines {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background: repeating-linear-gradient(0deg, rgba(0,0,0,0.15), rgba(0,0,0,0.15) 1px, transparent 1px, transparent 2px);
             pointer-events: none;
             z-index: 9999;
         }
-
-        .container {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
+        .container { height: 100vh; display: flex; flex-direction: column; }
         .header {
             background: #001a0d;
             border-bottom: 2px solid #00ff41;
@@ -49,49 +31,13 @@
             justify-content: space-between;
             align-items: center;
         }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            text-shadow: 0 0 10px #00ff41;
-            letter-spacing: 3px;
-        }
-
-        .status-bar {
-            display: flex;
-            gap: 20px;
-            font-size: 0.8rem;
-        }
-
-        .status-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #ffd700;
-        }
-
-        .dot.active {
-            background: #00ff41;
-        }
-
-        .dot.error {
-            background: #ff0055;
-        }
-
-        .setup-screen {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex: 1;
-            padding: 40px;
-        }
-
+        .logo { font-size: 1.5rem; font-weight: 700; text-shadow: 0 0 10px #00ff41; letter-spacing: 3px; }
+        .status-bar { display: flex; gap: 20px; font-size: 0.8rem; }
+        .status-item { display: flex; align-items: center; gap: 6px; }
+        .dot { width: 8px; height: 8px; border-radius: 50%; background: #ffd700; }
+        .dot.active { background: #00ff41; }
+        .dot.error { background: #ff0055; }
+        .setup-screen { display: flex; align-items: center; justify-content: center; flex: 1; padding: 40px; }
         .setup-box {
             background: rgba(0, 26, 13, 0.9);
             border: 2px solid #00ff41;
@@ -100,21 +46,8 @@
             max-width: 500px;
             width: 100%;
         }
-
-        .title {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-            text-align: center;
-            text-shadow: 0 0 10px #00ff41;
-        }
-
-        .subtitle {
-            font-size: 0.9rem;
-            color: #00cc33;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
+        .title { font-size: 1.8rem; margin-bottom: 10px; text-align: center; text-shadow: 0 0 10px #00ff41; }
+        .subtitle { font-size: 0.9rem; color: #00cc33; text-align: center; margin-bottom: 30px; }
         .log-box {
             background: rgba(0, 0, 0, 0.5);
             border: 1px solid #00ff41;
@@ -125,22 +58,9 @@
             overflow-y: auto;
             font-size: 0.75rem;
         }
-
-        .log-item {
-            margin-bottom: 5px;
-            padding: 3px 0;
-        }
-
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 0.85rem;
-        }
-
+        .log-item { margin-bottom: 5px; padding: 3px 0; }
+        .input-group { margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; font-size: 0.85rem; }
         input, select {
             width: 100%;
             background: #000;
@@ -151,12 +71,7 @@
             font-family: inherit;
             font-size: 1rem;
         }
-
-        input:focus, select:focus {
-            outline: none;
-            box-shadow: 0 0 10px rgba(0, 255, 65, 0.5);
-        }
-
+        input:focus, select:focus { outline: none; box-shadow: 0 0 10px rgba(0, 255, 65, 0.5); }
         .btn {
             width: 100%;
             background: #00ff41;
@@ -171,24 +86,14 @@
             letter-spacing: 2px;
             font-family: inherit;
         }
-
-        .btn:hover:not(:disabled) {
-            background: #00cc33;
-        }
-
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            background: #003311;
-        }
-
+        .btn:hover:not(:disabled) { background: #00cc33; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; background: #003311; }
         .divider {
             text-align: center;
             margin: 25px 0;
             position: relative;
             color: #006622;
         }
-
         .divider::before, .divider::after {
             content: '';
             position: absolute;
@@ -197,20 +102,10 @@
             height: 1px;
             background: #00ff41;
         }
-
         .divider::before { left: 0; }
         .divider::after { right: 0; }
-
-        .chat-screen {
-            display: none;
-            flex: 1;
-            flex-direction: column;
-        }
-
-        .chat-screen.active {
-            display: flex;
-        }
-
+        .chat-screen { display: none; flex: 1; flex-direction: column; }
+        .chat-screen.active { display: flex; }
         .chat-info {
             background: #001a0d;
             padding: 12px 25px;
@@ -219,14 +114,7 @@
             justify-content: space-between;
             font-size: 0.85rem;
         }
-
-        .messages {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-            background: #000;
-        }
-
+        .messages { flex: 1; overflow-y: auto; padding: 20px; background: #000; }
         .message {
             margin-bottom: 15px;
             padding: 12px 16px;
@@ -234,7 +122,6 @@
             max-width: 70%;
             word-wrap: break-word;
         }
-
         .message.system {
             background: rgba(0, 255, 65, 0.1);
             border-left: 3px solid #00ff41;
@@ -242,18 +129,8 @@
             max-width: 100%;
             font-size: 0.85rem;
         }
-
-        .message.me {
-            background: rgba(0, 255, 65, 0.2);
-            border: 1px solid #00ff41;
-            margin-left: auto;
-        }
-
-        .message.peer {
-            background: rgba(0, 102, 34, 0.3);
-            border: 1px solid #006622;
-        }
-
+        .message.me { background: rgba(0, 255, 65, 0.2); border: 1px solid #00ff41; margin-left: auto; }
+        .message.peer { background: rgba(0, 102, 34, 0.3); border: 1px solid #006622; }
         .input-area {
             background: #001a0d;
             border-top: 2px solid #00ff41;
@@ -261,26 +138,12 @@
             display: flex;
             gap: 10px;
         }
-
-        .btn-send {
-            width: auto;
-            padding: 14px 30px;
-        }
-
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #000;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #00ff41;
-            border-radius: 10px;
-        }
+        .btn-send { width: auto; padding: 14px 30px; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #00ff41; border-radius: 10px; }
     </style>
-</head>
+<script type="text/javascript" nonce="d402022b187f4419864b2c32f02" src="//local.adguard.org?ts=1769291150859&amp;type=content-script&amp;dmn=ppl-ai-code-interpreter-files.s3.amazonaws.com&amp;url=https%3A%2F%2Fppl-ai-code-interpreter-files.s3.amazonaws.com%2Fweb%2Fdirect-files%2F021ad8b2e860857e661899a2a8f45e86%2F64cb76d3-c2cf-4bba-8db6-8ba7b64f90e3%2Fee645b18.html%3Fresponse-content-disposition%3Dattachment%253B%2520filename%253Dparanos-v17-ROBUSTO.html%253B%2520filename%252A%253DUTF-8%2527%2527paranos-v17-ROBUSTO.html%26AWSAccessKeyId%3DASIA2F3EMEYE5MT6Y7YP%26Signature%3DFFpjyDIdFrqQBRpVFmtDvBH5d88%253D%26x-amz-security-token%3DIQoJb3JpZ2luX2VjEE4aCXVzLWVhc3QtMSJGMEQCIEt55y7IVYdgWfI5rdhIuPIyv9oyqrDl7Voc6dF7atjWAiBMpnGBZ0uI9F3Mt1HNWGB%252FZ32lWi6uSH21epUoJcv5SCrzBAgXEAEaDDY5OTc1MzMwOTcwNSIMfhKLTsjcEnUXCtqTKtAEAl66WIo7UCRPqyVbOp6m%252FIB7zZC24dNHg%252F6CM3EoLD%252B4vHqXjoEDAky9cSO%252FgPNCZCac0VeUDc1%252BBxuowAEOXwe42%252F4QhGOn7sn2lAqfZDlh1zc4bmXuffN%252BriNApZ1438qA5BvCmsoNv9KGK8JHltXI3zdRjACB6%252FkFr%252B6UlKvsvFsLndRgqXPoZBl5xvtV9c8C1TN1hpvvpRlCmsYaS36ZyLZcnFUjvTw5lr9QMNTeZHolrBB635w6%252F%252F9WqJj%252BJ0wg3HJwzEKTV67VPP%252F2Dlx2%252B9NSdTWb8gi33PNj69L2fBI%252BkeZuHXWV0RONbdud%252BS%252FZCbIeCCwnuoLNw85GCM7UDLzcUcrtskfa4i2Q094sbOsRT%252BnBuDMoKV23acaZUdzA6nbIQBN3l4tspoB01wEQDKvuw4sbZB%252FFQaKIRvQfiS%252FdZyOBxOgbaZL%252Bu938Y3zZydgKc9tFhXH3IupJc54u7N2ECZMYiE9KSZbHriVEbgvJsNorVVlaRGyIzWV7EKw9CjooCYh2lyvJnC57vwboXgGP9mpeKv3xdvD2XEYiFT7Z815shmQQRV8ECFKS9bIjro3GKMRsQmONyS5hs6Jln5YQrRmDgXZytaarYjXhmI2kn1AqBE9v5hKR7xqjLOMu1LQsdOE2g0VMEW20Rfzd7wRq3RZ0isreKGDbZA2tAr9MznhswPN0DCrRhYcQgF4sPovWwHleZW0%252F7qFTMzWI5hLZHFH4xMdMbgkPBVBm0SSkQq%252FBG2GVoS1JG7wCQ6b5clGm9HP85AbT19EajjD7gdXLBjqZAWU425S%252BE98egpmW2if%252FtpkVCMQdHSYJdXqHWOJtBDzXDosS59l%252F6iPXW7MNnE%252Fa4ysT6k43Toy4Chh3K41Rl25pfSsRTm0DBG3ExfZSk0iTmJBPDMJSfcf%252BP72jnugREpl12wrZtiD7NNPX7NnIvMWiy3X65nfsEIt31RWSI%252FO6By2B0YdXrO49OGwFRrd93gDuf1ldBhB%252BzA%253D%253D%26Expires%3D1769294070&amp;app=com.apple.Safari&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1&amp;stealth=1&amp;st-ua=TW96aWxsYS81LjAgKE1hY2ludG9zaDsgSW50ZWwgTWFjIE9TIFggMTBfMTVfNykgQXBwbGVXZWJLaXQvNjA1LjEuMTUgKEtIVE1MLCBsaWtlIEdlY2tvKSBWZXJzaW9uLzI2LjIgU2FmYXJpLzYwNS4xLjE1&amp;st-ch-brands=&amp;st-ch-mobile=&amp;st-ch-platform=&amp;st-wrtc&amp;st-push&amp;st-loc&amp;st-java&amp;st-dnt"></script><script type="text/javascript" nonce="d402022b187f4419864b2c32f02" src="//local.adguard.org?ts=1769291150859&amp;name=AdGuard%20Extra&amp;type=user-script"></script></head>
 <body>
 
 <div class="scanlines"></div>
@@ -291,7 +154,7 @@
         <div class="status-bar">
             <div class="status-item">
                 <div class="dot" id="fbDot"></div>
-                <span id="fbStatus">INICIANDO</span>
+                <span id="fbStatus">CARREGANDO</span>
             </div>
             <div class="status-item">
                 <span id="clock">--:--</span>
@@ -349,315 +212,385 @@
     </div>
 </div>
 
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+
 <script>
-// Config
-const firebaseConfig = {
-    apiKey: "AIzaSyDF0rikXftQM5WmRRJ_XUsL_EzJybUJK3A",
-    authDomain: "nephos-1304c.firebaseapp.com",
-    databaseURL: "https://nephos-1304c-default-rtdb.firebaseio.com",
-    projectId: "nephos-1304c",
-    storageBucket: "nephos-1304c.firebasestorage.app",
-    messagingSenderId: "33963342048",
-    appId: "1:33963342048:web:17ba3249dcc5e2c80f3885"
-};
+(function() {
+    'use strict';
 
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
+    // Vars
+    let db = null;
+    let myUsername = '';
+    let roomId = '';
+    let pc = null;
+    let dc = null;
+    let isReady = false;
+    let isInitiator = false;
+    let iceList = [];
 
-// Vars
-let myUsername = '';
-let roomId = '';
-let pc = null;
-let dc = null;
-let isReady = false;
-let isInitiator = false;
-let iceList = [];
-
-const rtcConfig = {
-    iceServers: [
-        { urls: 'stun:stun.l.google.com:19302' },
-        { urls: 'stun:stun1.l.google.com:19302' }
-    ]
-};
-
-// Helpers
-function log(msg) {
-    console.log(msg);
-    const box = document.getElementById('logBox');
-    const item = document.createElement('div');
-    item.className = 'log-item';
-    item.textContent = msg;
-    box.appendChild(item);
-    box.scrollTop = box.scrollHeight;
-}
-
-function updateFB(status, isOk) {
-    document.getElementById('fbStatus').textContent = status;
-    const dot = document.getElementById('fbDot');
-    dot.className = 'dot ' + (isOk ? 'active' : (isOk === false ? 'error' : ''));
-}
-
-function addMsg(user, text, type) {
-    const msgs = document.getElementById('messages');
-    const m = document.createElement('div');
-    m.className = 'message ' + type;
-    m.textContent = (type === 'system' ? text : user + ': ' + text);
-    msgs.appendChild(m);
-    msgs.scrollTop = msgs.scrollHeight;
-}
-
-function genId() {
-    return Math.random().toString(36).substring(2, 10) + Date.now().toString(36);
-}
-
-// Clock
-setInterval(() => {
-    document.getElementById('clock').textContent = new Date().toLocaleTimeString('pt-BR', {hour: '2-digit', minute: '2-digit'});
-}, 1000);
-
-// Init Firebase
-log('Conectando Firebase...');
-db.ref('.info/connected').on('value', (snap) => {
-    if (snap.val()) {
-        log('Firebase OK!');
-        updateFB('ONLINE', true);
-        document.getElementById('createBtn').disabled = false;
-        document.getElementById('joinBtn').disabled = false;
-    } else {
-        log('Firebase OFFLINE');
-        updateFB('OFFLINE', false);
-    }
-});
-
-// Create
-document.getElementById('createBtn').addEventListener('click', async () => {
-    myUsername = document.getElementById('username').value.trim();
-    if (!myUsername) {
-        alert('Digite username!');
-        return;
-    }
-
-    isInitiator = true;
-    roomId = genId();
-    const exp = Date.now() + (parseInt(document.getElementById('expiration').value) * 60000);
-
-    log('Criando sala: ' + roomId);
-
-    await db.ref('rooms/' + roomId).set({
-        creator: myUsername,
-        created: Date.now(),
-        expires: exp
-    });
-
-    try {
-        await navigator.clipboard.writeText(roomId);
-        alert('ID copiado: ' + roomId);
-    } catch {
-        prompt('ID da sala:', roomId);
-    }
-
-    document.getElementById('setupScreen').style.display = 'none';
-    document.getElementById('chatScreen').classList.add('active');
-    document.getElementById('userDisplay').textContent = myUsername;
-
-    addMsg('', 'Sala criada! Aguardando peer...', 'system');
-
-    initWebRTC();
-});
-
-// Join
-document.getElementById('joinBtn').addEventListener('click', async () => {
-    myUsername = document.getElementById('username').value.trim();
-    roomId = document.getElementById('roomId').value.trim();
-
-    if (!myUsername || !roomId) {
-        alert('Preencha tudo!');
-        return;
-    }
-
-    isInitiator = false;
-
-    log('Entrando: ' + roomId);
-
-    const snap = await db.ref('rooms/' + roomId).once('value');
-    if (!snap.exists()) {
-        alert('Sala nao encontrada!');
-        return;
-    }
-
-    document.getElementById('setupScreen').style.display = 'none';
-    document.getElementById('chatScreen').classList.add('active');
-    document.getElementById('userDisplay').textContent = myUsername;
-
-    addMsg('', 'Conectando...', 'system');
-
-    waitOffer();
-});
-
-// Wait offer
-async function waitOffer() {
-    log('Aguardando offer...');
-
-    db.ref('rooms/' + roomId + '/offer').on('value', async (snap) => {
-        const offer = snap.val();
-        if (offer && offer.sdp) {
-            log('Offer recebido!');
-            db.ref('rooms/' + roomId + '/offer').off();
-            await initWebRTC(offer);
-        }
-    });
-}
-
-// WebRTC
-async function initWebRTC(remoteOffer) {
-    log('Iniciando WebRTC...');
-
-    pc = new RTCPeerConnection(rtcConfig);
-    iceList = [];
-
-    pc.onicecandidate = (e) => {
-        if (e.candidate) {
-            iceList.push(e.candidate.toJSON());
-        }
+    const rtcConfig = {
+        iceServers: [
+            { urls: 'stun:stun.l.google.com:19302' },
+            { urls: 'stun:stun1.l.google.com:19302' }
+        ]
     };
 
-    pc.onconnectionstatechange = () => {
-        log('P2P: ' + pc.connectionState);
-    };
+    // Helpers
+    function log(msg) {
+        console.log('[paranOS]', msg);
+        const box = document.getElementById('logBox');
+        const item = document.createElement('div');
+        item.className = 'log-item';
+        item.textContent = msg;
+        box.appendChild(item);
+        box.scrollTop = box.scrollHeight;
+    }
 
-    if (isInitiator) {
-        dc = pc.createDataChannel('chat');
-        setupDC();
+    function updateFB(status, isOk) {
+        document.getElementById('fbStatus').textContent = status;
+        const dot = document.getElementById('fbDot');
+        if (isOk === true) {
+            dot.className = 'dot active';
+        } else if (isOk === false) {
+            dot.className = 'dot error';
+        } else {
+            dot.className = 'dot';
+        }
+    }
 
-        const offer = await pc.createOffer();
-        await pc.setLocalDescription(offer);
+    function addMsg(user, text, type) {
+        const msgs = document.getElementById('messages');
+        const m = document.createElement('div');
+        m.className = 'message ' + type;
+        m.textContent = (type === 'system' ? text : user + ': ' + text);
+        msgs.appendChild(m);
+        msgs.scrollTop = msgs.scrollHeight;
+    }
 
-        await waitICE();
+    function genId() {
+        return Math.random().toString(36).substring(2, 10) + Date.now().toString(36);
+    }
 
-        log('Salvando offer...');
-        await db.ref('rooms/' + roomId + '/offer').set({
-            type: offer.type,
-            sdp: offer.sdp,
-            ice: iceList,
-            ts: Date.now()
+    // Clock
+    setInterval(function() {
+        document.getElementById('clock').textContent = new Date().toLocaleTimeString('pt-BR', {hour: '2-digit', minute: '2-digit'});
+    }, 1000);
+
+    // Init Firebase
+    function initFirebase() {
+        log('Carregando Firebase...');
+
+        if (typeof firebase === 'undefined') {
+            log('ERRO: Firebase SDK nao carregou!');
+            updateFB('ERRO SDK', false);
+            alert('Erro ao carregar Firebase SDK. Verifique sua conexao com a internet e recarregue a pagina.');
+            return false;
+        }
+
+        log('Firebase SDK OK!');
+
+        try {
+            const firebaseConfig = {
+                apiKey: "AIzaSyDF0rikXftQM5WmRRJ_XUsL_EzJybUJK3A",
+                authDomain: "nephos-1304c.firebaseapp.com",
+                databaseURL: "https://nephos-1304c-default-rtdb.firebaseio.com",
+                projectId: "nephos-1304c",
+                storageBucket: "nephos-1304c.firebasestorage.app",
+                messagingSenderId: "33963342048",
+                appId: "1:33963342048:web:17ba3249dcc5e2c80f3885"
+            };
+
+            firebase.initializeApp(firebaseConfig);
+            db = firebase.database();
+
+            log('Firebase inicializado!');
+
+            db.ref('.info/connected').on('value', function(snap) {
+                if (snap.val()) {
+                    log('Firebase conectado!');
+                    updateFB('ONLINE', true);
+                    document.getElementById('createBtn').disabled = false;
+                    document.getElementById('joinBtn').disabled = false;
+                } else {
+                    log('Firebase offline');
+                    updateFB('OFFLINE', false);
+                }
+            });
+
+            return true;
+
+        } catch (error) {
+            log('ERRO ao inicializar Firebase: ' + error.message);
+            updateFB('ERRO', false);
+            alert('Erro ao inicializar Firebase: ' + error.message);
+            return false;
+        }
+    }
+
+    // Create
+    document.getElementById('createBtn').addEventListener('click', async function() {
+        myUsername = document.getElementById('username').value.trim();
+        if (!myUsername) {
+            alert('Digite username!');
+            return;
+        }
+
+        isInitiator = true;
+        roomId = genId();
+        const exp = Date.now() + (parseInt(document.getElementById('expiration').value) * 60000);
+
+        log('Criando sala: ' + roomId);
+
+        try {
+            await db.ref('rooms/' + roomId).set({
+                creator: myUsername,
+                created: Date.now(),
+                expires: exp
+            });
+
+            log('Sala criada!');
+        } catch (error) {
+            log('ERRO ao criar sala: ' + error.message);
+            alert('Erro: ' + error.message);
+            return;
+        }
+
+        try {
+            await navigator.clipboard.writeText(roomId);
+            alert('ID copiado: ' + roomId);
+        } catch (e) {
+            prompt('ID da sala:', roomId);
+        }
+
+        document.getElementById('setupScreen').style.display = 'none';
+        document.getElementById('chatScreen').classList.add('active');
+        document.getElementById('userDisplay').textContent = myUsername;
+
+        addMsg('', 'Sala criada! Aguardando peer...', 'system');
+
+        initWebRTC();
+    });
+
+    // Join
+    document.getElementById('joinBtn').addEventListener('click', async function() {
+        myUsername = document.getElementById('username').value.trim();
+        roomId = document.getElementById('roomId').value.trim();
+
+        if (!myUsername || !roomId) {
+            alert('Preencha tudo!');
+            return;
+        }
+
+        isInitiator = false;
+
+        log('Entrando: ' + roomId);
+
+        try {
+            const snap = await db.ref('rooms/' + roomId).once('value');
+            if (!snap.exists()) {
+                alert('Sala nao encontrada!');
+                return;
+            }
+
+            log('Sala encontrada!');
+        } catch (error) {
+            log('ERRO: ' + error.message);
+            alert('Erro: ' + error.message);
+            return;
+        }
+
+        document.getElementById('setupScreen').style.display = 'none';
+        document.getElementById('chatScreen').classList.add('active');
+        document.getElementById('userDisplay').textContent = myUsername;
+
+        addMsg('', 'Conectando...', 'system');
+
+        waitOffer();
+    });
+
+    // Wait offer
+    function waitOffer() {
+        log('Aguardando offer...');
+
+        db.ref('rooms/' + roomId + '/offer').on('value', async function(snap) {
+            const offer = snap.val();
+            if (offer && offer.sdp) {
+                log('Offer recebido!');
+                db.ref('rooms/' + roomId + '/offer').off();
+                await initWebRTC(offer);
+            }
         });
+    }
 
-        log('Offer salvo! Aguardando answer...');
+    // WebRTC
+    async function initWebRTC(remoteOffer) {
+        log('Iniciando WebRTC...');
 
-        db.ref('rooms/' + roomId + '/answer').on('value', async (snap) => {
-            const ans = snap.val();
-            if (ans && ans.sdp && !pc.currentRemoteDescription) {
-                log('Answer recebido!');
+        pc = new RTCPeerConnection(rtcConfig);
+        iceList = [];
 
-                await pc.setRemoteDescription({ type: ans.type, sdp: ans.sdp });
+        pc.onicecandidate = function(e) {
+            if (e.candidate) {
+                iceList.push(e.candidate.toJSON());
+            }
+        };
 
-                if (ans.ice) {
-                    for (const ice of ans.ice) {
-                        await pc.addIceCandidate(ice);
+        pc.onconnectionstatechange = function() {
+            log('P2P: ' + pc.connectionState);
+        };
+
+        try {
+            if (isInitiator) {
+                dc = pc.createDataChannel('chat');
+                setupDC();
+
+                const offer = await pc.createOffer();
+                await pc.setLocalDescription(offer);
+
+                await waitICE();
+
+                log('Salvando offer (' + iceList.length + ' ICE)...');
+                await db.ref('rooms/' + roomId + '/offer').set({
+                    type: offer.type,
+                    sdp: offer.sdp,
+                    ice: iceList,
+                    ts: Date.now()
+                });
+
+                log('Offer salvo! Aguardando answer...');
+
+                db.ref('rooms/' + roomId + '/answer').on('value', async function(snap) {
+                    const ans = snap.val();
+                    if (ans && ans.sdp && !pc.currentRemoteDescription) {
+                        log('Answer recebido!');
+
+                        await pc.setRemoteDescription({ type: ans.type, sdp: ans.sdp });
+
+                        if (ans.ice && ans.ice.length > 0) {
+                            log('Aplicando ' + ans.ice.length + ' ICE...');
+                            for (let i = 0; i < ans.ice.length; i++) {
+                                await pc.addIceCandidate(ans.ice[i]);
+                            }
+                        }
+
+                        log('Answer aplicado!');
+                    }
+                });
+
+            } else {
+                pc.ondatachannel = function(e) {
+                    dc = e.channel;
+                    setupDC();
+                };
+
+                await pc.setRemoteDescription({ type: remoteOffer.type, sdp: remoteOffer.sdp });
+
+                if (remoteOffer.ice && remoteOffer.ice.length > 0) {
+                    log('Aplicando ' + remoteOffer.ice.length + ' ICE...');
+                    for (let i = 0; i < remoteOffer.ice.length; i++) {
+                        await pc.addIceCandidate(remoteOffer.ice[i]);
                     }
                 }
 
-                log('Answer aplicado!');
+                const answer = await pc.createAnswer();
+                await pc.setLocalDescription(answer);
+
+                await waitICE();
+
+                log('Salvando answer (' + iceList.length + ' ICE)...');
+                await db.ref('rooms/' + roomId + '/answer').set({
+                    type: answer.type,
+                    sdp: answer.sdp,
+                    ice: iceList,
+                    ts: Date.now()
+                });
+
+                log('Answer salvo!');
+            }
+        } catch (error) {
+            log('ERRO WebRTC: ' + error.message);
+            addMsg('', 'ERRO: ' + error.message, 'system');
+        }
+    }
+
+    function waitICE() {
+        return new Promise(function(resolve) {
+            if (pc.iceGatheringState === 'complete') {
+                resolve();
+            } else {
+                function check() {
+                    if (pc.iceGatheringState === 'complete') {
+                        pc.removeEventListener('icegatheringstatechange', check);
+                        resolve();
+                    }
+                }
+                pc.addEventListener('icegatheringstatechange', check);
+                setTimeout(function() {
+                    pc.removeEventListener('icegatheringstatechange', check);
+                    log('ICE timeout (continuando com ' + iceList.length + ')');
+                    resolve();
+                }, 10000);
             }
         });
+    }
 
-    } else {
-        pc.ondatachannel = (e) => {
-            dc = e.channel;
-            setupDC();
+    function setupDC() {
+        log('Setup DataChannel...');
+
+        dc.onopen = function() {
+            log('CONECTADO!');
+            document.getElementById('p2pStatus').textContent = 'P2P ATIVO';
+            document.getElementById('messageInput').disabled = false;
+            document.getElementById('messageInput').placeholder = 'Digite...';
+            document.getElementById('sendBtn').disabled = false;
+            isReady = true;
+
+            dc.send(JSON.stringify({ type: 'hello', user: myUsername }));
         };
 
-        await pc.setRemoteDescription({ type: remoteOffer.type, sdp: remoteOffer.sdp });
-
-        if (remoteOffer.ice) {
-            for (const ice of remoteOffer.ice) {
-                await pc.addIceCandidate(ice);
+        dc.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            if (data.type === 'hello') {
+                addMsg('', data.user + ' entrou!', 'system');
+            } else if (data.type === 'msg') {
+                addMsg(data.user, data.text, 'peer');
             }
-        }
+        };
 
-        const answer = await pc.createAnswer();
-        await pc.setLocalDescription(answer);
-
-        await waitICE();
-
-        log('Salvando answer...');
-        await db.ref('rooms/' + roomId + '/answer').set({
-            type: answer.type,
-            sdp: answer.sdp,
-            ice: iceList,
-            ts: Date.now()
-        });
-
-        log('Answer salvo!');
+        dc.onclose = function() {
+            log('Desconectado');
+            isReady = false;
+        };
     }
-}
 
-function waitICE() {
-    return new Promise((resolve) => {
-        if (pc.iceGatheringState === 'complete') {
-            resolve();
-        } else {
-            const check = () => {
-                if (pc.iceGatheringState === 'complete') {
-                    pc.removeEventListener('icegatheringstatechange', check);
-                    resolve();
-                }
-            };
-            pc.addEventListener('icegatheringstatechange', check);
-            setTimeout(() => {
-                pc.removeEventListener('icegatheringstatechange', check);
-                resolve();
-            }, 10000);
-        }
+    function send() {
+        const input = document.getElementById('messageInput');
+        const text = input.value.trim();
+
+        if (!text || !isReady) return;
+
+        dc.send(JSON.stringify({ type: 'msg', user: myUsername, text: text }));
+        addMsg(myUsername, text, 'me');
+        input.value = '';
+    }
+
+    document.getElementById('sendBtn').addEventListener('click', send);
+    document.getElementById('messageInput').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') send();
     });
-}
 
-function setupDC() {
-    log('Setup DataChannel...');
+    // Start
+    log('Sistema iniciando...');
 
-    dc.onopen = () => {
-        log('CONECTADO!');
-        document.getElementById('p2pStatus').textContent = 'P2P ATIVO';
-        document.getElementById('messageInput').disabled = false;
-        document.getElementById('messageInput').placeholder = 'Digite...';
-        document.getElementById('sendBtn').disabled = false;
-        isReady = true;
-
-        dc.send(JSON.stringify({ type: 'hello', user: myUsername }));
-    };
-
-    dc.onmessage = (e) => {
-        const data = JSON.parse(e.data);
-        if (data.type === 'hello') {
-            addMsg('', data.user + ' entrou!', 'system');
-        } else if (data.type === 'msg') {
-            addMsg(data.user, data.text, 'peer');
+    setTimeout(function() {
+        if (!initFirebase()) {
+            log('Falha ao inicializar!');
         }
-    };
+    }, 500);
 
-    dc.onclose = () => {
-        log('Desconectado');
-        isReady = false;
-    };
-}
-
-function send() {
-    const input = document.getElementById('messageInput');
-    const text = input.value.trim();
-
-    if (!text || !isReady) return;
-
-    dc.send(JSON.stringify({ type: 'msg', user: myUsername, text: text }));
-    addMsg(myUsername, text, 'me');
-    input.value = '';
-}
-
-document.getElementById('sendBtn').addEventListener('click', send);
-document.getElementById('messageInput').addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') send();
-});
-
-log('Sistema carregado!');
+})();
 </script>
 
 </body>
