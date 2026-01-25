@@ -3,713 +3,683 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>paranOS - Chat P2P</title>
-
+    <title>paranOS - Secure Temporary Chat</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap');
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-card: #1a1a1a;
+            --accent: #00ff41;
+            --accent-dim: #00cc33;
+            --text-primary: #ffffff;
+            --text-secondary: #888888;
+            --danger: #ff3838;
+            --border: #2a2a2a;
+        }
+
         body {
-            font-family: 'JetBrains Mono', monospace;
-            background: #000;
-            color: #00ff41;
-            height: 100vh;
-            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
-        .scanlines {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: repeating-linear-gradient(0deg, rgba(0,0,0,0.15), rgba(0,0,0,0.15) 1px, transparent 1px, transparent 2px);
-            pointer-events: none;
-            z-index: 9999;
+
+        .container {
+            max-width: 900px;
+            width: 100%;
         }
-        .container { height: 100vh; display: flex; flex-direction: column; }
+
         .header {
-            background: #001a0d;
-            border-bottom: 2px solid #00ff41;
-            padding: 15px 25px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .logo {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: -2px;
+            margin-bottom: 10px;
+        }
+
+        .tagline {
+            color: var(--text-secondary);
+            font-size: 14px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--bg-dark);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(0, 255, 65, 0.1);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px;
+            background: var(--accent);
+            color: var(--bg-dark);
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background: var(--accent-dim);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 255, 65, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--bg-dark);
+            border-color: var(--accent);
+        }
+
+        .hash-display {
+            background: var(--bg-dark);
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px dashed var(--accent);
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .hash-code {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 2px;
+            font-family: 'Courier New', monospace;
+            word-break: break-all;
+        }
+
+        .copy-btn {
+            margin-top: 10px;
+            padding: 8px 16px;
+            background: transparent;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .copy-btn:hover {
+            background: var(--accent);
+            color: var(--bg-dark);
+        }
+
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            height: 70vh;
+            max-height: 600px;
+        }
+
+        .chat-header {
+            padding: 16px;
+            background: var(--bg-dark);
+            border-radius: 8px 8px 0 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 1px solid var(--border);
         }
-        .logo { font-size: 1.5rem; font-weight: 700; text-shadow: 0 0 10px #00ff41; letter-spacing: 3px; }
-        .status-bar { display: flex; gap: 20px; font-size: 0.8rem; }
-        .status-item { display: flex; align-items: center; gap: 6px; }
-        .dot { width: 8px; height: 8px; border-radius: 50%; background: #ffd700; }
-        .dot.active { background: #00ff41; }
-        .dot.error { background: #ff0055; }
-        .setup-screen { display: flex; align-items: center; justify-content: center; flex: 1; padding: 40px; }
-        .setup-box {
-            background: rgba(0, 26, 13, 0.9);
-            border: 2px solid #00ff41;
-            border-radius: 10px;
-            padding: 40px;
-            max-width: 500px;
-            width: 100%;
-        }
-        .title { font-size: 1.8rem; margin-bottom: 10px; text-align: center; text-shadow: 0 0 10px #00ff41; }
-        .subtitle { font-size: 0.9rem; color: #00cc33; text-align: center; margin-bottom: 30px; }
-        .log-box {
-            background: rgba(0, 0, 0, 0.5);
-            border: 1px solid #00ff41;
-            border-radius: 6px;
-            padding: 15px;
-            margin-bottom: 20px;
-            max-height: 200px;
-            overflow-y: auto;
-            font-size: 0.75rem;
-        }
-        .log-item { margin-bottom: 5px; padding: 3px 0; }
-        .log-item.error { color: #ff0055; font-weight: bold; }
-        .log-item.success { color: #00ff41; font-weight: bold; }
-        .input-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; font-size: 0.85rem; }
-        input, select {
-            width: 100%;
-            background: #000;
-            border: 1px solid #00ff41;
-            color: #00ff41;
-            padding: 12px;
-            border-radius: 6px;
-            font-family: inherit;
-            font-size: 1rem;
-        }
-        input:focus, select:focus { outline: none; box-shadow: 0 0 10px rgba(0, 255, 65, 0.5); }
-        input::placeholder { color: #006622; }
-        .btn {
-            width: 100%;
-            background: #00ff41;
-            color: #000;
-            border: none;
-            padding: 14px;
-            border-radius: 6px;
-            font-size: 1rem;
-            font-weight: 700;
-            cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-family: inherit;
-        }
-        .btn:hover:not(:disabled) { background: #00cc33; }
-        .btn:disabled { opacity: 0.5; cursor: not-allowed; background: #003311; }
-        .divider {
-            text-align: center;
-            margin: 25px 0;
-            position: relative;
-            color: #006622;
-        }
-        .divider::before, .divider::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            width: 40%;
-            height: 1px;
-            background: #00ff41;
-        }
-        .divider::before { left: 0; }
-        .divider::after { right: 0; }
-        .chat-screen { display: none; flex: 1; flex-direction: column; }
-        .chat-screen.active { display: flex; }
+
         .chat-info {
-            background: #001a0d;
-            padding: 12px 25px;
-            border-bottom: 1px solid #00ff41;
             display: flex;
-            justify-content: space-between;
-            font-size: 0.85rem;
+            flex-direction: column;
         }
-        .messages { flex: 1; overflow-y: auto; padding: 20px; background: #000; }
-        .message {
-            margin-bottom: 15px;
-            padding: 12px 16px;
-            border-radius: 8px;
-            max-width: 70%;
-            word-wrap: break-word;
+
+        .chat-user {
+            font-weight: 600;
+            color: var(--accent);
         }
-        .message.system {
-            background: rgba(0, 255, 65, 0.1);
-            border-left: 3px solid #00ff41;
-            color: #00cc33;
-            max-width: 100%;
-            font-size: 0.85rem;
+
+        .chat-timer {
+            font-size: 12px;
+            color: var(--text-secondary);
         }
-        .message.me { background: rgba(0, 255, 65, 0.2); border: 1px solid #00ff41; margin-left: auto; }
-        .message.peer { background: rgba(0, 102, 34, 0.3); border: 1px solid #006622; }
-        .input-area {
-            background: #001a0d;
-            border-top: 2px solid #00ff41;
+
+        .leave-btn {
+            padding: 8px 16px;
+            background: var(--danger);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .messages {
+            flex: 1;
+            overflow-y: auto;
             padding: 20px;
+            background: var(--bg-dark);
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .message {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            word-wrap: break-word;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.sent {
+            align-self: flex-end;
+            background: var(--accent);
+            color: var(--bg-dark);
+            border-radius: 12px 12px 0 12px;
+        }
+
+        .message.received {
+            align-self: flex-start;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px 12px 12px 0;
+        }
+
+        .message-user {
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            opacity: 0.8;
+        }
+
+        .message-text {
+            font-size: 15px;
+            line-height: 1.4;
+        }
+
+        .chat-input-area {
+            padding: 16px;
+            background: var(--bg-dark);
+            border-radius: 0 0 8px 8px;
+            border-top: 1px solid var(--border);
+        }
+
+        .chat-input-group {
             display: flex;
             gap: 10px;
         }
-        .btn-send { width: auto; padding: 14px 30px; }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #000; }
-        ::-webkit-scrollbar-thumb { background: #00ff41; border-radius: 10px; }
+
+        .chat-input-group input {
+            flex: 1;
+            margin: 0;
+        }
+
+        .send-btn {
+            padding: 14px 24px;
+            background: var(--accent);
+            color: var(--bg-dark);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+        }
+
+        .send-btn:hover {
+            background: var(--accent-dim);
+        }
+
+        .messages::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .messages::-webkit-scrollbar-track {
+            background: var(--bg-card);
+        }
+
+        .messages::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        .messages::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
+        }
+
+        .waiting {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .info-text {
+            color: var(--text-secondary);
+            font-size: 14px;
+            text-align: center;
+            margin: 10px 0;
+        }
+
+        .system-message {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 13px;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            margin: 8px 0;
+        }
     </style>
-<script type="text/javascript" nonce="d402022b187f4419864b2c32f02" src="//local.adguard.org?ts=1769291150859&amp;type=content-script&amp;dmn=ppl-ai-code-interpreter-files.s3.amazonaws.com&amp;url=https%3A%2F%2Fppl-ai-code-interpreter-files.s3.amazonaws.com%2Fweb%2Fdirect-files%2F67787d717cc7f703675456bea7dadd31%2Fed133259-aeef-4eb3-97b2-e4f994b231a8%2F52647f22.html%3Fresponse-content-disposition%3Dattachment%253B%2520filename%253Dparanos-v19-FINAL.html%253B%2520filename%252A%253DUTF-8%2527%2527paranos-v19-FINAL.html%26AWSAccessKeyId%3DASIA2F3EMEYESEEN63HE%26Signature%3D%252BD6dc8L3XELgJrgYi7ZiNPcQaGg%253D%26x-amz-security-token%3DIQoJb3JpZ2luX2VjEE8aCXVzLWVhc3QtMSJHMEUCIBVJ0XkAWEyyj7ee%252Fat9QRHv15gzasE92r%252Fjp8vnwelTAiEA%252FPN0qw4LG43BsodkiT63j3dreJTR2a5ByRSpnpLjjf8q8wQIGBABGgw2OTk3NTMzMDk3MDUiDPQaRw71R64oMtuCmSrQBIttoTC%252BlaGJjVWf1CQgZMRRnjmqHvQ7H2uC%252Blgy%252FBMOBgiXndYqh5w1cllN5VmYi%252FqfDbr6%252B0dbcSDRhC1bShX%252FpYW%252Bl%252FIEZcgz2nfAAOVfBJIWEyJ%252BwqJ%252FB9Mx97K0S3WR97pbO379S3r%252BWZeLS%252FIImsFNkYubeUxBCf0x3niotlueH01DWLO0xygmXUrbvgunT4Fj%252FQRtfPnHnXEE%252FeDSuiXcDB7NzS%252B0Wbyxjn8CPKf3YVP751BFhPwl%252BHYMKUiAWn%252BJT8kUDwhG4uzVtmQcgHCoP8hZj6IcGUdLyXMevOjeUKeAgAFfuo5mM0ooauJ7aNddpfjdwrKIounn5U40PTyCPkPPa2oDaBzUOI2vovbr53vuvi7pE%252BsUiN2Yv6DtgIQ8nETaFLNm%252B8uTf3VLtLf7VzY5wL4PgtpJTPNAndi0ShnV%252Bj7oUPECxCKsdU3Xxzf6bQbMgf4OnQCjUT7oVKzPTp6M44ybzZi%252BGSoRj0yIF7L%252BYhNYGgynkzGKhqJtM9TT3h8Glgtkm1Qm6pjh1iNiOqxod%252Br8ZVFdSD7ZF9SQo7gdLeTRQo1tNShhFpZejLjNhLQDZm9nDDlsDXK%252BW1RfKrH0F9e8hZK9FweO8rj01nZcApTsevKfj55dGH9Em9olUqeqgseHrcRfOrz2mc8pUUZomjFGq34gmB0kuL%252Fmc0xQhfpQN4WqZX%252FhMXHvSeymJPIyCHPRqLeoV5HWePFJ5jWkzxuJFqJaQkesnSoa41aUswigI76GldveWpi3eaY77Q%252FDrOU5PoQ44aww1YzVywY6mAGwXyh4%252Fla9TyVJ7fYCTJu6fb59xz4pDpjuOF%252B%252B1Mg6UdYZ%252B%252FgSFv1XuYRM2F3NyFtMDOBr%252FoyZc%252BQEtNKnZm3lk3Fdxocf6uGwEizbzAmiPsswuJp0isYM6i1uE1SE98JYQzCTVmVFQDXUA3DazVTMTGs2LwH2HakFdmA8X9IcCT5kUzjJQVTA024IrZ7%252BRQbcuW80TIz0bg%253D%253D%26Expires%3D1769295068&amp;app=com.apple.Safari&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1&amp;stealth=1&amp;st-ua=TW96aWxsYS81LjAgKE1hY2ludG9zaDsgSW50ZWwgTWFjIE9TIFggMTBfMTVfNykgQXBwbGVXZWJLaXQvNjA1LjEuMTUgKEtIVE1MLCBsaWtlIEdlY2tvKSBWZXJzaW9uLzI2LjIgU2FmYXJpLzYwNS4xLjE1&amp;st-ch-brands=&amp;st-ch-mobile=&amp;st-ch-platform=&amp;st-wrtc&amp;st-push&amp;st-loc&amp;st-java&amp;st-dnt"></script><script type="text/javascript" nonce="d402022b187f4419864b2c32f02" src="//local.adguard.org?ts=1769291150859&amp;name=AdGuard%20Extra&amp;type=user-script"></script></head>
+<script type="text/javascript" nonce="d402022b187f4419864b2c32f02" src="//local.adguard.org?ts=1769381326577&amp;type=content-script&amp;dmn=ppl-ai-code-interpreter-files.s3.amazonaws.com&amp;url=https%3A%2F%2Fppl-ai-code-interpreter-files.s3.amazonaws.com%2Fweb%2Fdirect-files%2F2af6c2ffb4749458d45d6f9aa58c6fee%2Fb2fedcae-5321-41c4-92a4-e03867a5bd8b%2Ffee2c632.html%3Fresponse-content-disposition%3Dattachment%253B%2520filename%253DparanOS_index.html%253B%2520filename%252A%253DUTF-8%2527%2527paranOS_index.html%26AWSAccessKeyId%3DASIA2F3EMEYER5ZKTPQ6%26Signature%3DqGTvoElKxDA9Vy3EXaMtX%252BV3jyY%253D%26x-amz-security-token%3DIQoJb3JpZ2luX2VjEGcaCXVzLWVhc3QtMSJIMEYCIQDAb0d7Sh%252Bsb9iPMNt94uLX7iUEY2r4GdNDF7BgEyAtFwIhALDdk0ZsftBClSHSUSzEgWC1DJVmwFQYtktkkB3s9VycKvMECDAQARoMNjk5NzUzMzA5NzA1IgwktFcxSqL1Of%252BRhlEq0AS91Syre2vgeuvW16w%252Ba5eig3NM8kiuvyc3R%252BicNA0%252BhRVd3otJTfnkKXCOHbq%252BDfV52d8yO4nkQOBNT1folil%252BgIBF%252FNJQWojElP6uVGd1IphJEV9pNbtC4ICDJEUYAtTTUvbt3q5OybittJ1KRk8X%252B7UQgiVJ1DfStzszf3n%252Blws1YyZEFLr8AXJQypDRwDCMd6zOwEaXdiqRjw7uU4F1e6LTVEPmTyLnPpFOAeyEzQcm2uAv%252BWbWKkw0QpqMR4AfoBsHO8VONaYOMerbBufdv6oUYdK2PEflCZlAqIk4mcMz90eDFMqO%252BJhXEsPx9mbLzKI8zjZdCh4t8%252BSBmy0G5ECGEd0FoMvi4Oc7i6uO6HapmfsVkROPJKrvTrXwt5BYeCdkPHcntjyFHBuccJ%252BnRe%252BuQp0dZX2AK4wRkHZqcvKaMlAH%252F07YbGj0eBaCp7B%252BeYahl43HPVxQ87PS4Q5DbNektv0soE4kksdv5cnQPc5sJbBeI97WVHOMprmyhyBVCwKFdjXEvs3NZZTxsBePF%252BoGfk3GD8EaLs6uWG10ZbuGm9qr9RpHmJPo4W5tU0GpFxtzEQdGHf76AUQjwFqKipBXPkACprU4dOtLJDEC6q910hntLmQUggstW%252F%252BKDgDWUlNLCf8YXmOq3FE8AdEw2Apu1c%252FV3gVtf5iGCOSbydnlJ2G072bHRsjD4hbp0Q2hMhHUcyDxIbjXwtq4t4i7nTRTm2Mo0woRiKsWic8U9GUlPGyM%252BdHhGRpPXLhgm0A9t%252BmuS5IUT6gdxWyWtGfuMNa%252F2ssGOpcBmIEDDXt%252F7Aprb7snBJXhWUgQ8nhc314mUIRdGz%252Ftydlr5MCrk%252FzyTzasLngnLuEoJjGKhxa8NL%252BIEmA1uTkiyVx4Yq%252F%252BNAVSvNyIU8MGmtx7u8o%252F29aPsV%252FVLsRrkYenWsCfinTn96sWPE7z67n%252FA2y1nhD%252BjjzHkGnJzzilc7PwfvFnMYMAsrxrFX0SkqgBF6pL16eJ%252Fg%253D%253D%26Expires%3D1769384453&amp;app=com.apple.Safari&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1&amp;stealth=1&amp;st-ua=TW96aWxsYS81LjAgKE1hY2ludG9zaDsgSW50ZWwgTWFjIE9TIFggMTBfMTVfNykgQXBwbGVXZWJLaXQvNjA1LjEuMTUgKEtIVE1MLCBsaWtlIEdlY2tvKSBWZXJzaW9uLzI2LjIgU2FmYXJpLzYwNS4xLjE1&amp;st-ch-brands=&amp;st-ch-mobile=&amp;st-ch-platform=&amp;st-wrtc&amp;st-push&amp;st-loc&amp;st-java&amp;st-dnt"></script><script type="text/javascript" nonce="d402022b187f4419864b2c32f02" src="//local.adguard.org?ts=1769381326577&amp;name=AdGuard%20Extra&amp;type=user-script"></script></head>
 <body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">paranOS</div>
+            <div class="tagline">Paranoid Operation System</div>
+        </div>
 
-<div class="scanlines"></div>
-
-<div class="container">
-    <div class="header">
-        <div class="logo">[ paranOS ]</div>
-        <div class="status-bar">
-            <div class="status-item">
-                <div class="dot" id="fbDot"></div>
-                <span id="fbStatus">CARREGANDO</span>
+        <!-- Tela Inicial -->
+        <div id="homeScreen" class="screen active">
+            <div class="card">
+                <div class="input-group">
+                    <label>Username (opcional)</label>
+                    <input type="text" id="username" placeholder="Deixe vazio para gerar automaticamente">
+                </div>
+                <div class="input-group">
+                    <label>Duração da Sala</label>
+                    <select id="duration">
+                        <option value="10">10 minutos</option>
+                        <option value="15">15 minutos</option>
+                        <option value="20">20 minutos</option>
+                        <option value="30">30 minutos</option>
+                    </select>
+                </div>
+                <button class="btn" onclick="createRoom()">Criar Sala</button>
+                <button class="btn btn-secondary" onclick="showJoinScreen()">Entrar em uma Sala</button>
             </div>
-            <div class="status-item">
-                <span id="clock">--:--</span>
+        </div>
+
+        <!-- Tela de Hash -->
+        <div id="hashScreen" class="screen">
+            <div class="card">
+                <h2 style="margin-bottom: 20px; color: var(--accent);">Sala Criada!</h2>
+                <p class="info-text">Compartilhe este código com o outro usuário:</p>
+                <div class="hash-display">
+                    <div class="hash-code" id="roomHash"></div>
+                    <button class="copy-btn" onclick="copyHash()">Copiar Código</button>
+                </div>
+                <p class="info-text">Seu username: <strong id="displayUsername" style="color: var(--accent);"></strong></p>
+                <div class="waiting">
+                    <div class="spinner"></div>
+                    <p style="color: var(--text-secondary);">Aguardando o outro usuário...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tela de Entrar -->
+        <div id="joinScreen" class="screen">
+            <div class="card">
+                <h2 style="margin-bottom: 20px; color: var(--accent);">Entrar na Sala</h2>
+                <div class="input-group">
+                    <label>Username (opcional)</label>
+                    <input type="text" id="joinUsername" placeholder="Deixe vazio para gerar automaticamente">
+                </div>
+                <div class="input-group">
+                    <label>Código da Sala</label>
+                    <input type="text" id="roomCode" placeholder="Cole o código aqui">
+                </div>
+                <button class="btn" onclick="joinRoom()">Entrar</button>
+                <button class="btn btn-secondary" onclick="backToHome()">Voltar</button>
+            </div>
+        </div>
+
+        <!-- Tela de Chat -->
+        <div id="chatScreen" class="screen">
+            <div class="card">
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <div class="chat-info">
+                            <div class="chat-user" id="chatUsername"></div>
+                            <div class="chat-timer" id="chatTimer"></div>
+                        </div>
+                        <button class="leave-btn" onclick="leaveChat()">Sair</button>
+                    </div>
+                    <div class="messages" id="messages"></div>
+                    <div class="chat-input-area">
+                        <div class="chat-input-group">
+                            <input type="text" id="messageInput" placeholder="Digite sua mensagem..." onkeypress="handleEnter(event)">
+                            <button class="send-btn" onclick="sendMessage()">Enviar</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="setup-screen" id="setupScreen">
-        <div class="setup-box">
-            <h1 class="title">ACESSO ANÔNIMO</h1>
-            <p class="subtitle">Chat P2P - Zero Logs - Criptografado</p>
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getDatabase, ref, set, onValue, push, onDisconnect, remove, serverTimestamp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js';
 
-            <div class="log-box" id="logBox"></div>
+        const firebaseConfig = {
+            apiKey: "AIzaSyDF0rikXftQM5WmRRJ_XUsL_EzJybUJK3A",
+            authDomain: "nephos-1304c.firebaseapp.com",
+            databaseURL: "https://nephos-1304c-default-rtdb.firebaseio.com",
+            projectId: "nephos-1304c",
+            storageBucket: "nephos-1304c.firebasestorage.app",
+            messagingSenderId: "33963342048",
+            appId: "1:33963342048:web:17ba3249dcc5e2c80f3885"
+        };
 
-            <div class="input-group">
-                <label>USERNAME (opcional - sera gerado se vazio)</label>
-                <input type="text" id="username" placeholder="Digite seu codinome..." maxlength="20">
-            </div>
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
 
-            <div class="input-group">
-                <label>TEMPO DE EXPIRACAO</label>
-                <select id="expiration">
-                    <option value="10">10 minutos</option>
-                    <option value="30" selected>30 minutos</option>
-                    <option value="60">60 minutos</option>
-                </select>
-            </div>
+        let currentRoomId = null;
+        let currentUsername = null;
+        let roomEndTime = null;
+        let timerInterval = null;
 
-            <button class="btn" id="createBtn" disabled>CRIAR SALA</button>
+        const adjectives = ['Silent', 'Ghost', 'Shadow', 'Crypto', 'Phantom', 'Stealth', 'Mystic', 'Enigma', 'Cipher', 'Quantum', 'Nebula', 'Cosmic', 'Digital', 'Neon', 'Cyber'];
+        const nouns = ['Wolf', 'Falcon', 'Tiger', 'Dragon', 'Phoenix', 'Raven', 'Viper', 'Panther', 'Hawk', 'Lion', 'Eagle', 'Bear', 'Fox', 'Owl', 'Shark'];
 
-            <div class="divider">OU</div>
-
-            <div class="input-group">
-                <label>ID DA SALA</label>
-                <input type="text" id="roomId" placeholder="Cole o ID aqui">
-            </div>
-
-            <button class="btn" id="joinBtn" disabled>CONECTAR</button>
-        </div>
-    </div>
-
-    <div class="chat-screen" id="chatScreen">
-        <div class="chat-info">
-            <div>USER: <span id="userDisplay">-</span></div>
-            <div id="p2pStatus">CONECTANDO...</div>
-            <div>EXPIRA: <span id="timer">--:--</span></div>
-        </div>
-
-        <div class="messages" id="messages"></div>
-
-        <div class="input-area">
-            <input type="text" id="messageInput" placeholder="Aguarde..." disabled>
-            <button class="btn btn-send" id="sendBtn" disabled>ENVIAR</button>
-        </div>
-    </div>
-</div>
-
-<!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
-
-<script>
-(function() {
-    'use strict';
-
-    // Detecta WebRTC com prefixes
-    window.RTCPeerConnection = window.RTCPeerConnection || 
-                                window.mozRTCPeerConnection || 
-                                window.webkitRTCPeerConnection;
-
-    window.RTCSessionDescription = window.RTCSessionDescription || 
-                                    window.mozRTCSessionDescription || 
-                                    window.webkitRTCSessionDescription;
-
-    window.RTCIceCandidate = window.RTCIceCandidate || 
-                              window.mozRTCIceCandidate || 
-                              window.webkitRTCIceCandidate;
-
-    // Vars
-    let db = null;
-    let myUsername = '';
-    let roomId = '';
-    let pc = null;
-    let dc = null;
-    let isReady = false;
-    let isInitiator = false;
-    let iceList = [];
-    let webrtcAvailable = false;
-
-    const rtcConfig = {
-        iceServers: [
-            { urls: 'stun:stun.l.google.com:19302' },
-            { urls: 'stun:stun1.l.google.com:19302' },
-            { urls: 'stun:stun2.l.google.com:19302' }
-        ]
-    };
-
-    // Random username generator
-    const adjectives = ['Veloz', 'Sombrio', 'Brilhante', 'Feroz', 'Astuto', 'Forte', 'Rapido', 'Oculto', 'Misterioso', 'Lendario'];
-    const nouns = ['Lobo', 'Falcao', 'Tigre', 'Dragao', 'Fenix', 'Cobra', 'Aguia', 'Leao', 'Corvo', 'Raposa'];
-
-    function generateUsername() {
-        const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
-        const noun = nouns[Math.floor(Math.random() * nouns.length)];
-        const num = Math.floor(Math.random() * 99);
-        return adj + noun + num;
-    }
-
-    // Helpers
-    function log(msg, type) {
-        console.log('[paranOS]', msg);
-        const box = document.getElementById('logBox');
-        const item = document.createElement('div');
-        item.className = 'log-item' + (type ? ' ' + type : '');
-        item.textContent = msg;
-        box.appendChild(item);
-        box.scrollTop = box.scrollHeight;
-    }
-
-    function updateFB(status, isOk) {
-        document.getElementById('fbStatus').textContent = status;
-        const dot = document.getElementById('fbDot');
-        if (isOk === true) {
-            dot.className = 'dot active';
-        } else if (isOk === false) {
-            dot.className = 'dot error';
-        } else {
-            dot.className = 'dot';
-        }
-    }
-
-    function addMsg(user, text, type) {
-        const msgs = document.getElementById('messages');
-        const m = document.createElement('div');
-        m.className = 'message ' + type;
-        m.textContent = (type === 'system' ? text : user + ': ' + text);
-        msgs.appendChild(m);
-        msgs.scrollTop = msgs.scrollHeight;
-    }
-
-    function genId() {
-        return Math.random().toString(36).substring(2, 10) + Date.now().toString(36);
-    }
-
-    // Clock
-    setInterval(function() {
-        document.getElementById('clock').textContent = new Date().toLocaleTimeString('pt-BR', {hour: '2-digit', minute: '2-digit'});
-    }, 1000);
-
-    // Check WebRTC
-    function checkWebRTC() {
-        log('Verificando WebRTC...');
-
-        const protocol = window.location.protocol;
-        const hostname = window.location.hostname;
-
-        log('Protocolo: ' + protocol);
-        log('Hostname: ' + hostname);
-
-        if (typeof RTCPeerConnection === 'undefined') {
-            log('ERRO: WebRTC nao suportado neste navegador!', 'error');
-            updateFB('WEBRTC ERRO', false);
-            alert('ERRO: Seu navegador nao suporta WebRTC!');
-            return false;
+        function generateUsername() {
+            const adj = adjectives[Math.floor(Math.random() * adjectives.length)];
+            const noun = nouns[Math.floor(Math.random() * nouns.length)];
+            const num = Math.floor(Math.random() * 99);
+            return adj + noun + num;
         }
 
-        log('WebRTC disponivel!', 'success');
-        webrtcAvailable = true;
-        return true;
-    }
-
-    // Init Firebase
-    function initFirebase() {
-        log('Carregando Firebase...');
-
-        if (typeof firebase === 'undefined') {
-            log('ERRO: Firebase SDK nao carregou!', 'error');
-            updateFB('ERRO SDK', false);
-            setTimeout(function() {
-                alert('Erro ao carregar Firebase SDK. Recarregue a pagina.');
-            }, 1000);
-            return false;
+        function generateHash() {
+            return Math.random().toString(36).substring(2, 10).toUpperCase();
         }
 
-        log('Firebase SDK OK!', 'success');
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+        }
 
-        try {
-            const firebaseConfig = {
-                apiKey: "AIzaSyDF0rikXftQM5WmRRJ_XUsL_EzJybUJK3A",
-                authDomain: "nephos-1304c.firebaseapp.com",
-                databaseURL: "https://nephos-1304c-default-rtdb.firebaseio.com",
-                projectId: "nephos-1304c",
-                storageBucket: "nephos-1304c.firebasestorage.app",
-                messagingSenderId: "33963342048",
-                appId: "1:33963342048:web:17ba3249dcc5e2c80f3885"
-            };
+        window.createRoom = function() {
+            const username = document.getElementById('username').value.trim() || generateUsername();
+            const duration = parseInt(document.getElementById('duration').value);
 
-            firebase.initializeApp(firebaseConfig);
-            db = firebase.database();
+            currentUsername = username;
+            currentRoomId = generateHash();
+            roomEndTime = Date.now() + (duration * 60 * 1000);
 
-            log('Firebase inicializado!', 'success');
+            const roomRef = ref(database, 'rooms/' + currentRoomId);
+            set(roomRef, {
+                creator: username,
+                duration: duration,
+                endTime: roomEndTime,
+                createdAt: serverTimestamp()
+            });
 
-            db.ref('.info/connected').on('value', function(snap) {
-                if (snap.val()) {
-                    log('Firebase conectado!', 'success');
-                    updateFB('ONLINE', true);
+            document.getElementById('roomHash').textContent = currentRoomId;
+            document.getElementById('displayUsername').textContent = username;
+            showScreen('hashScreen');
 
-                    if (webrtcAvailable) {
-                        document.getElementById('createBtn').disabled = false;
-                        document.getElementById('joinBtn').disabled = false;
-                    }
-                } else {
-                    log('Firebase offline');
-                    updateFB('OFFLINE', false);
+            onValue(ref(database, 'rooms/' + currentRoomId + '/participant'), (snapshot) => {
+                if (snapshot.exists()) {
+                    startChat();
                 }
             });
+        };
 
-            return true;
+        window.showJoinScreen = function() {
+            showScreen('joinScreen');
+        };
 
-        } catch (error) {
-            log('ERRO ao inicializar Firebase: ' + error.message, 'error');
-            updateFB('ERRO', false);
-            setTimeout(function() {
-                alert('Erro ao inicializar Firebase: ' + error.message);
-            }, 1000);
-            return false;
-        }
-    }
+        window.backToHome = function() {
+            showScreen('homeScreen');
+        };
 
-    // Create
-    document.getElementById('createBtn').addEventListener('click', async function() {
-        if (!webrtcAvailable) {
-            alert('WebRTC nao esta disponivel!');
-            return;
-        }
+        window.joinRoom = function() {
+            const username = document.getElementById('joinUsername').value.trim() || generateUsername();
+            const roomCode = document.getElementById('roomCode').value.trim().toUpperCase();
 
-        myUsername = document.getElementById('username').value.trim();
-        if (!myUsername) {
-            myUsername = generateUsername();
-            log('Username gerado: ' + myUsername, 'success');
-        }
-
-        isInitiator = true;
-        roomId = genId();
-        const exp = Date.now() + (parseInt(document.getElementById('expiration').value) * 60000);
-
-        log('Criando sala: ' + roomId);
-
-        try {
-            await db.ref('rooms/' + roomId).set({
-                creator: myUsername,
-                created: Date.now(),
-                expires: exp
-            });
-
-            log('Sala criada!', 'success');
-        } catch (error) {
-            log('ERRO ao criar sala: ' + error.message, 'error');
-            alert('Erro: ' + error.message);
-            return;
-        }
-
-        try {
-            await navigator.clipboard.writeText(roomId);
-            alert('ID copiado: ' + roomId);
-        } catch (e) {
-            prompt('ID da sala:', roomId);
-        }
-
-        document.getElementById('setupScreen').style.display = 'none';
-        document.getElementById('chatScreen').classList.add('active');
-        document.getElementById('userDisplay').textContent = myUsername;
-
-        addMsg('', 'Sala criada! ID: ' + roomId, 'system');
-        addMsg('', 'Seu username: ' + myUsername, 'system');
-        addMsg('', 'Aguardando peer...', 'system');
-
-        initWebRTC();
-    });
-
-    // Join
-    document.getElementById('joinBtn').addEventListener('click', async function() {
-        if (!webrtcAvailable) {
-            alert('WebRTC nao esta disponivel!');
-            return;
-        }
-
-        myUsername = document.getElementById('username').value.trim();
-        if (!myUsername) {
-            myUsername = generateUsername();
-            log('Username gerado: ' + myUsername, 'success');
-        }
-
-        roomId = document.getElementById('roomId').value.trim();
-
-        if (!roomId) {
-            alert('Digite o ID da sala!');
-            return;
-        }
-
-        isInitiator = false;
-
-        log('Entrando: ' + roomId);
-
-        try {
-            const snap = await db.ref('rooms/' + roomId).once('value');
-            if (!snap.exists()) {
-                alert('Sala nao encontrada!');
+            if (!roomCode) {
+                alert('Por favor, insira o código da sala');
                 return;
             }
 
-            log('Sala encontrada!', 'success');
-        } catch (error) {
-            log('ERRO: ' + error.message, 'error');
-            alert('Erro: ' + error.message);
-            return;
+            currentUsername = username;
+            currentRoomId = roomCode;
+
+            const roomRef = ref(database, 'rooms/' + roomCode);
+            onValue(roomRef, (snapshot) => {
+                if (snapshot.exists()) {
+                    const roomData = snapshot.val();
+                    roomEndTime = roomData.endTime;
+
+                    set(ref(database, 'rooms/' + roomCode + '/participant'), username);
+                    startChat();
+                } else {
+                    alert('Sala não encontrada. Verifique o código.');
+                }
+            }, { onlyOnce: true });
+        };
+
+        function startChat() {
+            showScreen('chatScreen');
+            document.getElementById('chatUsername').textContent = currentUsername;
+            startTimer();
+            listenForMessages();
+
+            const messagesRef = ref(database, 'rooms/' + currentRoomId + '/messages');
+            push(messagesRef, {
+                type: 'system',
+                text: currentUsername + ' entrou na sala',
+                timestamp: serverTimestamp()
+            });
         }
 
-        document.getElementById('setupScreen').style.display = 'none';
-        document.getElementById('chatScreen').classList.add('active');
-        document.getElementById('userDisplay').textContent = myUsername;
-
-        addMsg('', 'Seu username: ' + myUsername, 'system');
-        addMsg('', 'Conectando a sala...', 'system');
-
-        waitOffer();
-    });
-
-    // Wait offer
-    function waitOffer() {
-        log('Aguardando offer...');
-
-        db.ref('rooms/' + roomId + '/offer').on('value', async function(snap) {
-            const offer = snap.val();
-            if (offer && offer.sdp) {
-                log('Offer recebido!', 'success');
-                db.ref('rooms/' + roomId + '/offer').off();
-                await initWebRTC(offer);
-            }
-        });
-    }
-
-    // WebRTC
-    async function initWebRTC(remoteOffer) {
-        log('Iniciando WebRTC...');
-
-        try {
-            pc = new RTCPeerConnection(rtcConfig);
-            log('PeerConnection criado!', 'success');
-        } catch (error) {
-            log('ERRO ao criar PeerConnection: ' + error.message, 'error');
-            addMsg('', 'ERRO: ' + error.message, 'system');
-            alert('ERRO ao criar PeerConnection: ' + error.message);
-            return;
+        function startTimer() {
+            updateTimer();
+            timerInterval = setInterval(() => {
+                updateTimer();
+                if (Date.now() >= roomEndTime) {
+                    endChat();
+                }
+            }, 1000);
         }
 
-        iceList = [];
+        function updateTimer() {
+            const remaining = Math.max(0, roomEndTime - Date.now());
+            const minutes = Math.floor(remaining / 60000);
+            const seconds = Math.floor((remaining % 60000) / 1000);
+            document.getElementById('chatTimer').textContent = 
+                'Tempo restante: ' + minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+        }
 
-        pc.onicecandidate = function(e) {
-            if (e.candidate) {
-                iceList.push(e.candidate.toJSON());
-                log('ICE candidate coletado (' + iceList.length + ')');
-            } else {
-                log('ICE gathering completo!', 'success');
-            }
-        };
+        function listenForMessages() {
+            const messagesRef = ref(database, 'rooms/' + currentRoomId + '/messages');
+            onValue(messagesRef, (snapshot) => {
+                const messagesDiv = document.getElementById('messages');
+                messagesDiv.innerHTML = '';
 
-        pc.oniceconnectionstatechange = function() {
-            log('ICE connection: ' + pc.iceConnectionState);
-        };
+                if (snapshot.exists()) {
+                    const messages = snapshot.val();
+                    Object.keys(messages).forEach(key => {
+                        const msg = messages[key];
+                        if (msg.type === 'system') {
+                            const systemDiv = document.createElement('div');
+                            systemDiv.className = 'system-message';
+                            systemDiv.textContent = msg.text;
+                            messagesDiv.appendChild(systemDiv);
+                        } else {
+                            const msgDiv = document.createElement('div');
+                            msgDiv.className = 'message ' + (msg.user === currentUsername ? 'sent' : 'received');
 
-        pc.onconnectionstatechange = function() {
-            log('P2P state: ' + pc.connectionState);
-            if (pc.connectionState === 'connected') {
-                log('P2P CONECTADO!', 'success');
-            } else if (pc.connectionState === 'failed') {
-                log('P2P FALHOU!', 'error');
-                addMsg('', 'Conexao P2P falhou. Tente novamente.', 'system');
-            }
-        };
+                            const userDiv = document.createElement('div');
+                            userDiv.className = 'message-user';
+                            userDiv.textContent = msg.user;
 
-        try {
-            if (isInitiator) {
-                dc = pc.createDataChannel('chat');
-                setupDC();
+                            const textDiv = document.createElement('div');
+                            textDiv.className = 'message-text';
+                            textDiv.textContent = msg.text;
 
-                const offer = await pc.createOffer();
-                await pc.setLocalDescription(offer);
-                log('Offer criado!', 'success');
-
-                await waitICE();
-
-                log('Salvando offer (' + iceList.length + ' ICE candidates)...');
-                await db.ref('rooms/' + roomId + '/offer').set({
-                    type: offer.type,
-                    sdp: offer.sdp,
-                    ice: iceList,
-                    ts: Date.now()
-                });
-
-                log('Offer salvo!', 'success');
-                addMsg('', 'Aguardando peer conectar...', 'system');
-
-                db.ref('rooms/' + roomId + '/answer').on('value', async function(snap) {
-                    const ans = snap.val();
-                    if (ans && ans.sdp && !pc.currentRemoteDescription) {
-                        log('Answer recebido!', 'success');
-
-                        await pc.setRemoteDescription({ type: ans.type, sdp: ans.sdp });
-                        log('Answer aplicado!', 'success');
-
-                        if (ans.ice && ans.ice.length > 0) {
-                            log('Aplicando ' + ans.ice.length + ' ICE candidates do peer...');
-                            for (let i = 0; i < ans.ice.length; i++) {
-                                await pc.addIceCandidate(ans.ice[i]);
-                            }
-                            log('ICE candidates do peer aplicados!', 'success');
+                            msgDiv.appendChild(userDiv);
+                            msgDiv.appendChild(textDiv);
+                            messagesDiv.appendChild(msgDiv);
                         }
-
-                        addMsg('', 'Estabelecendo conexao P2P...', 'system');
-                    }
-                });
-
-            } else {
-                pc.ondatachannel = function(e) {
-                    dc = e.channel;
-                    setupDC();
-                };
-
-                log('Aplicando offer remoto...');
-                await pc.setRemoteDescription({ type: remoteOffer.type, sdp: remoteOffer.sdp });
-                log('Offer aplicado!', 'success');
-
-                if (remoteOffer.ice && remoteOffer.ice.length > 0) {
-                    log('Aplicando ' + remoteOffer.ice.length + ' ICE candidates do criador...');
-                    for (let i = 0; i < remoteOffer.ice.length; i++) {
-                        await pc.addIceCandidate(remoteOffer.ice[i]);
-                    }
-                    log('ICE candidates aplicados!', 'success');
+                    });
+                    messagesDiv.scrollTop = messagesDiv.scrollHeight;
                 }
-
-                const answer = await pc.createAnswer();
-                await pc.setLocalDescription(answer);
-                log('Answer criado!', 'success');
-
-                await waitICE();
-
-                log('Salvando answer (' + iceList.length + ' ICE candidates)...');
-                await db.ref('rooms/' + roomId + '/answer').set({
-                    type: answer.type,
-                    sdp: answer.sdp,
-                    ice: iceList,
-                    ts: Date.now()
-                });
-
-                log('Answer salvo!', 'success');
-                addMsg('', 'Estabelecendo conexao P2P...', 'system');
-            }
-        } catch (error) {
-            log('ERRO WebRTC: ' + error.message, 'error');
-            addMsg('', 'ERRO: ' + error.message, 'system');
-            alert('ERRO WebRTC: ' + error.message);
+            });
         }
-    }
 
-    function waitICE() {
-        return new Promise(function(resolve) {
-            if (pc.iceGatheringState === 'complete') {
-                log('ICE ja completo!');
-                resolve();
-            } else {
-                log('Aguardando ICE gathering...');
-                function check() {
-                    if (pc.iceGatheringState === 'complete') {
-                        pc.removeEventListener('icegatheringstatechange', check);
-                        log('ICE gathering finalizado!', 'success');
-                        resolve();
-                    }
+        window.sendMessage = function() {
+            const input = document.getElementById('messageInput');
+            const text = input.value.trim();
+
+            if (text) {
+                const messagesRef = ref(database, 'rooms/' + currentRoomId + '/messages');
+                push(messagesRef, {
+                    type: 'message',
+                    user: currentUsername,
+                    text: text,
+                    timestamp: serverTimestamp()
+                });
+                input.value = '';
+            }
+        };
+
+        window.handleEnter = function(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        };
+
+        window.copyHash = function() {
+            const hash = document.getElementById('roomHash').textContent;
+            navigator.clipboard.writeText(hash);
+            alert('Código copiado!');
+        };
+
+        window.leaveChat = function() {
+            if (confirm('Deseja realmente sair do chat?')) {
+                endChat();
+            }
+        };
+
+        function endChat() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
+
+            if (currentRoomId) {
+                remove(ref(database, 'rooms/' + currentRoomId));
+            }
+
+            currentRoomId = null;
+            currentUsername = null;
+            roomEndTime = null;
+
+            showScreen('homeScreen');
+            document.getElementById('username').value = '';
+            document.getElementById('joinUsername').value = '';
+            document.getElementById('roomCode').value = '';
+        }
+
+        setTimeout(() => {
+            const allRoomsRef = ref(database, 'rooms');
+            onValue(allRoomsRef, (snapshot) => {
+                if (snapshot.exists()) {
+                    const rooms = snapshot.val();
+                    Object.keys(rooms).forEach(roomId => {
+                        const room = rooms[roomId];
+                        if (room.endTime && Date.now() >= room.endTime) {
+                            remove(ref(database, 'rooms/' + roomId));
+                        }
+                    });
                 }
-                pc.addEventListener('icegatheringstatechange', check);
-                setTimeout(function() {
-                    pc.removeEventListener('icegatheringstatechange', check);
-                    log('ICE timeout (continuando com ' + iceList.length + ' candidates)');
-                    resolve();
-                }, 10000);
-            }
-        });
-    }
-
-    function setupDC() {
-        log('Configurando DataChannel...');
-
-        dc.onopen = function() {
-            log('DataChannel ABERTO!', 'success');
-            document.getElementById('p2pStatus').textContent = 'P2P ATIVO';
-            document.getElementById('messageInput').disabled = false;
-            document.getElementById('messageInput').placeholder = 'Digite sua mensagem...';
-            document.getElementById('sendBtn').disabled = false;
-            isReady = true;
-
-            addMsg('', 'Conexao P2P estabelecida!', 'system');
-
-            dc.send(JSON.stringify({ type: 'hello', user: myUsername }));
-        };
-
-        dc.onmessage = function(e) {
-            const data = JSON.parse(e.data);
-            if (data.type === 'hello') {
-                addMsg('', data.user + ' entrou no chat!', 'system');
-            } else if (data.type === 'msg') {
-                addMsg(data.user, data.text, 'peer');
-            }
-        };
-
-        dc.onclose = function() {
-            log('DataChannel fechado');
-            addMsg('', 'Peer desconectou', 'system');
-            document.getElementById('p2pStatus').textContent = 'DESCONECTADO';
-            isReady = false;
-        };
-
-        dc.onerror = function(error) {
-            log('DataChannel erro: ' + error, 'error');
-        };
-    }
-
-    function send() {
-        const input = document.getElementById('messageInput');
-        const text = input.value.trim();
-
-        if (!text || !isReady) return;
-
-        dc.send(JSON.stringify({ type: 'msg', user: myUsername, text: text }));
-        addMsg(myUsername, text, 'me');
-        input.value = '';
-    }
-
-    document.getElementById('sendBtn').addEventListener('click', send);
-    document.getElementById('messageInput').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') send();
-    });
-
-    // Start
-    log('paranOS iniciando...');
-
-    setTimeout(function() {
-        checkWebRTC();
-        initFirebase();
-    }, 500);
-
-})();
-</script>
-
+            });
+        }, 5000);
+    </script>
 </body>
 </html>
