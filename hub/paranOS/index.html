@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>paranOS - Secure Temporary Chat</title>
+    <title>paranOS - Secure Chat</title>
     <style>
         * {
             margin: 0;
@@ -12,58 +12,61 @@
         }
 
         :root {
-            --bg-dark: #0a0a0a;
-            --bg-card: #1a1a1a;
-            --accent: #00ff41;
-            --accent-dim: #00cc33;
+            --bg-primary: #0f0f0f;
+            --bg-secondary: #1a1a1a;
+            --bg-tertiary: #252525;
+            --accent-primary: #6366f1;
+            --accent-hover: #4f46e5;
+            --accent-light: #818cf8;
             --text-primary: #ffffff;
-            --text-secondary: #888888;
-            --danger: #ff3838;
-            --border: #2a2a2a;
+            --text-secondary: #a1a1aa;
+            --text-tertiary: #71717a;
+            --danger: #ef4444;
+            --danger-hover: #dc2626;
+            --success: #10b981;
+            --border: #27272a;
+            --shadow: rgba(0, 0, 0, 0.5);
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: var(--bg-dark);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
             color: var(--text-primary);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 16px;
         }
 
         .container {
-            max-width: 900px;
+            max-width: 600px;
             width: 100%;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 24px;
         }
 
         .logo {
-            font-size: 48px;
+            font-size: clamp(36px, 8vw, 48px);
             font-weight: 700;
-            color: var(--accent);
-            letter-spacing: -2px;
-            margin-bottom: 10px;
-        }
-
-        .tagline {
-            color: var(--text-secondary);
-            font-size: 14px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -1px;
+            margin-bottom: 8px;
         }
 
         .card {
-            background: var(--bg-card);
+            background: var(--bg-secondary);
             border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+            border-radius: 20px;
+            padding: clamp(20px, 5vw, 32px);
+            box-shadow: 0 20px 60px var(--shadow);
+            backdrop-filter: blur(10px);
         }
 
         .screen {
@@ -82,17 +85,16 @@
             display: block;
             margin-bottom: 8px;
             color: var(--text-secondary);
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-size: 14px;
+            font-weight: 500;
         }
 
         input, select {
             width: 100%;
             padding: 14px 16px;
-            background: var(--bg-dark);
+            background: var(--bg-tertiary);
             border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: 12px;
             color: var(--text-primary);
             font-size: 16px;
             transition: all 0.3s ease;
@@ -100,135 +102,155 @@
 
         input:focus, select:focus {
             outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 3px rgba(0, 255, 65, 0.1);
+            border-color: var(--accent-primary);
+            background: var(--bg-secondary);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
         }
 
         .btn {
             width: 100%;
             padding: 16px;
-            background: var(--accent);
-            color: var(--bg-dark);
+            background: var(--accent-primary);
+            color: var(--text-primary);
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            text-transform: uppercase;
-            letter-spacing: 1px;
             transition: all 0.3s ease;
-            margin-top: 10px;
+            margin-top: 12px;
         }
 
         .btn:hover {
-            background: var(--accent-dim);
+            background: var(--accent-hover);
             transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 255, 65, 0.3);
+            box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
         }
 
         .btn-secondary {
             background: transparent;
-            border: 1px solid var(--border);
+            border: 2px solid var(--border);
             color: var(--text-primary);
         }
 
         .btn-secondary:hover {
-            background: var(--bg-dark);
-            border-color: var(--accent);
+            background: var(--bg-tertiary);
+            border-color: var(--accent-primary);
+            box-shadow: none;
         }
 
         .hash-display {
-            background: var(--bg-dark);
-            padding: 16px;
-            border-radius: 8px;
-            border: 1px dashed var(--accent);
-            margin: 20px 0;
+            background: var(--bg-tertiary);
+            padding: 24px;
+            border-radius: 16px;
+            border: 2px solid var(--accent-primary);
+            margin: 24px 0;
             text-align: center;
         }
 
         .hash-code {
-            font-size: 24px;
+            font-size: clamp(20px, 5vw, 28px);
             font-weight: 700;
-            color: var(--accent);
-            letter-spacing: 2px;
+            color: var(--accent-primary);
+            letter-spacing: 3px;
             font-family: 'Courier New', monospace;
             word-break: break-all;
+            margin-bottom: 16px;
         }
 
         .copy-btn {
-            margin-top: 10px;
-            padding: 8px 16px;
-            background: transparent;
-            border: 1px solid var(--accent);
-            color: var(--accent);
-            border-radius: 4px;
+            padding: 10px 20px;
+            background: var(--accent-primary);
+            border: none;
+            color: white;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 12px;
-            text-transform: uppercase;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
         }
 
         .copy-btn:hover {
-            background: var(--accent);
-            color: var(--bg-dark);
+            background: var(--accent-hover);
         }
 
         .chat-container {
             display: flex;
             flex-direction: column;
-            height: 70vh;
-            max-height: 600px;
+            height: 75vh;
+            max-height: 650px;
+            min-height: 500px;
         }
 
         .chat-header {
-            padding: 16px;
-            background: var(--bg-dark);
-            border-radius: 8px 8px 0 0;
+            padding: 16px 20px;
+            background: var(--bg-tertiary);
+            border-radius: 16px 16px 0 0;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border);
+            gap: 12px;
+            flex-wrap: wrap;
         }
 
         .chat-info {
             display: flex;
             flex-direction: column;
+            gap: 4px;
+            flex: 1;
+            min-width: 0;
         }
 
         .chat-user {
             font-weight: 600;
-            color: var(--accent);
+            color: var(--accent-primary);
+            font-size: clamp(14px, 3.5vw, 16px);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .chat-timer {
-            font-size: 12px;
-            color: var(--text-secondary);
+            font-size: clamp(11px, 2.5vw, 13px);
+            color: var(--text-tertiary);
         }
 
         .leave-btn {
-            padding: 8px 16px;
+            padding: 10px 20px;
             background: var(--danger);
             color: white;
             border: none;
-            border-radius: 4px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 12px;
-            text-transform: uppercase;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+
+        .leave-btn:hover {
+            background: var(--danger-hover);
         }
 
         .messages {
             flex: 1;
             overflow-y: auto;
             padding: 20px;
-            background: var(--bg-dark);
+            background: var(--bg-primary);
             display: flex;
             flex-direction: column;
             gap: 12px;
         }
 
         .message {
-            max-width: 70%;
+            max-width: 85%;
             padding: 12px 16px;
-            border-radius: 12px;
+            border-radius: 16px;
             word-wrap: break-word;
             animation: slideIn 0.3s ease;
         }
@@ -246,40 +268,42 @@
 
         .message.sent {
             align-self: flex-end;
-            background: var(--accent);
-            color: var(--bg-dark);
-            border-radius: 12px 12px 0 12px;
+            background: var(--accent-primary);
+            color: white;
+            border-radius: 16px 16px 4px 16px;
         }
 
         .message.received {
             align-self: flex-start;
-            background: var(--bg-card);
+            background: var(--bg-tertiary);
             border: 1px solid var(--border);
-            border-radius: 12px 12px 12px 0;
+            border-radius: 16px 16px 16px 4px;
         }
 
         .message-user {
-            font-size: 11px;
+            font-size: 12px;
             font-weight: 600;
             margin-bottom: 4px;
-            opacity: 0.8;
+            opacity: 0.9;
         }
 
         .message-text {
             font-size: 15px;
-            line-height: 1.4;
+            line-height: 1.5;
+            word-break: break-word;
         }
 
         .chat-input-area {
             padding: 16px;
-            background: var(--bg-dark);
-            border-radius: 0 0 8px 8px;
+            background: var(--bg-tertiary);
+            border-radius: 0 0 16px 16px;
             border-top: 1px solid var(--border);
         }
 
         .chat-input-group {
             display: flex;
-            gap: 10px;
+            gap: 12px;
+            align-items: flex-end;
         }
 
         .chat-input-group input {
@@ -289,18 +313,19 @@
 
         .send-btn {
             padding: 14px 24px;
-            background: var(--accent);
-            color: var(--bg-dark);
+            background: var(--accent-primary);
+            color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
             cursor: pointer;
             font-weight: 600;
-            text-transform: uppercase;
             transition: all 0.3s ease;
+            white-space: nowrap;
+            font-size: 15px;
         }
 
         .send-btn:hover {
-            background: var(--accent-dim);
+            background: var(--accent-hover);
         }
 
         .messages::-webkit-scrollbar {
@@ -308,16 +333,16 @@
         }
 
         .messages::-webkit-scrollbar-track {
-            background: var(--bg-card);
+            background: var(--bg-primary);
         }
 
         .messages::-webkit-scrollbar-thumb {
-            background: var(--border);
+            background: var(--bg-tertiary);
             border-radius: 4px;
         }
 
         .messages::-webkit-scrollbar-thumb:hover {
-            background: var(--accent);
+            background: var(--accent-primary);
         }
 
         .waiting {
@@ -329,7 +354,7 @@
             width: 50px;
             height: 50px;
             border: 4px solid var(--border);
-            border-top-color: var(--accent);
+            border-top-color: var(--accent-primary);
             border-radius: 50%;
             animation: spin 1s linear infinite;
             margin: 0 auto 20px;
@@ -343,25 +368,57 @@
             color: var(--text-secondary);
             font-size: 14px;
             text-align: center;
-            margin: 10px 0;
+            margin: 12px 0;
+            line-height: 1.5;
         }
 
         .system-message {
             text-align: center;
-            color: var(--text-secondary);
+            color: var(--text-tertiary);
             font-size: 13px;
-            padding: 8px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            margin: 8px 0;
+            padding: 10px 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            margin: 8px auto;
+            max-width: 90%;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 12px;
+            }
+
+            .card {
+                padding: 20px;
+                border-radius: 16px;
+            }
+
+            .chat-container {
+                height: 70vh;
+                min-height: 400px;
+            }
+
+            .message {
+                max-width: 90%;
+                font-size: 14px;
+            }
+
+            .send-btn {
+                padding: 14px 18px;
+                font-size: 14px;
+            }
+
+            .hash-code {
+                font-size: 18px;
+                letter-spacing: 2px;
+            }
         }
     </style>
-<script type="text/javascript" nonce="d402022b187f4419864b2c32f02" src="//local.adguard.org?ts=1769381326577&amp;type=content-script&amp;dmn=ppl-ai-code-interpreter-files.s3.amazonaws.com&amp;url=https%3A%2F%2Fppl-ai-code-interpreter-files.s3.amazonaws.com%2Fweb%2Fdirect-files%2F2af6c2ffb4749458d45d6f9aa58c6fee%2Fb2fedcae-5321-41c4-92a4-e03867a5bd8b%2Ffee2c632.html%3Fresponse-content-disposition%3Dattachment%253B%2520filename%253DparanOS_index.html%253B%2520filename%252A%253DUTF-8%2527%2527paranOS_index.html%26AWSAccessKeyId%3DASIA2F3EMEYER5ZKTPQ6%26Signature%3DqGTvoElKxDA9Vy3EXaMtX%252BV3jyY%253D%26x-amz-security-token%3DIQoJb3JpZ2luX2VjEGcaCXVzLWVhc3QtMSJIMEYCIQDAb0d7Sh%252Bsb9iPMNt94uLX7iUEY2r4GdNDF7BgEyAtFwIhALDdk0ZsftBClSHSUSzEgWC1DJVmwFQYtktkkB3s9VycKvMECDAQARoMNjk5NzUzMzA5NzA1IgwktFcxSqL1Of%252BRhlEq0AS91Syre2vgeuvW16w%252Ba5eig3NM8kiuvyc3R%252BicNA0%252BhRVd3otJTfnkKXCOHbq%252BDfV52d8yO4nkQOBNT1folil%252BgIBF%252FNJQWojElP6uVGd1IphJEV9pNbtC4ICDJEUYAtTTUvbt3q5OybittJ1KRk8X%252B7UQgiVJ1DfStzszf3n%252Blws1YyZEFLr8AXJQypDRwDCMd6zOwEaXdiqRjw7uU4F1e6LTVEPmTyLnPpFOAeyEzQcm2uAv%252BWbWKkw0QpqMR4AfoBsHO8VONaYOMerbBufdv6oUYdK2PEflCZlAqIk4mcMz90eDFMqO%252BJhXEsPx9mbLzKI8zjZdCh4t8%252BSBmy0G5ECGEd0FoMvi4Oc7i6uO6HapmfsVkROPJKrvTrXwt5BYeCdkPHcntjyFHBuccJ%252BnRe%252BuQp0dZX2AK4wRkHZqcvKaMlAH%252F07YbGj0eBaCp7B%252BeYahl43HPVxQ87PS4Q5DbNektv0soE4kksdv5cnQPc5sJbBeI97WVHOMprmyhyBVCwKFdjXEvs3NZZTxsBePF%252BoGfk3GD8EaLs6uWG10ZbuGm9qr9RpHmJPo4W5tU0GpFxtzEQdGHf76AUQjwFqKipBXPkACprU4dOtLJDEC6q910hntLmQUggstW%252F%252BKDgDWUlNLCf8YXmOq3FE8AdEw2Apu1c%252FV3gVtf5iGCOSbydnlJ2G072bHRsjD4hbp0Q2hMhHUcyDxIbjXwtq4t4i7nTRTm2Mo0woRiKsWic8U9GUlPGyM%252BdHhGRpPXLhgm0A9t%252BmuS5IUT6gdxWyWtGfuMNa%252F2ssGOpcBmIEDDXt%252F7Aprb7snBJXhWUgQ8nhc314mUIRdGz%252Ftydlr5MCrk%252FzyTzasLngnLuEoJjGKhxa8NL%252BIEmA1uTkiyVx4Yq%252F%252BNAVSvNyIU8MGmtx7u8o%252F29aPsV%252FVLsRrkYenWsCfinTn96sWPE7z67n%252FA2y1nhD%252BjjzHkGnJzzilc7PwfvFnMYMAsrxrFX0SkqgBF6pL16eJ%252Fg%253D%253D%26Expires%3D1769384453&amp;app=com.apple.Safari&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1&amp;stealth=1&amp;st-ua=TW96aWxsYS81LjAgKE1hY2ludG9zaDsgSW50ZWwgTWFjIE9TIFggMTBfMTVfNykgQXBwbGVXZWJLaXQvNjA1LjEuMTUgKEtIVE1MLCBsaWtlIEdlY2tvKSBWZXJzaW9uLzI2LjIgU2FmYXJpLzYwNS4xLjE1&amp;st-ch-brands=&amp;st-ch-mobile=&amp;st-ch-platform=&amp;st-wrtc&amp;st-push&amp;st-loc&amp;st-java&amp;st-dnt"></script><script type="text/javascript" nonce="d402022b187f4419864b2c32f02" src="//local.adguard.org?ts=1769381326577&amp;name=AdGuard%20Extra&amp;type=user-script"></script></head>
+<script type="text/javascript" nonce="d402022b187f4419864b2c32f02" src="//local.adguard.org?ts=1769384750207&amp;type=content-script&amp;dmn=ppl-ai-code-interpreter-files.s3.amazonaws.com&amp;url=https%3A%2F%2Fppl-ai-code-interpreter-files.s3.amazonaws.com%2Fweb%2Fdirect-files%2F8139c8476e499aee5eabbc7fe9ed3e09%2F4028c4f2-92b5-41fe-9a17-3968c16f2dcc%2F56e784ab.html%3Fresponse-content-disposition%3Dattachment%253B%2520filename%253DparanOS_v2_index.html%253B%2520filename%252A%253DUTF-8%2527%2527paranOS_v2_index.html%26AWSAccessKeyId%3DASIA2F3EMEYEUOEVJG5P%26Signature%3Dr8zGZaTWbBtFHMHKi6FcOTqgKMw%253D%26x-amz-security-token%3DIQoJb3JpZ2luX2VjEGgaCXVzLWVhc3QtMSJIMEYCIQD5zXCgPYP7KhkbB0gJsKmX0TwJCOH1rqwZgxj3%252BjjWxwIhAJCBOd7WI%252B3UNob%252FnJRFt%252BtW0YNurq2JP%252BfcsRDjIsFHKvMECDEQARoMNjk5NzUzMzA5NzA1Igz1PybDkvFgVwKadzgq0ASvVHScsmDL8DCJtl%252BUoTtBYsUWLstlmwfa3BBLcjU1FHaWOoMR%252FLuR%252Fo09PsHy%252BosJSmBCtl5BrJnPQ1W3AYvmE%252Blw3SsdbT0rw%252BOpcf1jZc%252FkAP1o%252BcYROdorDLhwX0Jy9ZRwWJ2i12OgybUDiqkIleOomY%252BtoAKErqVix4U6nP0gmW7pZ89Q2EwNvT7RBfRCqyYxjY%252BylcQqprszKuF%252B%252BeNYUSjdOtkMUP9o1g8xogDqKCpDsf0UCZKCxpJT6J8%252F8bY53vN9q%252BkV%252BDxLj9uDlHqctV5rpQ7pSqIYylKwiofXF33%252Bgt0HtDraDKzSsXoMq%252FSsu3W5Ec65EW9xcklg%252BhT1ZIjyY1z0gdt7CSyhDJ%252BdPoCZxfxO16As6yvutx63jCDo%252BpRuQ8761PV4TjSbP7I0ln4%252FDL%252BHGGA8wx1mk%252F%252BJfWf%252F7Uvk1xv8bUIk%252Fh2BEyWjRGhz02Ib8RmYrs6%252Bg07JYeM87V%252BxS2cjP8YxNpzOtYURjkHjG6yZol1U8rz6hKTKh%252Fyl%252Fz0HocgNrxl3z2TlBm3d8SOFm4SKTKD7H9Ez0DVjSGW%252BpQakDlSazVCfs2%252Bmj5yFnxiRY5598i5124KG8dZ9gOSL%252Bd%252FdkQUS9Gt1xGdSjpdzm2jVfACYZXQrReTFRCsBkYy76b6Cqz1W9fMq337JkLY3XeyYzyXC7o%252FhLgWBe3FIGj9kqVCsokEI8YagZGQGW85wSouXKcC8Kmbl4apuX5Zw0udg97irJSzUKdmifrUWUEY8cTfJ9XGjqklIasCn3zY8vwm00fiMMNbU2ssGOpcB6LohePzSdxNHqgxwq2r4lwL2EpoD6KLGL8lmZa5M1WMkGmz19NEJ5V3Zka%252B4JD1sOwtOycUcpegUTLJ%252FNyS%252BE4EFZ2DleEDuLAT4eOTjdzvWxaUVSLsSFneYAgNpaKSeD52o8872Dhx8%252B%252BXuDBstfcLHQhROtkHh%252BLQFODbRtTeGwog3%252F%252FJyjfIs3NQjCtG3R9QI%252FhhlOQ%253D%253D%26Expires%3D1769385987&amp;app=com.apple.Safari&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1&amp;stealth=1&amp;st-ua=TW96aWxsYS81LjAgKE1hY2ludG9zaDsgSW50ZWwgTWFjIE9TIFggMTBfMTVfNykgQXBwbGVXZWJLaXQvNjA1LjEuMTUgKEtIVE1MLCBsaWtlIEdlY2tvKSBWZXJzaW9uLzI2LjIgU2FmYXJpLzYwNS4xLjE1&amp;st-ch-brands=&amp;st-ch-mobile=&amp;st-ch-platform=&amp;st-wrtc&amp;st-push&amp;st-loc&amp;st-java&amp;st-dnt"></script><script type="text/javascript" nonce="d402022b187f4419864b2c32f02" src="//local.adguard.org?ts=1769384750207&amp;name=AdGuard%20Extra&amp;type=user-script"></script></head>
 <body>
     <div class="container">
         <div class="header">
             <div class="logo">paranOS</div>
-            <div class="tagline">Paranoid Operation System</div>
         </div>
 
         <!-- Tela Inicial -->
@@ -388,13 +445,13 @@
         <!-- Tela de Hash -->
         <div id="hashScreen" class="screen">
             <div class="card">
-                <h2 style="margin-bottom: 20px; color: var(--accent);">Sala Criada!</h2>
+                <h2 style="margin-bottom: 20px; color: var(--accent-primary); font-size: clamp(20px, 5vw, 24px);">Sala Criada!</h2>
                 <p class="info-text">Compartilhe este código com o outro usuário:</p>
                 <div class="hash-display">
                     <div class="hash-code" id="roomHash"></div>
                     <button class="copy-btn" onclick="copyHash()">Copiar Código</button>
                 </div>
-                <p class="info-text">Seu username: <strong id="displayUsername" style="color: var(--accent);"></strong></p>
+                <p class="info-text">Seu username: <strong id="displayUsername" style="color: var(--accent-primary);"></strong></p>
                 <div class="waiting">
                     <div class="spinner"></div>
                     <p style="color: var(--text-secondary);">Aguardando o outro usuário...</p>
@@ -405,7 +462,7 @@
         <!-- Tela de Entrar -->
         <div id="joinScreen" class="screen">
             <div class="card">
-                <h2 style="margin-bottom: 20px; color: var(--accent);">Entrar na Sala</h2>
+                <h2 style="margin-bottom: 20px; color: var(--accent-primary); font-size: clamp(20px, 5vw, 24px);">Entrar na Sala</h2>
                 <div class="input-group">
                     <label>Username (opcional)</label>
                     <input type="text" id="joinUsername" placeholder="Deixe vazio para gerar automaticamente">
@@ -463,6 +520,7 @@
         let currentUsername = null;
         let roomEndTime = null;
         let timerInterval = null;
+        let userPresenceRef = null;
 
         const adjectives = ['Silent', 'Ghost', 'Shadow', 'Crypto', 'Phantom', 'Stealth', 'Mystic', 'Enigma', 'Cipher', 'Quantum', 'Nebula', 'Cosmic', 'Digital', 'Neon', 'Cyber'];
         const nouns = ['Wolf', 'Falcon', 'Tiger', 'Dragon', 'Phoenix', 'Raven', 'Viper', 'Panther', 'Hawk', 'Lion', 'Eagle', 'Bear', 'Fox', 'Owl', 'Shark'];
@@ -556,6 +614,10 @@
                 text: currentUsername + ' entrou na sala',
                 timestamp: serverTimestamp()
             });
+
+            userPresenceRef = ref(database, 'rooms/' + currentRoomId + '/presence/' + currentUsername);
+            set(userPresenceRef, true);
+            onDisconnect(userPresenceRef).remove();
         }
 
         function startTimer() {
@@ -643,13 +705,26 @@
 
         window.leaveChat = function() {
             if (confirm('Deseja realmente sair do chat?')) {
-                endChat();
+                const messagesRef = ref(database, 'rooms/' + currentRoomId + '/messages');
+                push(messagesRef, {
+                    type: 'system',
+                    text: currentUsername + ' saiu da sala',
+                    timestamp: serverTimestamp()
+                });
+
+                setTimeout(() => {
+                    endChat();
+                }, 500);
             }
         };
 
         function endChat() {
             if (timerInterval) {
                 clearInterval(timerInterval);
+            }
+
+            if (userPresenceRef) {
+                remove(userPresenceRef);
             }
 
             if (currentRoomId) {
@@ -659,6 +734,7 @@
             currentRoomId = null;
             currentUsername = null;
             roomEndTime = null;
+            userPresenceRef = null;
 
             showScreen('homeScreen');
             document.getElementById('username').value = '';
