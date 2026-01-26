@@ -1,50 +1,853 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-            <meta name="theme-color" content="#F5F6F7">
-        <div style="background-color:#F5F6F7;
-          border-bottom-left-radius:15px; 
-          border-bottom-right-radius:15px;
-          border-top-right-radius:15px;
-          border-top-left-radius:15px;
-          box-shadow: 6px 6px 12px rgba(0, 0, 0, .25), -6px -6px 12px rgba(255, 255, 255, .08);"">
-    <figure aligncenter size-full is-resized is-style-default>
-        <a href="https://gustavosaez.com.br/hub/">
-    <center>
-      <img src="https://gustavosaez.com.br/hub/geradordesenhas/favicon.png" height="68">
-    </center>
-        </a>
-    </figure>
-  </div>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gerador de CPF</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de CPF - Moderno</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <!-- Favicon
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="images/favicon.png">
+        :root {
+            --primary: #667eea;
+            --primary-dark: #5568d3;
+            --secondary: #764ba2;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --bg-dark: #0f0f1e;
+            --bg-card: #1a1a2e;
+            --bg-elevated: #252538;
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --border: #2a2a3e;
+        }
 
-    <!-- Clarity Analytics code
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-      <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "kryo67a6uj");
-</script>
-    <header>
-</head>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.3) 0%, transparent 50%);
+            animation: float 20s infinite alternate;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(5%, 5%) rotate(5deg); }
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card {
+            background: rgba(26, 26, 46, 0.85);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: clamp(24px, 6vw, 40px);
+            box-shadow: 
+                0 20px 60px rgba(0, 0, 0, 0.5),
+                0 0 100px rgba(102, 126, 234, 0.2);
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .logo {
+            font-size: clamp(28px, 7vw, 36px);
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: clamp(12px, 3vw, 14px);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            background: var(--bg-elevated);
+            padding: 6px;
+            border-radius: 12px;
+        }
+
+        .tab {
+            flex: 1;
+            padding: 12px;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .cpf-display {
+            background: var(--bg-elevated);
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: 16px;
+            padding: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cpf-display::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.2), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .cpf-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .cpf-value {
+            font-size: clamp(24px, 6vw, 32px);
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: 2px;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 12px;
+        }
+
+        .cpf-placeholder {
+            color: var(--text-secondary);
+            opacity: 0.5;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: var(--bg-elevated);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger) 0%, #dc2626 100%);
+        }
+
+        .btn-danger:hover {
+            box-shadow: 0 8px 24px rgba(239, 68, 68, 0.4);
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 14px 16px;
+            background: var(--bg-elevated);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 16px;
+            transition: all 0.3s ease;
+            font-family: 'Courier New', monospace;
+        }
+
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+        }
+
+        .validation-result {
+            padding: 16px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: none;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+        }
+
+        .validation-result.valid {
+            display: flex;
+            background: rgba(16, 185, 129, 0.2);
+            border: 2px solid var(--success);
+            color: var(--success);
+        }
+
+        .validation-result.invalid {
+            display: flex;
+            background: rgba(239, 68, 68, 0.2);
+            border: 2px solid var(--danger);
+            color: var(--danger);
+        }
+
+        .validation-icon {
+            font-size: 24px;
+        }
+
+        .history {
+            margin-top: 24px;
+        }
+
+        .history-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .history-list {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .history-list::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .history-list::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+        }
+
+        .history-list::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 4px;
+        }
+
+        .history-list::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary) 100%);
+        }
+
+        .history-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: var(--bg-elevated);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+        }
+
+        .history-cpf {
+            color: var(--text-primary);
+        }
+
+        .history-copy {
+            background: none;
+            border: none;
+            color: var(--primary);
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .history-copy:hover {
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            padding: 16px 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--success);
+            border-radius: 12px;
+            color: var(--success);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transform: translateY(100px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .quantity-selector {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .quantity-btn {
+            flex: 1;
+            padding: 12px;
+            background: var(--bg-elevated);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .quantity-btn.active {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-color: transparent;
+            color: white;
+        }
+
+        .multiple-cpfs {
+            display: grid;
+            gap: 8px;
+            margin-bottom: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 4px;
+        }
+
+        /* SCROLL MELHORADO PARA MÚLTIPLOS CPFs */
+        .multiple-cpfs::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        .multiple-cpfs::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 5px;
+            margin: 4px 0;
+        }
+
+        .multiple-cpfs::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 5px;
+            border: 2px solid rgba(26, 26, 46, 0.85);
+        }
+
+        .multiple-cpfs::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, #6d28d9 100%);
+        }
+
+        /* Indicador visual de scroll */
+        .multiple-cpfs::before {
+            content: '';
+            position: sticky;
+            top: 0;
+            display: block;
+            height: 20px;
+            background: linear-gradient(to bottom, rgba(26, 26, 46, 0.95), transparent);
+            margin: -4px -4px 0 -4px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .multiple-cpfs::after {
+            content: '';
+            position: sticky;
+            bottom: 0;
+            display: block;
+            height: 20px;
+            background: linear-gradient(to top, rgba(26, 26, 46, 0.95), transparent);
+            margin: 0 -4px -4px -4px;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .multiple-cpf-item {
+            padding: 14px 16px;
+            background: var(--bg-elevated);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            color: var(--text-primary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .multiple-cpf-item:hover {
+            border-color: var(--primary);
+            transform: translateX(4px);
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 16px;
+            }
+
+            .card {
+                padding: 24px;
+            }
+
+            .toast {
+                right: 16px;
+                bottom: 16px;
+                left: 16px;
+            }
+
+            .cpf-value {
+                font-size: 20px;
+            }
+        }
+    </style>
+<script type="text/javascript" nonce="d402022b187f4419864b2c32f02" src="//local.adguard.org?ts=1769388350325&amp;type=content-script&amp;dmn=ppl-ai-code-interpreter-files.s3.amazonaws.com&amp;url=https%3A%2F%2Fppl-ai-code-interpreter-files.s3.amazonaws.com%2Fweb%2Fdirect-files%2F798916f7f1f2782da1d22d3ce2b3658e%2Ffa3dc351-1601-44ef-adc7-08ef3805281f%2Ff0cb28e6.html%3Fresponse-content-disposition%3Dattachment%253B%2520filename%253DCPF_Generator_v2.1.html%253B%2520filename%252A%253DUTF-8%2527%2527CPF_Generator_v2.1.html%26AWSAccessKeyId%3DASIA2F3EMEYE5QU6GFK5%26Signature%3DSTfKXj0wKGqHouQ6VkG2%252FZEBIEo%253D%26x-amz-security-token%3DIQoJb3JpZ2luX2VjEGkaCXVzLWVhc3QtMSJHMEUCIQDfLuO5O%252FDOvQUW8DpU7pH7h8QirXC8Cw5ozB1mEjm5iAIge1JiwD8pSj8ci9qaR%252FLhFVu6QZoRga8gpPeq3IfE0%252FAq8wQIMhABGgw2OTk3NTMzMDk3MDUiDOsRZjLififa9UgRlCrQBLK0v6DUFRoBvv0fSbD%252FwSzEUCgk6MW%252FSh7FVZAvrPIdhFxYyEFomSX6mFl2YKuv3uq4%252BVLDaoEEMnvE4pFb5bpqPpjmOeLU4ir5yFiBTqVB1AsMzClNR0ItpAg2FlqHH5haJ8vWxp51aTpea1PVAYpCYwwYJBqFilqKPxKVP71SP0uAGbwxHpg6ssh8hzFfpf1Us5%252BCpCTb1kencdxtq4cSW77BXf1SQOdxO6wSHwLLTJ8MnZshtuVfgjq4cEfOUeQ7%252BaXkkMlKzNksl8LWCfD%252BA7mJnUfOXV02aBDZoYj1dASyTmpwxCjmfsm%252BTmCdQQrE72kTe34rKXUzMlzcYRKoEHhiYTk4qay9XeRsLShnoa7YXFyvHGzmR8nu3K6XUk1eKPd%252FIBgqNMCAsIXqsRVEuHKhJi%252BIHZ4saG5oDG%252BVMCySmfjn2STVmsWV9hjqRsQbV%252F6gBsdO%252FJ4iiWFMDFlezChtX4Mdmg3UkP75WR7wwNKDjqXqMwzFmfzfmOOPaDV%252FsrqyOF8r9cssrdoG8Sls%252BwW9QUJMOtqC8%252BC%252FF6NN5HxmjAy9iqefsjUJywb2VG3D1%252FX%252FItr4vgGynPhCziOOH%252FViNsGbonGouxuMSgkKefGJiSs50vsuInY1Ev%252BI8jpMOp5n6n%252FXGzkJ4gQzk6mpRyUIj3yDu9xOsaT82erVwCT03Cl8OmSa0rO%252Bx%252Bxl%252BfoCxJS6C0r%252FcY6CcXV4d7K5m4KA%252Fm1Mv1bgWYUYyncpTRU2taaT7UznkCnNO31eQtozlHLkMKr8V7jCJvQw%252BnMwuvLaywY6mAFXDEex6%252BMX40ahHiCdzys%252BtkaIAttBmhKxjeCLwtYI2yJKOFhUPhiRJoDBSGQ%252FMan%252BLO%252F9p0hcgC0N1ST7ADmpJ3XQaQTTenQzCuajuUjtklO%252FxyGLcrLVqF56riie4fsH6cqB95%252FH83EZcqg85a5671yxhOLq7HoRIO7SOzuWbj%252B0XJp60%252B1keOvI9JPTMbcWoTJW1NxjHA%253D%253D%26Expires%3D1769391084&amp;app=com.apple.Safari&amp;css=3&amp;js=1&amp;rel=1&amp;rji=1&amp;sbe=1&amp;stealth=1&amp;st-ua=TW96aWxsYS81LjAgKE1hY2ludG9zaDsgSW50ZWwgTWFjIE9TIFggMTBfMTVfNykgQXBwbGVXZWJLaXQvNjA1LjEuMTUgKEtIVE1MLCBsaWtlIEdlY2tvKSBWZXJzaW9uLzI2LjIgU2FmYXJpLzYwNS4xLjE1&amp;st-ch-brands=&amp;st-ch-mobile=&amp;st-ch-platform=&amp;st-wrtc&amp;st-push&amp;st-loc&amp;st-java&amp;st-dnt"></script><script type="text/javascript" nonce="d402022b187f4419864b2c32f02" src="//local.adguard.org?ts=1769388350325&amp;name=AdGuard%20Extra&amp;type=user-script"></script></head>
 <body>
-</header>
+    <div class="container">
+        <div class="card">
+            <div class="header">
+                <div class="logo">🎯 CPF Generator</div>
+                <div class="subtitle">Gerador e Validador de CPF Moderno</div>
+            </div>
 
-  <section class="container">
-    <h1>Gerador de CPF</h1>
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab('generate')">🎲 Gerar</button>
+                <button class="tab" onclick="switchTab('validate')">✅ Validar</button>
+            </div>
 
-      <div class="cpf-gerado">000.000.000-00</div>
-      <button class="gerar-novo">Gerar</button>
-  </section>
-  <script src="./assets/js/bundle.js"></script>
+            <!-- Tab Gerar -->
+            <div id="generateTab" class="tab-content active">
+                <div class="quantity-selector">
+                    <button class="quantity-btn active" onclick="setQuantity(1)">1 CPF</button>
+                    <button class="quantity-btn" onclick="setQuantity(5)">5 CPFs</button>
+                    <button class="quantity-btn" onclick="setQuantity(10)">10 CPFs</button>
+                </div>
+
+                <div id="singleCpfDisplay">
+                    <div class="cpf-display">
+                        <div class="cpf-label">CPF Gerado</div>
+                        <div class="cpf-value cpf-placeholder" id="cpfValue">000.000.000-00</div>
+                    </div>
+                </div>
+
+                <div id="multipleCpfsDisplay" class="multiple-cpfs" style="display: none;"></div>
+
+                <button class="btn" onclick="generateCPF()">
+                    <span>🎲</span>
+                    <span id="generateBtnText">Gerar CPF</span>
+                </button>
+
+                <button class="btn btn-secondary" id="copyBtn" onclick="copyCPF()">
+                    <span>📋</span>
+                    <span id="copyBtnText">Copiar CPF</span>
+                </button>
+
+                <button class="btn btn-danger" onclick="clearAll()">
+                    <span>🗑️</span>
+                    <span>Limpar Tudo</span>
+                </button>
+
+                <div class="history">
+                    <div class="history-title">📜 Histórico</div>
+                    <div class="history-list" id="historyList"></div>
+                </div>
+            </div>
+
+            <!-- Tab Validar -->
+            <div id="validateTab" class="tab-content">
+                <div class="input-group">
+                    <label>Digite o CPF para validar:</label>
+                    <input type="text" id="cpfInput" placeholder="000.000.000-00" maxlength="14">
+                </div>
+
+                <div id="validationResult" class="validation-result">
+                    <span class="validation-icon"></span>
+                    <span class="validation-text"></span>
+                </div>
+
+                <button class="btn" onclick="validateCPF()">
+                    <span>✅</span>
+                    <span>Validar CPF</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast">
+        <span>✅</span>
+        <span id="toastText">CPF copiado!</span>
+    </div>
+
+    <script>
+        let currentQuantity = 1;
+        let generatedCPFs = [];
+        let history = [];
+
+        // CPF Generator Class
+        class CPFGenerator {
+            static rand(min = 100000000, max = 999999999) {
+                return String(Math.floor(Math.random() * (max - min) + min));
+            }
+
+            static calcDigit(cpfPartial) {
+                const cpfArray = Array.from(cpfPartial);
+                let regressive = cpfArray.length + 1;
+                const total = cpfArray.reduce((acc, val) => {
+                    acc += regressive * Number(val);
+                    regressive--;
+                    return acc;
+                }, 0);
+                const digit = 11 - (total % 11);
+                return digit > 9 ? '0' : String(digit);
+            }
+
+            static format(cpf) {
+                return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4');
+            }
+
+            static generate() {
+                const cpfPartial = this.rand();
+                const digit1 = this.calcDigit(cpfPartial);
+                const digit2 = this.calcDigit(cpfPartial + digit1);
+                const newCPF = cpfPartial + digit1 + digit2;
+                return this.format(newCPF);
+            }
+
+            static validate(cpf) {
+                const cleanCPF = cpf.replace(/\D/g, '');
+
+                if (cleanCPF.length !== 11) return false;
+                if (/^(\d)\1{10}$/.test(cleanCPF)) return false;
+
+                const cpfPartial = cleanCPF.slice(0, 9);
+                const digit1 = this.calcDigit(cpfPartial);
+                const digit2 = this.calcDigit(cpfPartial + digit1);
+
+                return cleanCPF === cpfPartial + digit1 + digit2;
+            }
+        }
+
+        // Switch Tabs
+        function switchTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+            if (tab === 'generate') {
+                document.querySelector('.tab:nth-child(1)').classList.add('active');
+                document.getElementById('generateTab').classList.add('active');
+            } else {
+                document.querySelector('.tab:nth-child(2)').classList.add('active');
+                document.getElementById('validateTab').classList.add('active');
+            }
+        }
+
+        // Set Quantity
+        function setQuantity(qty) {
+            currentQuantity = qty;
+            document.querySelectorAll('.quantity-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            document.getElementById('generateBtnText').textContent = 
+                qty === 1 ? 'Gerar CPF' : `Gerar ${qty} CPFs`;
+
+            updateCopyButtonText();
+
+            if (qty === 1) {
+                document.getElementById('singleCpfDisplay').style.display = 'block';
+                document.getElementById('multipleCpfsDisplay').style.display = 'none';
+            } else {
+                document.getElementById('singleCpfDisplay').style.display = 'none';
+                document.getElementById('multipleCpfsDisplay').style.display = 'grid';
+            }
+        }
+
+        // Update Copy Button Text
+        function updateCopyButtonText() {
+            const copyBtnText = document.getElementById('copyBtnText');
+            if (currentQuantity === 1) {
+                copyBtnText.textContent = 'Copiar CPF';
+            } else {
+                copyBtnText.textContent = `Copiar ${currentQuantity} CPFs`;
+            }
+        }
+
+        // Generate CPF
+        function generateCPF() {
+            generatedCPFs = [];
+
+            for (let i = 0; i < currentQuantity; i++) {
+                const cpf = CPFGenerator.generate();
+                generatedCPFs.push(cpf);
+
+                if (!history.includes(cpf)) {
+                    history.unshift(cpf);
+                    if (history.length > 10) history.pop();
+                }
+            }
+
+            if (currentQuantity === 1) {
+                document.getElementById('cpfValue').textContent = generatedCPFs[0];
+                document.getElementById('cpfValue').classList.remove('cpf-placeholder');
+            } else {
+                const container = document.getElementById('multipleCpfsDisplay');
+                container.innerHTML = '';
+
+                generatedCPFs.forEach((cpf, index) => {
+                    const item = document.createElement('div');
+                    item.className = 'multiple-cpf-item';
+                    item.innerHTML = `
+                        <span>${cpf}</span>
+                        <button class="history-copy" onclick="copySingleCPF('${cpf}')">📋</button>
+                    `;
+                    container.appendChild(item);
+                });
+            }
+
+            updateHistory();
+            updateCopyButtonText();
+        }
+
+        // Copy CPF
+        function copyCPF() {
+            if (generatedCPFs.length === 0) {
+                showToast('Gere um CPF primeiro!', 'warning');
+                return;
+            }
+
+            const textToCopy = generatedCPFs.join('\n');
+            navigator.clipboard.writeText(textToCopy);
+
+            const message = generatedCPFs.length === 1 
+                ? 'CPF copiado!' 
+                : `${generatedCPFs.length} CPFs copiados!`;
+
+            showToast(message, 'success');
+        }
+
+        // Copy Single CPF
+        function copySingleCPF(cpf) {
+            navigator.clipboard.writeText(cpf);
+            showToast('CPF copiado!', 'success');
+        }
+
+        // Clear All
+        function clearAll() {
+            if (confirm('Deseja limpar todos os CPFs gerados e o histórico?')) {
+                generatedCPFs = [];
+                history = [];
+
+                document.getElementById('cpfValue').textContent = '000.000.000-00';
+                document.getElementById('cpfValue').classList.add('cpf-placeholder');
+                document.getElementById('multipleCpfsDisplay').innerHTML = '';
+
+                updateHistory();
+                showToast('Tudo limpo!', 'success');
+            }
+        }
+
+        // Update History
+        function updateHistory() {
+            const historyDiv = document.getElementById('historyList');
+
+            if (history.length === 0) {
+                historyDiv.innerHTML = '<p style="color: var(--text-secondary); text-align: center; padding: 20px;">Nenhum CPF gerado ainda</p>';
+                return;
+            }
+
+            historyDiv.innerHTML = '';
+            history.forEach(cpf => {
+                const item = document.createElement('div');
+                item.className = 'history-item';
+                item.innerHTML = `
+                    <span class="history-cpf">${cpf}</span>
+                    <button class="history-copy" onclick="copySingleCPF('${cpf}')">📋</button>
+                `;
+                historyDiv.appendChild(item);
+            });
+        }
+
+        // Validate CPF
+        function validateCPF() {
+            const input = document.getElementById('cpfInput').value;
+            const result = document.getElementById('validationResult');
+            const icon = result.querySelector('.validation-icon');
+            const text = result.querySelector('.validation-text');
+
+            if (!input) {
+                showToast('Digite um CPF!', 'warning');
+                return;
+            }
+
+            const isValid = CPFGenerator.validate(input);
+
+            result.className = 'validation-result ' + (isValid ? 'valid' : 'invalid');
+            icon.textContent = isValid ? '✅' : '❌';
+            text.textContent = isValid ? 'CPF Válido!' : 'CPF Inválido!';
+        }
+
+        // Format CPF Input
+        document.getElementById('cpfInput')?.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+
+            if (value.length > 3) {
+                value = value.slice(0, 3) + '.' + value.slice(3);
+            }
+            if (value.length > 7) {
+                value = value.slice(0, 7) + '.' + value.slice(7);
+            }
+            if (value.length > 11) {
+                value = value.slice(0, 11) + '-' + value.slice(11, 13);
+            }
+
+            e.target.value = value;
+        });
+
+        // Show Toast
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastText = document.getElementById('toastText');
+
+            toastText.textContent = message;
+            toast.classList.add('show');
+
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const activeTab = document.querySelector('.tab-content.active');
+                if (activeTab.id === 'generateTab') {
+                    generateCPF();
+                } else {
+                    validateCPF();
+                }
+            }
+
+            if ((e.ctrlKey || e.metaKey) && e.key === 'c') {
+                if (document.querySelector('.tab-content.active').id === 'generateTab' && generatedCPFs.length > 0) {
+                    e.preventDefault();
+                    copyCPF();
+                }
+            }
+        });
+
+        // Initialize
+        updateHistory();
+    </script>
 </body>
-
 </html>
